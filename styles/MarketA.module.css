@@ -1,0 +1,181 @@
+.marketA {
+  position: relative;
+  display: block;
+  padding: 18px 20px 14px;
+  overflow: hidden;
+}
+
+.up {
+  color: #d60000;
+}
+
+.down {
+  color: #0051c7;
+}
+
+.ty01 {
+  float: left;
+  width: 320px;
+}
+
+.ty01 span {
+  display: block;
+}
+
+.first {
+  margin: -6px 0 2px;
+}
+
+.first strong {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.first em {
+  display: inline-block;
+  margin: 0 4px 0 2px;
+  font-size: 14px;
+  font-style: normal;
+}
+
+.second p {
+  margin: 0px;
+  margin-right: 4px;
+  line-height: 19px;
+  color: #666;
+  font-size: 11px;
+  display: inline-block;
+}
+
+.second strong {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.upDown {
+  background: url(https://cdn.upbit.com/images/ico_down.3beaa54.png) 0 no-repeat;
+  margin-left: 6px;
+  padding-left: 14px;
+}
+
+.ty02 {
+  float: left;
+  width: 140px;
+  height: 50px;
+  margin-top: 2px;
+  background-color: #f9fafb;
+  overflow: hidden;
+
+  /* mini chart position */
+}
+
+.ty03 {
+  float: right;
+  width: 490px;
+  display: block;
+}
+
+.ty03 strong {
+  font-weight: 500;
+}
+
+.dl01 {
+  float: left;
+  width: 210px;
+  margin: 0;
+  margin-left: 30px;
+  overflow: hidden;
+}
+
+.dl02 {
+  float: left;
+  width: 230px;
+  margin: 0;
+  margin-left: 20px;
+  overflow: hidden;
+}
+
+.dl01 dt {
+  float: left;
+  width: 16%;
+  height: 18px;
+  line-height: 18px;
+  color: #2b2b2b;
+  font-size: 12px;
+}
+
+.dl01 dd {
+  float: left;
+  width: 84%;
+  height: 18px;
+  line-height: 18px;
+  text-align: right;
+  word-break: break-all;
+  margin: 0;
+  font-size: 14px;
+}
+
+.dl01 dt:first-child {
+  margin-bottom: 9px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e3e5ec;
+  height: 36px;
+  line-height: 36px;
+}
+
+.dl01 dd:nth-child(2) {
+  margin-bottom: 9px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e3e5ec;
+  height: 36px;
+  line-height: 36px;
+}
+
+.dl02 {
+  float: left;
+  width: 230px;
+  margin-left: 20px;
+  overflow: hidden;
+}
+
+.dl02 dt {
+  float: left;
+  width: 35%;
+  height: 18px;
+  line-height: 18px;
+  color: #2b2b2b;
+  font-size: 12px;
+}
+
+.dl02 dd {
+  float: left;
+  width: 65%;
+  height: 18px;
+  line-height: 18px;
+  text-align: right;
+  word-break: break-all;
+  margin: 0;
+  font-size: 12px;
+}
+
+.dl02 dt:first-child {
+  margin-bottom: 9px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e3e5ec;
+  height: 36px;
+  line-height: 36px;
+}
+
+.dl02 dd:nth-child(2) {
+  margin-bottom: 9px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e3e5ec;
+  height: 36px;
+  line-height: 36px;
+}
+
+.dl02 i {
+  font-size: 11px;
+  font-style: normal;
+}
