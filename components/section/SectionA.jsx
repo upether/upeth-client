@@ -1,4 +1,5 @@
 import styles from '../../styles/SectionA.module.css';
+import MarketA from '../market/MarketA';
 import TitA from '../tit/TitA';
 
 function SectionA() {
@@ -6,6 +7,9 @@ function SectionA() {
     <div className={styles.sectionA}>
       <article>
         <TitA />
+        <div>
+          <MarketA />
+        </div>
       </article>
     </div>
   );
