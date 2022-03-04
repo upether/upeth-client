@@ -2,6 +2,8 @@ import styles from '../../styles/SectionA.module.css';
 import ForeignA from '../foreign/ForeignA';
 import MarketA from '../market/MarketA';
 import TitA from '../tit/TitA';
+import LeftA from './LeftA';
+import RightA from './RightA';
 
 function SectionA() {
   return (
@@ -13,6 +15,10 @@ function SectionA() {
           <ForeignA />
         </div>
       </article>
+      <div className={styles.half}>
+        <LeftA />
+        <RightA />
+      </div>
     </div>
   );
 }
