@@ -12,3 +12,9 @@
 
   /* display: block; */
 }
+
+.half {
+  float: left;
+  width: 100%;
+  background-color: #e9ecf1;
+}
