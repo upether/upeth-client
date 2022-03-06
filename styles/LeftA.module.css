@@ -55,3 +55,22 @@
   color: #115dcb;
   font-weight: 700;
 }
+
+.askPriceB {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* overflow: hidden; */
+}
+
+.scrollB {
+  /* height: 694px; */
+}
+
+.down {
+  color: #0051c7 !important;
+}
+
+.up {
+  color: #d60000 !important;
+}

@@ -1,4 +1,5 @@
 import styles from '../../styles/LeftA.module.css';
+import TableA from '../table/TableA';
 
 function LeftA() {
   return (
@@ -21,7 +22,11 @@ function LeftA() {
             </ul>
           </div>
         </span>
-        <span>hi</span>
+        <span className={styles.askPriceB}>
+          <div className={styles.scrollB}>
+            <TableA />
+          </div>
+        </span>
       </article>
     </div>
   );
