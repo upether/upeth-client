@@ -40,7 +40,7 @@ function OrderA() {
           </dt>
           <dd className={styles.marginA}>
             <div>
-              <input type="text" value="48,228,000" />
+              <input type="text" defaultValue="48,228,000" />
               <a className={styles.minus}>-</a>
               <a className={styles.plus}>+</a>
             </div>
