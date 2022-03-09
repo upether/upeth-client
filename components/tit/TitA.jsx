@@ -24,8 +24,8 @@ function TitA() {
       <InfoTab>
         <dl>
           <TextReplace>시세, 정보 텝</TextReplace>
-          <dd className="on">
-            <a>시세</a>
+          <dd>
+            <a className="on">시세</a>
           </dd>
           <dd>
             <a>정보</a>

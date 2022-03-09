@@ -1,6 +1,6 @@
 import styles from '../../styles/Table.module.css';
 
-function Table() {
+function TableB() {
   return (
     <table className={styles.table}>
       <colgroup>
@@ -54,4 +54,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default TableB;

@@ -70,7 +70,7 @@ export const InfoTab = styled.div`
     cursor: pointer;
   }
 
-  & dl dd.on a {
+  & dl dd a.on {
     height: 42px;
     border-bottom: 3px solid #115dcb;
     color: #115dcb;
