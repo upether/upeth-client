@@ -19,10 +19,19 @@ li {
 
 h1,
 ul,
-li {
+li,
+p,
+dl,
+dd {
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+em,
+i,
+u {
+  font-style: normal;
 }
 
 * {
