@@ -24,9 +24,9 @@ function TableRowB({ cnt }) {
               <tbody>
                 {Array(30)
                   .fill()
-                  .map((el) => {
+                  .map((el, i) => {
                     return (
-                      <tr>
+                      <tr key={i}>
                         <td>48,819,000</td>
                         <td className={styles.up}>0.041</td>
                       </tr>

@@ -1,8 +1,8 @@
-import styles from '../../styles/Header.module.css';
+import { Block } from './Header.styles';
 
 function Header() {
   return (
-    <header className={styles.header}>
+    <Block>
       <section>
         <h1>
           <a href="/">UPeth</a>
@@ -25,7 +25,7 @@ function Header() {
           </li>
         </ul>
       </section>
-    </header>
+    </Block>
   );
 }
 

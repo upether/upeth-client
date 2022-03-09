@@ -1,9 +1,16 @@
-import styles from '../../styles/TitA.module.css';
+import {
+  Block,
+  Select,
+  Arrow,
+  InfoTab,
+  TextReplace,
+  Setting,
+} from './TitA.styles';
 
 function TitA() {
   return (
-    <span className={styles.titA}>
-      <a className={styles.select}>
+    <Block>
+      <Select href="">
         <em>
           <img
             src="https://static.upbit.com/logos/WAVES.png"
@@ -12,23 +19,23 @@ function TitA() {
         </em>
         <strong>웨이브</strong>
         <p>WAVES/KRW</p>
-      </a>
-      <a className={styles.arrow}>Arrow</a>
-      <div className={styles.infoTab}>
+      </Select>
+      <Arrow href="">Arrow</Arrow>
+      <InfoTab>
         <dl>
-          <dt className={styles.text_replace}>시세, 정보 텝</dt>
-          <dd className={styles.on}>
-            <a>시세</a>
+          <TextReplace>시세, 정보 텝</TextReplace>
+          <dd>
+            <a className="on">시세</a>
           </dd>
           <dd>
             <a>정보</a>
           </dd>
-          <div className={styles.setting}>
+          <Setting>
             <a href="#">화면설정</a>
-          </div>
+          </Setting>
         </dl>
-      </div>
-    </span>
+      </InfoTab>
+    </Block>
   );
 }
 

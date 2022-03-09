@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <main className={styles.main}>
+      <div className={styles.main}>
         <SectionA />
         <SectionB />
-      </main>
+      </div>
     </div>
   );
 }

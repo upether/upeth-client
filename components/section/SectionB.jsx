@@ -1,15 +1,16 @@
+import { Block } from './SectionB.styles';
+
 import SearchB from '../search/SearchB';
 import TabB from '../tab/TabB';
-import styles from '../../styles/SectionB.module.css';
 
 function SectionB() {
   return (
-    <div className={styles.sectionB}>
+    <Block>
       <article>
         <SearchB />
         <TabB />
       </article>
-    </div>
+    </Block>
   );
 }
 
