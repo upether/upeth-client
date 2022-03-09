@@ -1,13 +1,14 @@
-import styles from '../../styles/SectionA.module.css';
-import ForeignA from '../foreign/ForeignA';
+import { Block, Half } from './SectionA.styles';
+
 import MarketA from '../market/MarketA';
+import ForeignA from '../foreign/ForeignA';
 import TitA from '../tit/TitA';
 import LeftA from './LeftA';
 import RightA from './RightA';
 
 function SectionA() {
   return (
-    <div className={styles.sectionA}>
+    <Block>
       <article>
         <TitA />
         <div>
@@ -15,11 +16,11 @@ function SectionA() {
           <ForeignA />
         </div>
       </article>
-      <div className={styles.half}>
+      <Half>
         <LeftA />
         <RightA />
-      </div>
-    </div>
+      </Half>
+    </Block>
   );
 }
 

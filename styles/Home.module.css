@@ -4,3 +4,9 @@
   margin: 0 auto;
   padding-top: 72px;
 }
+
+.main:after {
+  display: block;
+  content: '';
+  clear: both;
+}
