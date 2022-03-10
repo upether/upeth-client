@@ -1,10 +1,11 @@
+import React from 'react';
 import { Block, Half } from './SectionA.styles';
 
 import MarketA from '../market/MarketA';
 import ForeignA from '../foreign/ForeignA';
 import TitA from '../tit/TitA';
-import LeftA from './LeftA';
-import RightA from './RightA';
+import Left from '../left/Left';
+import Right from '../right/Right';
 
 function SectionA() {
   return (
@@ -17,8 +18,8 @@ function SectionA() {
         </div>
       </article>
       <Half>
-        <LeftA />
-        <RightA />
+        <Left />
+        <Right />
       </Half>
     </Block>
   );

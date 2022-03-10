@@ -1,10 +1,12 @@
-import styles from '../../styles/TableA.module.css';
+import React from 'react';
+import { Block } from './TableA.styles';
+
 import TableRowA from './TableRowA';
 import TableRowB from './TableRowB';
 
 function TableA() {
   return (
-    <table className={styles.tableA}>
+    <Block>
       <colgroup>
         <col width="42" />
         <col width="120" />
@@ -13,20 +15,18 @@ function TableA() {
         <col width="42" />
       </colgroup>
       <tbody>
-        <TableRowA cnt="first" />
-        {Array(14)
+        {Array(15)
           .fill()
           .map((el, i) => (
-            <TableRowA key={i} />
+            <TableRowA key={i} idx={i} />
           ))}
-        <TableRowB cnt="first" />
-        {Array(14)
+        {Array(15)
           .fill()
           .map((el, i) => (
-            <TableRowB key={i} />
+            <TableRowB key={i} idx={i} />
           ))}
       </tbody>
-    </table>
+    </Block>
   );
 }
 

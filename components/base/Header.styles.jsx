@@ -21,6 +21,7 @@ export const Block = styled.header`
   }
 
   & section h1 a {
+    font-size: 20px;
     color: white;
   }
 
@@ -36,7 +37,7 @@ export const Block = styled.header`
     color: rgba(165, 175, 202, 0.6);
   }
 
-  & section nav a:first-child {
+  & section nav a:first-of-type {
     margin-left: 0;
   }
 

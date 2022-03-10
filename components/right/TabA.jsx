@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from '../../styles/TabA.module.css';
+import { Block } from './TabA.styles';
 
 function TabA() {
   return (
-    <span className={styles.tabA}>
+    <Block>
       <ul>
         <li>
-          <a href="#" className={styles.on}>
+          <a href="#" className="on">
             매수
           </a>
         </li>
@@ -20,7 +20,7 @@ function TabA() {
           <a href="#">거래내역</a>
         </li>
       </ul>
-    </span>
+    </Block>
   );
 }
 
