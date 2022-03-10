@@ -1,8 +1,18 @@
-import styles from '../../styles/Table.module.css';
+import {
+  Block,
+  Bookmark,
+  Candle,
+  Line,
+  Box,
+  Title,
+  Price,
+  Percent,
+  Volume,
+} from './TableB.styles';
 
 function TableB() {
   return (
-    <table className={styles.table}>
+    <Block>
       <colgroup>
         <col width="26" />
         <col width="26" />
@@ -12,21 +22,21 @@ function TableB() {
         <col width="*" />
       </colgroup>
       <tbody>
-        <tr className={styles.up}>
+        <tr className="up">
           <td>
-            <span className={styles.bookmark}>
+            <Bookmark>
               <a href="#">즐겨찾기</a>
-            </span>
+            </Bookmark>
           </td>
-          <td className={styles.cAlign}>
+          <Candle>
             <a href="#">
               <div>
-                <span className={styles.line}>-</span>
-                <span className={styles.box}>-</span>
+                <Line>-</Line>
+                <Box>-</Box>
               </div>
             </a>
-          </td>
-          <td className={styles.tit}>
+          </Candle>
+          <Title>
             <a href="#">
               <strong>웨이브</strong>
             </a>
@@ -34,23 +44,23 @@ function TableB() {
               WAVES
               <span>/KRW</span>
             </em>
-          </td>
-          <td className={styles.price}>
+          </Title>
+          <Price>
             <strong>22,450</strong>
             <span></span>
-          </td>
-          <td className={styles.percent}>
+          </Price>
+          <Percent>
             <p>+11.89%</p>
             <em>2,410</em>
-          </td>
-          <td className={styles.rAlign}>
+          </Percent>
+          <Volume>
             <p>
               957,471<i>백만</i>
             </p>
-          </td>
+          </Volume>
         </tr>
       </tbody>
-    </table>
+    </Block>
   );
 }
 

@@ -21,6 +21,7 @@ export const Block = styled.header`
   }
 
   & section h1 a {
+    font-size: 20px;
     color: white;
   }
 
