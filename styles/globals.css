@@ -13,6 +13,11 @@ a {
   text-decoration: none;
 }
 
+table {
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
 ul,
 li {
   list-style: none;
@@ -23,7 +28,10 @@ ul,
 li,
 p,
 dl,
-dd {
+dd,
+tr,
+th,
+td {
   margin: 0;
   padding: 0;
   border: 0;

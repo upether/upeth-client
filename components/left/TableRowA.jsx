@@ -1,25 +1,33 @@
-import styles from '../../styles/TableRowA.module.css';
+import React from 'react';
+import {
+  Block,
+  Bar,
+  Down,
+  TypeFormA,
+  TypeFormB,
+  Inner,
+} from './TableRowA.styles';
 
-function TableRowA({ cnt }) {
+function TableRowA({ idx }) {
   return (
-    <tr className={styles.tableRowA}>
+    <Block>
       <td></td>
-      <td className={styles.bar}>
+      <Bar>
         <a href="#">
           <div style={{ width: '9.01613%' }}>-</div>
           <p>0.636</p>
         </a>
-      </td>
-      <td className={styles.downB}>
+      </Bar>
+      <Down>
         <a href="#">
-          <div className={styles.ty03}>
+          <TypeFormA>
             <strong>50,870,000</strong>
-          </div>
-          <div className={styles.ty02}>-1.87%</div>
+          </TypeFormA>
+          <TypeFormB>-1.87%</TypeFormB>
         </a>
-      </td>
-      {cnt === 'first' && (
-        <td colSpan="2" rowSpan="15" className={styles.inner01}>
+      </Down>
+      {idx === 0 && (
+        <Inner colSpan="2" rowSpan="15">
           <dl>
             <dt>거래량</dt>
             <dd>
@@ -33,12 +41,12 @@ function TableRowA({ cnt }) {
           </dl>
           <dl>
             <dt>52주 최고</dt>
-            <dd className={styles.up}>
+            <dd className="up">
               82,700,000
               <em>(2021.11.09)</em>
             </dd>
             <dt>52주 최저</dt>
-            <dd className={styles.down}>
+            <dd className="down">
               33,900,000
               <em>(2021.06.22)</em>
             </dd>
@@ -47,19 +55,19 @@ function TableRowA({ cnt }) {
             <dt>전일종가</dt>
             <dd>51,842,000</dd>
             <dt>당일고가</dt>
-            <dd className={styles.up}>
+            <dd className="up">
               51,952,000
-              <em className={styles.up}>+0.21%</em>
+              <em className="up">+0.21%</em>
             </dd>
             <dt>당일저가</dt>
-            <dd className={styles.down}>
+            <dd className="down">
               50,476,000
-              <em className={styles.down}>-2.63%</em>
+              <em className="down">-2.63%</em>
             </dd>
           </dl>
-        </td>
+        </Inner>
       )}
-    </tr>
+    </Block>
   );
 }
 

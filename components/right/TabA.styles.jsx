@@ -19,9 +19,9 @@ export const Block = styled.span`
   & ul li a {
     display: block;
     width: 100%;
-    height: 40px;
+    height: 43px;
     border-bottom: 1px solid #d4d6dc;
-    line-height: 40px;
+    line-height: 43px;
     color: #2b2b2b;
     font-size: 16px;
     font-weight: 700;
