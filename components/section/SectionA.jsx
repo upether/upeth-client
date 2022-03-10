@@ -4,7 +4,7 @@ import MarketA from '../market/MarketA';
 import ForeignA from '../foreign/ForeignA';
 import TitA from '../tit/TitA';
 import LeftA from './LeftA';
-import RightA from './RightA';
+import Right from '../right/Right';
 
 function SectionA() {
   return (
@@ -18,7 +18,7 @@ function SectionA() {
       </article>
       <Half>
         <LeftA />
-        <RightA />
+        <Right />
       </Half>
     </Block>
   );

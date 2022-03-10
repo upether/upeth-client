@@ -1,91 +1,97 @@
 import React from 'react';
-import styles from '../../styles/OrderA.module.css';
+import {
+  Block,
+  CheckOption,
+  Price,
+  MarginA,
+  MarginB,
+  Quantity,
+  MarginC,
+  FixedBottom,
+} from './Order.styles';
 
-function OrderA() {
+function Order() {
   return (
-    <div className={styles.orderA}>
+    <Block>
       <div>
         <dl>
-          <dt className={styles.checkOption}>
+          <dt className="checkOption">
             <strong>주문구분</strong>
           </dt>
-          <dd className={styles.checkOption}>
+          <CheckOption className="checkOption">
             <span>
-              <a className={styles.on}>
+              <a className="on">
                 <em>-</em>
                 지정가
               </a>
-              <a className={styles.disable}>
+              <a className="disable">
                 <em>-</em>
                 시장가
               </a>
-              <a className={styles.disable}>
+              <a className="disable">
                 <em>-</em>
                 예약-지정가
               </a>
             </span>
-          </dd>
-
-          <dt className={styles.price}>
+          </CheckOption>
+          <dt className="price">
             <strong>주문가능</strong>
           </dt>
-          <dd className={styles.price}>
+          <Price className="price">
             <strong>0</strong>
             <i>KRW</i>
-          </dd>
+          </Price>
 
-          <dt className={styles.marginA}>
+          <dt className="marginA">
             <strong>매수가격</strong>
             <i>(KRW)</i>
           </dt>
-          <dd className={styles.marginA}>
+          <MarginA className="marginA">
             <div>
               <input type="text" defaultValue="48,228,000" />
-              <a className={styles.minus}>-</a>
-              <a className={styles.plus}>+</a>
+              <a className="minus">-</a>
+              <a className="plus">+</a>
             </div>
-          </dd>
-
-          <dt className={styles.marginB}>
+          </MarginA>
+          <dt className="marginB">
             <strong>주문수량</strong>
             <i>(BTC)</i>
           </dt>
-          <dd className={styles.marginB}>
+          <MarginB className="marginB">
             <input type="text" placeholder="0" />
-          </dd>
-          <dd className={styles.quantity}>
+          </MarginB>
+          <Quantity className="quantity">
             <a>10%</a>
             <a>25%</a>
             <a>50%</a>
             <a>100%</a>
-            <a className={styles.qtInput}>직접입력</a>
-          </dd>
-
-          <dt className={styles.marginC}>
+            <a className="qtInput">직접입력</a>
+          </Quantity>
+          <dt className="marginC">
             <strong>주문총액</strong>
             <i>(KRW)</i>
           </dt>
-          <dd className={styles.marginC}>
+          <MarginC className="marginC">
             <input type="text" placeholder="0" />
-          </dd>
+          </MarginC>
         </dl>
-        <div className={styles.fixedBottom}>
+        <FixedBottom>
           <span>
             <p>수수료: 0.05%</p>
             <p>최소주문금액: 1,000 KRW</p>
           </span>
           <ul>
-            <li className={styles.ty01}>
+            <li className="ty01">
               <a>회원가입</a>
             </li>
-            <li className={styles.ty02}>
+            <li className="ty02">
               <a>로그인</a>
             </li>
           </ul>
-        </div>
+        </FixedBottom>
       </div>
-    </div>
+    </Block>
   );
 }
 
-export default OrderA;
+export default Order;
