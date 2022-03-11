@@ -1,16 +1,37 @@
-import styles from '../../styles/SearchB.module.css';
+import React, { useState, useCallback } from 'react';
+import { Block, Search, Setting } from './SearchB.styles';
 
 function SearchB() {
+  const [input, setInput] = useState('');
+
+  const changeInput = useCallback((event) => {
+    setInput(event.target.value);
+  }, []);
+
+  const clearInput = useCallback(() => {
+    setInput('');
+  }, []);
+
   return (
-    <span className={styles.searchB}>
-      <div className={styles.search}>
-        <input type="text" placeholder="코인명/심볼검색" />
+    <Block>
+      <Search>
+        <input
+          type="text"
+          placeholder="코인명/심볼검색"
+          onChange={changeInput}
+          value={input}
+        />
+        {input !== '' && (
+          <a className="btnX" href="#" onClick={clearInput}>
+            X
+          </a>
+        )}
         <a href="#">검색</a>
-      </div>
-      <div className={styles.setting}>
+      </Search>
+      <Setting>
         <a href="#">화면설정</a>
-      </div>
-    </span>
+      </Setting>
+    </Block>
   );
 }
 

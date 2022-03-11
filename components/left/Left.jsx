@@ -1,8 +1,11 @@
+import React, { useState } from 'react';
 import { Block, AskPriceA, AskPriceB } from './Left.styles';
 
 import TableA from './TableA';
 
 function Left() {
+  const [tapOption, setTapOption] = useState('일반호가');
+
   return (
     <Block>
       <article>
@@ -10,15 +13,31 @@ function Left() {
           <div>
             <ul>
               <li>
-                <a className="on" href="#">
+                <a
+                  className={tapOption === '일반호가' ? 'on' : ''}
+                  href="#"
+                  onClick={() => setTapOption('일반호가')}
+                >
                   일반호가
                 </a>
               </li>
               <li>
-                <a href="#">누적호가</a>
+                <a
+                  className={tapOption === '누적호가' ? 'on' : ''}
+                  href="#"
+                  onClick={() => setTapOption('누적호가')}
+                >
+                  누적호가
+                </a>
               </li>
               <li>
-                <a href="#">호가주문</a>
+                <a
+                  className={tapOption === '호가주문' ? 'on' : ''}
+                  href="#"
+                  onClick={() => setTapOption('호가주문')}
+                >
+                  호가주문
+                </a>
               </li>
             </ul>
           </div>

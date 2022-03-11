@@ -16,10 +16,13 @@ function Highlight() {
   const [korName, setKorName] = useState(true);
   const [hlOption, setHlOption] = useState([3, true]);
 
-  const selectHlOption = useCallback((idx) => {
-    if (idx === hlOption[0]) setHlOption([idx, !hlOption[1]]);
-    else setHlOption([idx, true]);
-  });
+  const selectHlOption = useCallback(
+    (idx) => {
+      if (idx === hlOption[0]) setHlOption([idx, !hlOption[1]]);
+      else setHlOption([idx, true]);
+    },
+    [hlOption]
+  );
 
   return (
     <Block>

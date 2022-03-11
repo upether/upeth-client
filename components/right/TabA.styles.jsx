@@ -28,8 +28,18 @@ export const Block = styled.span`
     text-align: center;
   }
 
-  & ul li a.on {
+  & .buy__on {
     border-bottom: 3px solid #d80e35;
     color: #d80e35;
+  }
+
+  & .sell__on {
+    border-bottom: 3px solid #115dcb;
+    color: #115dcb;
+  }
+
+  & .on {
+    border-bottom: 3px solid #2b2b2b;
+    color: #2b2b2b;
   }
 `;
