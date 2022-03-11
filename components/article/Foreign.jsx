@@ -1,8 +1,9 @@
-import styles from '../../styles/ForeignA.module.css';
+import React from 'react';
+import { Block } from './Foreign.styles';
 
-function ForeignA() {
+function Foreign() {
   return (
-    <span className={styles.foreignA}>
+    <Block>
       <ul>
         <li>
           <em>Bitfinex</em>
@@ -20,8 +21,8 @@ function ForeignA() {
           <p>(¥5,038,615.00)</p>
         </li>
       </ul>
-    </span>
+    </Block>
   );
 }
 
-export default ForeignA;
+export default Foreign;

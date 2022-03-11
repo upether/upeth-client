@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Block,
   Select,
@@ -5,9 +6,9 @@ import {
   InfoTab,
   TextReplace,
   Setting,
-} from './TitA.styles';
+} from './Title.styles';
 
-function TitA() {
+function Title() {
   return (
     <Block>
       <Select href="">
@@ -39,4 +40,4 @@ function TitA() {
   );
 }
 
-export default TitA;
+export default Title;
