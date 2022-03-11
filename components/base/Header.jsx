@@ -1,27 +1,64 @@
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Block } from './Header.styles';
 
 function Header() {
+  const router = useRouter();
+
   return (
     <Block>
       <section>
         <h1>
-          <a href="/">UPeth</a>
+          <Link href="/">UPeth</Link>
         </h1>
         <nav>
-          <a href="/exchange">거래소</a>
-          <a href="/balances">입출금</a>
-          <a href="/investments/balance">투자내역</a>
-          <a href="/trends">코인동향</a>
-          <a href="/staking/items">스테이킹</a>
-          <a href="/nft">NFT</a>
-          <a href="/service_center">고객센터</a>
+          <Link href="/exchange">
+            <a className={router.pathname === '/exchange' ? 'active' : ''}>
+              거래소
+            </a>
+          </Link>
+          <Link href="/balances">
+            <a className={router.pathname === '/balances' ? 'active' : ''}>
+              입출금
+            </a>
+          </Link>
+          <Link href="/investments/balance">
+            <a
+              className={
+                router.pathname === '/investments/balance' ? 'active' : ''
+              }
+            >
+              투자내역
+            </a>
+          </Link>
+          <Link href="/trends">
+            <a className={router.pathname === '/trends' ? 'active' : ''}>
+              코인동향
+            </a>
+          </Link>
+          <Link href="/staking/items">
+            <a className={router.pathname === '/staking/items' ? 'active' : ''}>
+              스테이킹
+            </a>
+          </Link>
+          <Link href="/nft">
+            <a className={router.pathname === '/nft' ? 'active' : ''}>NFT</a>
+          </Link>
+          <Link href="/service_center">
+            <a
+              className={router.pathname === '/service_center' ? 'active' : ''}
+            >
+              고객센터
+            </a>
+          </Link>
         </nav>
         <ul>
           <li>
-            <a href="/signin">로그인</a>
+            <Link href="/signin">로그인</Link>
           </li>
           <li>
-            <a href="/signup">회원가입</a>
+            <Link href="/signup">회원가입</Link>
           </li>
         </ul>
       </section>

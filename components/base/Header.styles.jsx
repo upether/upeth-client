@@ -35,6 +35,13 @@ export const Block = styled.header`
     font-size: 15px;
     text-decoration: none;
     color: rgba(165, 175, 202, 0.6);
+
+    display: inline-block;
+    min-width: 30px;
+
+    :hover {
+      font-weight: 700;
+    }
   }
 
   & section nav a:first-of-type {
@@ -56,5 +63,10 @@ export const Block = styled.header`
     font-size: 13px;
     color: #fff;
     cursor: pointer;
+  }
+
+  .active {
+    color: #fff;
+    font-weight: 700;
   }
 `;

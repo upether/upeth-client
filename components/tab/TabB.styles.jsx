@@ -26,9 +26,13 @@ export const Block = styled.div`
     font-size: 14px;
     font-weight: 700;
     text-align: center;
+
+    :hover {
+      text-decoration: underline;
+    }
   }
 
-  & ul li a.on {
+  .on {
     border-bottom: 3px solid #115dcb;
     color: #115dcb;
   }

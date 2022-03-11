@@ -9,6 +9,10 @@ export const Block = styled.table`
     background-color: #f9fafc;
     color: #666;
     font-size: 11px;
+
+    :hover {
+      text-decoration: underline;
+    }
   }
 
   & thead tr th a img {
