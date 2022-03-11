@@ -1,8 +1,10 @@
 import React from 'react';
 
+import PageTemplate from '../../components/base/PageTemplate';
+
 function Balance() {
   // balance
-  return <div>investments Page</div>;
+  return <PageTemplate>investments/balance Page</PageTemplate>;
 }
 
 export default Balance;

@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PageTemplate from '../../components/base/PageTemplate';
+
 function Nft() {
-  return <div>Nft Page</div>;
+  return <PageTemplate>nft page</PageTemplate>;
 }
 
 export default Nft;

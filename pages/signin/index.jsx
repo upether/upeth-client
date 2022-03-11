@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PageTemplate from '../../components/base/PageTemplate';
+
 function Signin() {
-  return <div>Signin Page</div>;
+  return <PageTemplate>signin page</PageTemplate>;
 }
 
 export default Signin;
