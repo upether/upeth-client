@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Block,
   Bookmark,
@@ -10,7 +11,11 @@ import {
   Volume,
 } from './TableB.styles';
 
-function TableB() {
+function TableB({ name, market }) {
+  let [a, b] = market.split('-');
+
+  console.log('TableB');
+
   return (
     <Block>
       <colgroup>
@@ -38,11 +43,11 @@ function TableB() {
           </Candle>
           <Title>
             <a href="#">
-              <strong>웨이브</strong>
+              <strong>{name}</strong>
             </a>
             <em>
-              WAVES
-              <span>/KRW</span>
+              {b}
+              <span>/{a}</span>
             </em>
           </Title>
           <Price>
