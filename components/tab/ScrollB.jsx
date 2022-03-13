@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { Block } from './ScrollB.styles';
 
 import TableB from '../table/TableB';
@@ -27,14 +28,16 @@ function ScrollB() {
 
   return (
     <Block>
-      {/* {Array(20)
+      <Scrollbars style={{ width: '100%', height: '770px' }}>
+        {/* {Array(20)
         .fill()
         .map((el, i) => (
           <TableB key={i} />
         ))} */}
-      {marketData.map((el, i) => (
-        <TableB key={i} name={el.korean_name} market={el.market} />
-      ))}
+        {marketData.map((el, i) => (
+          <TableB key={i} name={el.korean_name} market={el.market} />
+        ))}
+      </Scrollbars>
     </Block>
   );
 }
