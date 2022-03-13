@@ -1,9 +1,15 @@
 import React from 'react';
 
-import PageTemplate from '../../components/base/PageTemplate';
+import SubPageTemplate from '../../components/base/SubPageTemplate';
+import SigninForm from '../../components/form/SigninForm';
 
 function Signin() {
-  return <PageTemplate>signin page</PageTemplate>;
+  return (
+    <SubPageTemplate>
+      <SigninForm />
+      Signin
+    </SubPageTemplate>
+  );
 }
 
 export default Signin;
