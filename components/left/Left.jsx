@@ -45,7 +45,10 @@ function Left() {
         </AskPriceA>
         <AskPriceB>
           <div>
-            <Scrollbars style={{ width: '100%', height: '694px' }}>
+            <Scrollbars
+              style={{ width: '100%', height: '694px' }}
+              universal={true}
+            >
               <TableA />
             </Scrollbars>
           </div>
