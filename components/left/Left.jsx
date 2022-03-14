@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { Block, AskPriceA, AskPriceB } from './Left.styles';
 
 import TableA from './TableA';
@@ -44,7 +45,12 @@ function Left() {
         </AskPriceA>
         <AskPriceB>
           <div>
-            <TableA />
+            <Scrollbars
+              style={{ width: '100%', height: '694px' }}
+              universal={true}
+            >
+              <TableA />
+            </Scrollbars>
           </div>
         </AskPriceB>
       </article>

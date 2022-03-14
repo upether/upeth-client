@@ -3,14 +3,12 @@ import styled from '@emotion/styled';
 export const Block = styled.table`
   width: 100%;
   border-spacing: 0;
-
-  tr.up {
-    color: #d60000 !important;
-  }
-
-  tr.down {
-    color: #0051c7 !important;
-  }
+  color: ${(props) =>
+    props.change === 'RISE'
+      ? '#d60000 !important'
+      : props.change === 'FALL'
+      ? '#0051c7 !important'
+      : ''};
 
   td {
     height: 44px;
@@ -24,6 +22,14 @@ export const Block = styled.table`
   td:last-of-type {
     padding-right: 14px;
   }
+
+  // .up {
+  //   color: #d60000 !important;
+  // }
+
+  // .down {
+  //   color: #0051c7 !important;
+  // }
 `;
 
 export const Bookmark = styled.span`

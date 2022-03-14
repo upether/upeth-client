@@ -59,6 +59,6 @@ export const AskPriceB = styled.span`
   width: 100%;
 
   & > div {
-    // height: 694px;
+    height: 694px;
   }
 `;
