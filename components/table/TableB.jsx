@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { observer } from 'mobx-react';
 import {
   Block,
   Bookmark,
@@ -11,7 +12,9 @@ import {
   Volume,
 } from './TableB.styles';
 
-function TableB({ coinData }) {
+import useExchange from '../../hooks/useExchange';
+
+const TableB = observer(function TableB({ coinData }) {
   const {
     market,
     change,
@@ -27,6 +30,13 @@ function TableB({ coinData }) {
 
   console.log('TableB');
 
+  const exchangeStore = useExchange();
+
+  const clickTableRow = useCallback(() => {
+    exchangeStore.setSymbol(market);
+    console.log(exchangeStore);
+  }, []);
+
   return (
     <Block change={change}>
       <colgroup>
@@ -40,7 +50,7 @@ function TableB({ coinData }) {
       <tbody>
         {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
         {/* <tr className="up"> */}
-        <tr>
+        <tr onClick={clickTableRow}>
           <td>
             <Bookmark>
               <a href="#">즐겨찾기</a>
@@ -110,6 +120,6 @@ function TableB({ coinData }) {
       </tbody>
     </Block>
   );
-}
+});
 
 export default TableB;

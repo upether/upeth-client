@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react';
 import {
   Block,
   Select,
@@ -8,8 +9,14 @@ import {
   Setting,
 } from './Title.styles';
 
-function Title() {
+import useExchange from '../../hooks/useExchange';
+
+const Title = observer(function Title() {
   const [tapOption, setTapOption] = useState('시세');
+
+  const exchangeStore = useExchange();
+
+  console.log('title', exchangeStore.symbol);
 
   return (
     <Block>
@@ -22,6 +29,7 @@ function Title() {
         </em>
         <strong>웨이브</strong>
         <p>WAVES/KRW</p>
+        <p>{exchangeStore.symbol}</p>
       </Select>
       <Arrow href="">Arrow</Arrow>
       <InfoTab>
@@ -52,6 +60,6 @@ function Title() {
       </InfoTab>
     </Block>
   );
-}
+});
 
 export default Title;

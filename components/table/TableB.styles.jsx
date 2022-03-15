@@ -30,6 +30,14 @@ export const Block = styled.table`
   // .down {
   //   color: #0051c7 !important;
   // }
+
+  .on {
+    background-color: #f4f5f8;
+  }
+
+  :hover {
+    background-color: #f4f5f8;
+  }
 `;
 
 export const Bookmark = styled.span`
@@ -91,6 +99,10 @@ export const Title = styled.td`
 
   & a {
     color: #2b2b2b;
+  }
+
+  & a:hover {
+    text-decoration: underline;
   }
 
   & strong {
