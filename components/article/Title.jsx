@@ -16,7 +16,7 @@ const Title = observer(function Title() {
 
   const exchangeStore = useExchange();
 
-  console.log('title', exchangeStore.symbol);
+  console.log('title', exchangeStore.symbolID);
 
   return (
     <Block>
@@ -29,7 +29,7 @@ const Title = observer(function Title() {
         </em>
         <strong>웨이브</strong>
         <p>WAVES/KRW</p>
-        <p>{exchangeStore.symbol}</p>
+        <p>{exchangeStore.symbolID}</p>
       </Select>
       <Arrow href="">Arrow</Arrow>
       <InfoTab>

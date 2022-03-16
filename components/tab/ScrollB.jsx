@@ -10,7 +10,7 @@ import useTickerTotal from '../../hooks/useTickerTotal';
 function ScrollB() {
   const exchangeStore = useExchange();
 
-  const { marketData, totalSymobolData } = useMarket(exchangeStore.marketId);
+  const { marketData, totalSymobolData } = useMarket(exchangeStore.marketID);
   const { totalCoinData } = useTickerTotal(marketData, totalSymobolData);
 
   // totalCoinData

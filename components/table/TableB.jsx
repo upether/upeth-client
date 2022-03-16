@@ -33,7 +33,7 @@ const TableB = observer(function TableB({ coinData }) {
   const exchangeStore = useExchange();
 
   const clickTableRow = useCallback(() => {
-    exchangeStore.setSymbol(market);
+    exchangeStore.setSymbolID(market);
     console.log(exchangeStore);
   }, []);
 

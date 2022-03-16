@@ -1,14 +1,15 @@
 import { makeAutoObservable } from 'mobx';
 
 class ExchangeStore {
-  marketId = 'KRW';
+  marketID = 'KRW';
+  symbolID = 'KRW-BTC';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setSymbol(symbol) {
-    this.symbol = symbol;
+  setSymbolID(symbolID) {
+    this.symbolID = symbolID;
   }
 }
 
