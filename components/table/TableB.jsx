@@ -14,7 +14,8 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 
-const TableB = observer(function TableB({ coinData }) {
+function TableB({ coinData }) {
+  const exchangeStore = useExchange();
   const {
     market,
     change,
@@ -26,15 +27,10 @@ const TableB = observer(function TableB({ coinData }) {
     low_price,
     korean_name,
   } = coinData;
-  let [a, b] = market.split('-');
+  const [a, b] = market.split('-');
 
-  console.log('TableB');
-
-  const exchangeStore = useExchange();
-
-  const clickTableRow = useCallback(() => {
-    exchangeStore.setSymbolID(market);
-    console.log(exchangeStore);
+  const clickTableRow = useCallback((marketID) => {
+    exchangeStore.setSymbolID(marketID);
   }, []);
 
   return (
@@ -50,7 +46,7 @@ const TableB = observer(function TableB({ coinData }) {
       <tbody>
         {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
         {/* <tr className="up"> */}
-        <tr onClick={clickTableRow}>
+        <tr onClick={() => clickTableRow(market)}>
           <td>
             <Bookmark>
               <a href="#">즐겨찾기</a>
@@ -120,6 +116,6 @@ const TableB = observer(function TableB({ coinData }) {
       </tbody>
     </Block>
   );
-});
+}
 
-export default TableB;
+export default observer(TableB);
