@@ -23,13 +23,13 @@ export const Block = styled.table`
     padding-right: 14px;
   }
 
-  // .up {
-  //   color: #d60000 !important;
-  // }
+  .up {
+    color: #d60000 !important;
+  }
 
-  // .down {
-  //   color: #0051c7 !important;
-  // }
+  .down {
+    color: #0051c7 !important;
+  }
 
   .on {
     background-color: #f4f5f8;
