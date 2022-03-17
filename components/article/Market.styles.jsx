@@ -5,19 +5,31 @@ export const Block = styled.span`
   display: block;
   padding: 18px 20px 14px;
   overflow: hidden;
+  color: ${(props) =>
+    props.change === 'RISE'
+      ? '#d60000 !important'
+      : props.change === 'FALL'
+      ? '#0051c7 !important'
+      : ''};
 
   .up {
-    color: #d60000;
+    color: #d60000 !important;
   }
 
   .down {
-    color: #0051c7;
+    color: #0051c7 !important;
   }
 `;
 
 export const TypeFormA = styled.div`
   float: left;
   width: 320px;
+  color: ${(props) =>
+    props.change === 'RISE'
+      ? '#d60000 !important'
+      : props.change === 'FALL'
+      ? '#0051c7 !important'
+      : ''};
 
   & span {
     display: block;
@@ -53,8 +65,12 @@ export const TypeFormA = styled.div`
   }
 
   & span:last-child strong:last-child {
-    background: url(https://cdn.upbit.com/images/ico_down.3beaa54.png) 0
-      no-repeat;
+    background: ${(props) =>
+      props.change === 'RISE'
+        ? 'url(https://cdn.upbit.com/images/ico_up.dd56022.png) 0 no-repeat'
+        : props.change === 'FALL'
+        ? 'url(https://cdn.upbit.com/images/ico_down.3beaa54.png) 0 no-repeat'
+        : ''};
     margin-left: 6px;
     padding-left: 14px;
   }

@@ -1,56 +1,65 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { observer } from 'mobx-react';
 import { Block } from './TabB.styles';
 
 import Highlight from './Highlight';
 import ScrollB from './ScrollB';
+import useExchange from '../../hooks/useExchange';
 
 function TabB() {
-  const [tapOption, setTapOption] = useState('원화');
+  const exchangeStore = useExchange();
+
+  const clickTabOption = useCallback((option) => {
+    if (option === 'KRW' || option === 'BTC' || option === 'USDT') {
+      exchangeStore.setMarketID(option);
+    }
+    exchangeStore.setMarketOption(option);
+  }, []);
 
   return (
     <Block>
       <ul>
         <li>
           <a
-            className={tapOption === '원화' ? 'on' : ''}
+            className={exchangeStore.marketOption === 'KRW' ? 'on' : ''}
             href="#"
-            onClick={() => setTapOption('원화')}
+            onClick={() => clickTabOption('KRW')}
           >
             원화
           </a>
         </li>
         <li>
           <a
-            className={tapOption === 'BTC' ? 'on' : ''}
+            className={exchangeStore.marketOption === 'BTC' ? 'on' : ''}
             href="#"
-            onClick={() => setTapOption('BTC')}
+            onClick={() => clickTabOption('BTC')}
           >
             BTC
           </a>
         </li>
         <li>
           <a
-            className={tapOption === 'USDT' ? 'on' : ''}
+            className={exchangeStore.marketOption === 'USDT' ? 'on' : ''}
             href="#"
-            onClick={() => setTapOption('USDT')}
+            onClick={() => clickTabOption('USDT')}
           >
             USDT
           </a>
         </li>
         <li>
           <a
-            className={tapOption === '보유' ? 'on' : ''}
+            className={exchangeStore.marketOption === '보유' ? 'on' : ''}
             href="#"
-            onClick={() => setTapOption('보유')}
+            onClick={() => clickTabOption('보유')}
           >
             보유
           </a>
         </li>
         <li>
           <a
-            className={tapOption === '관심' ? 'on' : ''}
+            className={exchangeStore.marketOption === '관심' ? 'on' : ''}
             href="#"
-            onClick={() => setTapOption('관심')}
+            onClick={() => clickTabOption('관심')}
           >
             관심
           </a>
@@ -62,4 +71,4 @@ function TabB() {
   );
 }
 
-export default TabB;
+export default observer(TabB);

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { observer } from 'mobx-react';
 import {
   Block,
   Bookmark,
@@ -11,7 +12,10 @@ import {
   Volume,
 } from './TableB.styles';
 
+import useExchange from '../../hooks/useExchange';
+
 function TableB({ coinData }) {
+  const exchangeStore = useExchange();
   const {
     market,
     change,
@@ -23,9 +27,11 @@ function TableB({ coinData }) {
     low_price,
     korean_name,
   } = coinData;
-  let [a, b] = market.split('-');
+  const [a, b] = market.split('-');
 
-  console.log('TableB');
+  const clickTableRow = useCallback((marketID) => {
+    exchangeStore.setSymbolID(marketID);
+  }, []);
 
   return (
     <Block change={change}>
@@ -40,7 +46,7 @@ function TableB({ coinData }) {
       <tbody>
         {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
         {/* <tr className="up"> */}
-        <tr>
+        <tr onClick={() => clickTableRow(market)}>
           <td>
             <Bookmark>
               <a href="#">즐겨찾기</a>
@@ -112,4 +118,4 @@ function TableB({ coinData }) {
   );
 }
 
-export default TableB;
+export default observer(TableB);
