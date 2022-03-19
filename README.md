@@ -11,3 +11,4 @@ Client project is built with Next.js. Following libraries & technologies are use
 - JavaScript
 - Emotion
 - React Query
+- MobX
