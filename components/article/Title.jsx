@@ -44,7 +44,7 @@ function Title() {
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />
         </em>
-        <strong>{market.korean_name}</strong>
+        <strong>{market?.korean_name}</strong>
         <p>
           {coinID}/{pairID}
         </p>

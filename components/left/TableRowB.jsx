@@ -9,7 +9,7 @@ import {
   OverFlow,
 } from './TableRowB.styles';
 
-function TableRowB({ idx }) {
+function TableRowB({ idx, data }) {
   return (
     <Block>
       {idx === 0 && (
@@ -49,7 +49,8 @@ function TableRowB({ idx }) {
       <Down>
         <a href="#">
           <TypeFormA>
-            <strong>50,870,000</strong>
+            {/* <strong>50,870,000</strong> */}
+            <strong>{data.bid_price}</strong>
           </TypeFormA>
           <TypeFormB>-1.87%</TypeFormB>
         </a>
@@ -57,7 +58,8 @@ function TableRowB({ idx }) {
       <Bar>
         <a href="#">
           <div style={{ width: '9.01613%' }}>-</div>
-          <p>0.636</p>
+          {/* <p>0.636</p> */}
+          <p>{data.bid_size}</p>
         </a>
       </Bar>
       <td></td>
