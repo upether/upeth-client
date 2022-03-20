@@ -7,7 +7,7 @@ const useOrderbook = () => {
     )
   );
 
-  console.log(data[0]);
+  // console.log(data[0]);
 
   const askData = data[0]?.orderbook_units.reverse().map((el) => {
     const { ask_price, ask_size } = el;

@@ -9,7 +9,13 @@ import {
   OverFlow,
 } from './TableRowB.styles';
 
+import useTrades from '../../hooks/useTrades';
+
 function TableRowB({ idx, data }) {
+  const { tradesData } = useTrades();
+
+  console.log(tradesData);
+
   return (
     <Block>
       {idx === 0 && (
@@ -31,7 +37,17 @@ function TableRowB({ idx, data }) {
                 </tr>
               </thead>
               <tbody>
-                {Array(30)
+                {tradesData?.map((el, i) => {
+                  return (
+                    <tr key={i}>
+                      {/* <td>48,819,000</td> */}
+                      {/* <td className="up">0.041</td> */}
+                      <td>{el.trade_price}</td>
+                      <td className="up">{el.trade_volume}</td>
+                    </tr>
+                  );
+                })}
+                {/* {Array(20)
                   .fill()
                   .map((el, i) => {
                     return (
@@ -40,7 +56,7 @@ function TableRowB({ idx, data }) {
                         <td className="up">0.041</td>
                       </tr>
                     );
-                  })}
+                  })} */}
               </tbody>
             </table>
           </OverFlow>

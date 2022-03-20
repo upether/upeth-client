@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { Block } from './TableA.styles';
 
 import TableRowA from './TableRowA';
