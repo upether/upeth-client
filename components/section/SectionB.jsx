@@ -1,17 +1,12 @@
 import React from 'react';
 import { Block } from './SectionB.styles';
 
-import ArticleTemplate from '../template/ArticleTemplate';
-import SearchB from '../search/SearchB';
-import TabB from '../tab/TabB';
+import ArticleB from '../articleB/ArticleB';
 
 function SectionB() {
   return (
     <Block>
-      <ArticleTemplate>
-        <SearchB />
-        <TabB />
-      </ArticleTemplate>
+      <ArticleB />
     </Block>
   );
 }

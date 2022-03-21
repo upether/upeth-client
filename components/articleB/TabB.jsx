@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { Block } from './TabB.styles';
 
-import ScrollB from '../scroll/scrollB';
+import ScrollB from './ScrollB';
+import HighlightB from './HighlightB';
 import useExchange from '../../hooks/useExchange';
-import TableHighlight from '../table/TableHighlight';
 
-function TabB() {
+const TabB = observer(() => {
   const exchangeStore = useExchange();
 
   const clickTabOption = useCallback((option) => {
@@ -65,10 +65,10 @@ function TabB() {
           </a>
         </li>
       </ul>
-      <TableHighlight />
+      <HighlightB />
       <ScrollB />
     </Block>
   );
-}
+});
 
-export default observer(TabB);
+export default TabB;

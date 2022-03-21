@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block } from './TableHighlight.styles';
+import { Block } from './HighlightB.styles';
 
 const Image = React.memo(({ idx, hlOption }) => {
   const source =
@@ -12,7 +12,7 @@ const Image = React.memo(({ idx, hlOption }) => {
   return <img src={source} />;
 });
 
-const TableHighlight = () => {
+const HighlightB = () => {
   const [korName, setKorName] = useState(true);
   const [hlOption, setHlOption] = useState([3, true]);
 
@@ -66,4 +66,4 @@ const TableHighlight = () => {
   );
 };
 
-export default TableHighlight;
+export default HighlightB;
