@@ -6,9 +6,9 @@ import {
   TypeFormA,
   TypeFormB,
   Inner,
-} from './TableRowA.styles';
+} from './TableRowDownC.styles';
 
-function TableRowA({ idx, data }) {
+const TableRowDownC = ({ idx, data }) => {
   return (
     <Block>
       <td></td>
@@ -71,6 +71,6 @@ function TableRowA({ idx, data }) {
       )}
     </Block>
   );
-}
+};
 
-export default TableRowA;
+export default TableRowDownC;

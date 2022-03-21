@@ -1,12 +1,12 @@
 import React from 'react';
-import { Block } from './TableA.styles';
+import { Block } from './TableC.styles';
 
-import TableRowA from './TableRowA';
-import TableRowB from './TableRowB';
+import TableRowDownC from './TableRowDownC';
+import TableRowUpC from './TableRowUpC';
 import useExchange from '../../hooks/useExchange';
 import useOrderbook from '../../hooks/useOrderbook';
 
-function TableA() {
+const TableC = () => {
   const exchangeStore = useExchange();
   const { askData, bidData } = useOrderbook();
 
@@ -33,14 +33,14 @@ function TableA() {
             <TableRowB key={i} idx={i} />
           ))} */}
         {askData?.map((el, i) => (
-          <TableRowA key={i} idx={i} data={el} />
+          <TableRowDownC key={i} idx={i} data={el} />
         ))}
         {bidData?.map((el, i) => (
-          <TableRowB key={i} idx={i} data={el} />
+          <TableRowUpC key={i} idx={i} data={el} />
         ))}
       </tbody>
     </Block>
   );
-}
+};
 
-export default TableA;
+export default TableC;

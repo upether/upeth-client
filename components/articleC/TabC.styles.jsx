@@ -1,21 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Block = styled.div`
-  float: left;
-  width: 50%;
-  padding-right: 5px;
-  box-sizing: border-box;
-
-  & article {
-    float: left;
-    width: 100%;
-    margin-bottom: 10px;
-    background-color: #fff;
-    box-shadow: 2px 2px 4px #dee1e7;
-  }
-`;
-
-export const AskPriceA = styled.span`
+export const Block = styled.span`
   display: block;
   width: 100%;
 
@@ -50,15 +35,5 @@ export const AskPriceA = styled.span`
   & ul li a.on {
     border-bottom: 3px solid #115dcb;
     color: #115dcb;
-  }
-`;
-
-export const AskPriceB = styled.span`
-  position: relative;
-  display: block;
-  width: 100%;
-
-  & > div {
-    height: 694px;
   }
 `;

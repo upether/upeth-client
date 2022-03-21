@@ -7,11 +7,11 @@ import {
   TypeFormB,
   Inner,
   OverFlow,
-} from './TableRowB.styles';
+} from './TableRowUpC.styles';
 
 import useTrades from '../../hooks/useTrades';
 
-function TableRowB({ idx, data }) {
+const TableRowUpC = ({ idx, data }) => {
   const { tradesData } = useTrades();
 
   console.log(tradesData);
@@ -81,6 +81,6 @@ function TableRowB({ idx, data }) {
       <td></td>
     </Block>
   );
-}
+};
 
-export default TableRowB;
+export default TableRowUpC;
