@@ -14,7 +14,7 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 
-function TableB({ coinData }) {
+const TableB = observer(({ coinData }) => {
   const exchangeStore = useExchange();
   const {
     market,
@@ -116,6 +116,6 @@ function TableB({ coinData }) {
       </tbody>
     </Block>
   );
-}
+});
 
-export default observer(TableB);
+export default TableB;

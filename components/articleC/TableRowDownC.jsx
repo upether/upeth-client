@@ -6,22 +6,24 @@ import {
   TypeFormA,
   TypeFormB,
   Inner,
-} from './TableRowA.styles';
+} from './TableRowDownC.styles';
 
-function TableRowA({ idx }) {
+const TableRowDownC = ({ idx, data }) => {
   return (
     <Block>
       <td></td>
       <Bar>
         <a href="#">
           <div style={{ width: '9.01613%' }}>-</div>
-          <p>0.636</p>
+          {/* <p>0.636</p> */}
+          <p>{data.ask_size}</p>
         </a>
       </Bar>
       <Down>
         <a href="#">
           <TypeFormA>
-            <strong>50,870,000</strong>
+            {/* <strong>50,870,000</strong> */}
+            <strong>{data.ask_price}</strong>
           </TypeFormA>
           <TypeFormB>-1.87%</TypeFormB>
         </a>
@@ -69,6 +71,6 @@ function TableRowA({ idx }) {
       )}
     </Block>
   );
-}
+};
 
-export default TableRowA;
+export default TableRowDownC;

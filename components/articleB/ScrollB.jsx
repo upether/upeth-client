@@ -2,12 +2,12 @@ import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Block } from './ScrollB.styles';
 
-import TableB from '../table/TableB';
+import TableB from './TableB';
 import useExchange from '../../hooks/useExchange';
 import useMarket from '../../hooks/useMarket';
 import useTickerTotal from '../../hooks/useTickerTotal';
 
-function ScrollB() {
+const ScrollB = () => {
   const exchangeStore = useExchange();
 
   const { marketData, totalSymobolData } = useMarket(exchangeStore.marketID);
@@ -32,6 +32,6 @@ function ScrollB() {
       </Scrollbars>
     </Block>
   );
-}
+};
 
 export default ScrollB;

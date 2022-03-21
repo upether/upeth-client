@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Block, TypeFormA, TypeFormB, TypeFormC } from './Market.styles';
+import { Block, TypeFormA, TypeFormB, TypeFormC } from './MarketA.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
-function Market() {
+const MarketA = observer(() => {
   const exchangeStore = useExchange();
   const { tickerData = {} } = useTicker(exchangeStore.symbolID);
   const {
@@ -65,6 +65,6 @@ function Market() {
       </TypeFormC>
     </Block>
   );
-}
+});
 
-export default observer(Market);
+export default MarketA;

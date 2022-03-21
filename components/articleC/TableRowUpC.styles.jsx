@@ -22,7 +22,7 @@ export const Bar = styled.td`
   text-align: left;
 
   & div {
-    background-color: rgba(0, 98, 223, 0.09);
+    background-color: rgba(216, 14, 53, 0.09);
     color: #2b2b2b;
     vertical-align: middle;
     overflow: hidden;
@@ -46,7 +46,7 @@ export const Bar = styled.td`
 
 export const Down = styled.td`
   padding-right: 8px;
-  background-color: rgba(0, 98, 223, 0.03);
+  background-color: rgba(216, 14, 53, 0.03);
   color: #0051c7;
 `;
 

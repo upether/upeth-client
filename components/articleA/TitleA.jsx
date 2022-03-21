@@ -8,11 +8,11 @@ import {
   InfoTab,
   TextReplace,
   Setting,
-} from './Title.styles';
+} from './TitleA.styles';
 
 import useExchange from '../../hooks/useExchange';
 
-function Title() {
+const TitleA = observer(() => {
   const exchangeStore = useExchange();
   const { data } = useQuery('data', () =>
     fetch('https://api.upbit.com/v1/market/all').then((res) => res.json())
@@ -44,7 +44,7 @@ function Title() {
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />
         </em>
-        <strong>{market.korean_name}</strong>
+        <strong>{market?.korean_name}</strong>
         <p>
           {coinID}/{pairID}
         </p>
@@ -78,6 +78,6 @@ function Title() {
       </InfoTab>
     </Block>
   );
-}
+});
 
-export default observer(Title);
+export default TitleA;

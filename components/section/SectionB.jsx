@@ -1,15 +1,12 @@
+import React from 'react';
 import { Block } from './SectionB.styles';
 
-import SearchB from '../search/SearchB';
-import TabB from '../tab/TabB';
+import ArticleB from '../articleB/ArticleB';
 
 function SectionB() {
   return (
     <Block>
-      <article>
-        <SearchB />
-        <TabB />
-      </article>
+      <ArticleB />
     </Block>
   );
 }

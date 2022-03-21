@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block } from './Highlight.styles';
+import { Block } from './HighlightB.styles';
 
 const Image = React.memo(({ idx, hlOption }) => {
   const source =
@@ -12,7 +12,7 @@ const Image = React.memo(({ idx, hlOption }) => {
   return <img src={source} />;
 });
 
-function Highlight() {
+const HighlightB = () => {
   const [korName, setKorName] = useState(true);
   const [hlOption, setHlOption] = useState([3, true]);
 
@@ -64,6 +64,6 @@ function Highlight() {
       </thead>
     </Block>
   );
-}
+};
 
-export default Highlight;
+export default HighlightB;

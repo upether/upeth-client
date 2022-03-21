@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Block, Search, Setting } from './SearchB.styles';
 
-function SearchB() {
+const SearchB = () => {
   const [input, setInput] = useState('');
 
   const changeInput = useCallback((event) => {
@@ -33,6 +33,6 @@ function SearchB() {
       </Setting>
     </Block>
   );
-}
+};
 
 export default SearchB;
