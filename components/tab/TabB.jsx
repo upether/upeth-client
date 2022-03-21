@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { Block } from './TabB.styles';
 
-import Highlight from './Highlight';
-import ScrollB from './ScrollB';
+import ScrollB from '../scroll/scrollB';
 import useExchange from '../../hooks/useExchange';
+import TableHighlight from '../table/TableHighlight';
 
 function TabB() {
   const exchangeStore = useExchange();
@@ -65,7 +65,7 @@ function TabB() {
           </a>
         </li>
       </ul>
-      <Highlight />
+      <TableHighlight />
       <ScrollB />
     </Block>
   );
