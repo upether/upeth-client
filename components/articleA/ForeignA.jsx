@@ -1,7 +1,7 @@
 import React from 'react';
-import { Block } from './Foreign.styles';
+import { Block } from './ForeignA.styles';
 
-function Foreign() {
+const ForeignA = () => {
   return (
     <Block>
       <ul>
@@ -23,6 +23,6 @@ function Foreign() {
       </ul>
     </Block>
   );
-}
+};
 
-export default Foreign;
+export default ForeignA;
