@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Block } from './TabA.styles';
+import { Block } from './TabD.styles';
 
-function TabA() {
+const TabD = () => {
   const [tapOption, setTapOption] = useState('매수');
 
   return (
@@ -46,6 +46,6 @@ function TabA() {
       </ul>
     </Block>
   );
-}
+};
 
-export default TabA;
+export default TabD;
