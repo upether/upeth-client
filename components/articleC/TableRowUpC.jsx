@@ -14,7 +14,7 @@ import useTrades from '../../hooks/useTrades';
 const TableRowUpC = ({ idx, data }) => {
   const { tradesData } = useTrades();
 
-  console.log(tradesData);
+  // console.log(tradesData);
 
   return (
     <Block>

@@ -16,14 +16,14 @@ const TableRowDownC = ({ idx, data }) => {
         <a href="#">
           <div style={{ width: '9.01613%' }}>-</div>
           {/* <p>0.636</p> */}
-          <p>{data.ask_size}</p>
+          <p>{data.askSize}</p>
         </a>
       </Bar>
       <Down>
         <a href="#">
           <TypeFormA>
             {/* <strong>50,870,000</strong> */}
-            <strong>{data.ask_price}</strong>
+            <strong>{data.askPrice}</strong>
           </TypeFormA>
           <TypeFormB>-1.87%</TypeFormB>
         </a>

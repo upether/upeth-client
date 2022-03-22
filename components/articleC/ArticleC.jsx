@@ -1,12 +1,14 @@
 import React from 'react';
 
 import ArticleTemplate from '../template/ArticleTemplate';
-import TabC from './TabC';
+import OrderbookHeader from './OrderbookHeader';
+import OrderbookContainer from './OrderbookContainer';
 
 const ArticleC = () => {
   return (
     <ArticleTemplate>
-      <TabC />
+      <OrderbookHeader />
+      <OrderbookContainer />
     </ArticleTemplate>
   );
 };
