@@ -4,10 +4,6 @@ export const Block = styled.span`
   display: block;
   width: 100%;
 
-  & div {
-    position: relative;
-  }
-
   & ul {
     display: table;
     width: 100%;
@@ -17,7 +13,6 @@ export const Block = styled.span`
   & ul li {
     display: table-cell;
     width: auto;
-    float: none;
   }
 
   & ul li a {
@@ -32,7 +27,7 @@ export const Block = styled.span`
     text-align: center;
   }
 
-  & ul li a.on {
+  .on {
     border-bottom: 3px solid #115dcb;
     color: #115dcb;
   }
