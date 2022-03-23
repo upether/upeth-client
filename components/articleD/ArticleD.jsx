@@ -1,14 +1,14 @@
 import React from 'react';
 
 import ArticleTemplate from '../template/ArticleTemplate';
-import OrderD from './OrderD';
-import TabD from './TabD';
+import OrderHeader from './OrderHeader';
+import OrderContainer from './OrderContainer';
 
 const ArticleD = () => {
   return (
     <ArticleTemplate>
-      <TabD />
-      <OrderD />
+      <OrderHeader />
+      <OrderContainer />
     </ArticleTemplate>
   );
 };

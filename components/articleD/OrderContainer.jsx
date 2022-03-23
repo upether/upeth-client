@@ -8,9 +8,9 @@ import {
   Quantity,
   MarginC,
   FixedBottom,
-} from './OrderD.styles';
+} from './styles/OrderContainer.styles';
 
-const OrderD = () => {
+const OrderContainer = () => {
   return (
     <Block>
       <div>
@@ -94,4 +94,4 @@ const OrderD = () => {
   );
 };
 
-export default OrderD;
+export default OrderContainer;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Block } from './TabD.styles';
+import { Block } from './styles/OrderHeader.styles';
 
-const TabD = () => {
+const OrderHeader = () => {
   const [tapOption, setTapOption] = useState('매수');
 
   return (
@@ -48,4 +48,4 @@ const TabD = () => {
   );
 };
 
-export default TabD;
+export default OrderHeader;
