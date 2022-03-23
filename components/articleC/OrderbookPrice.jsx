@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Block } from './OrderbookPrice.styles';
+import { Block } from './styles/OrderbookPrice.styles';
 
 import OrderbookBid from './OrderbookBid';
 import OrderbookAsk from './OrderbookAsk';

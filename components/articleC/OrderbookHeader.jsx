@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block } from './OrderbookHeader.styles';
+import { Block } from './styles/OrderbookHeader.styles';
 
 const TabItem = ({ children, option, setOptionState }) => {
   const clickTabItem = useCallback((e) => {

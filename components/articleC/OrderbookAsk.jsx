@@ -7,7 +7,7 @@ import {
   TypeFormA,
   TypeFormB,
   InnerBlock,
-} from './OrderbookAsk.styles';
+} from './styles/OrderbookAsk.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Block } from './OrderbookContainer.styles';
+import { Block } from './styles/OrderbookContainer.styles';
 
 import OrderbookPrice from './OrderbookPrice';
 // import OrderbookTotal from './OrderbookTotal';

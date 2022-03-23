@@ -8,7 +8,7 @@ import {
   TypeFormB,
   InnerBlock,
   OverFlow,
-} from './OrderbookBid.styles';
+} from './styles/OrderbookBid.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTrades from '../../hooks/useTrades';
