@@ -1,49 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Block } from './styles/OrderHeader.styles';
 
-const OrderHeader = () => {
-  const [tapOption, setTapOption] = useState('매수');
+const TabItem = ({ children, option, setOptionState, stylesOn }) => {
+  const clickTabItem = useCallback((e) => {
+    e.preventDefault();
+    setOptionState(children);
+  });
 
   return (
+    <li>
+      <a
+        className={option === children ? stylesOn : ''}
+        href="#"
+        onClick={(e) => clickTabItem(e)}
+      >
+        {children}
+      </a>
+    </li>
+  );
+};
+
+const TabList = () => {
+  const [option, setOption] = useState('매수');
+  const setOptionState = useCallback((optionState) => {
+    setOption(optionState);
+  }, []);
+
+  return (
+    <ul>
+      <TabItem
+        option={option}
+        setOptionState={setOptionState}
+        stylesOn="buy__on"
+      >
+        매수
+      </TabItem>
+      <TabItem
+        option={option}
+        setOptionState={setOptionState}
+        stylesOn="sell__on"
+      >
+        매도
+      </TabItem>
+      <TabItem option={option} setOptionState={setOptionState} stylesOn="on">
+        간편주문
+      </TabItem>
+      <TabItem option={option} setOptionState={setOptionState} stylesOn="on">
+        거래내역
+      </TabItem>
+    </ul>
+  );
+};
+
+const OrderHeader = () => {
+  return (
     <Block>
-      <ul>
-        <li>
-          <a
-            className={tapOption === '매수' ? 'buy__on' : ''}
-            href="#"
-            onClick={() => setTapOption('매수')}
-          >
-            매수
-          </a>
-        </li>
-        <li>
-          <a
-            className={tapOption === '매도' ? 'sell__on' : ''}
-            href="#"
-            onClick={() => setTapOption('매도')}
-          >
-            매도
-          </a>
-        </li>
-        <li>
-          <a
-            className={tapOption === '간편주문' ? 'on' : ''}
-            href="#"
-            onClick={() => setTapOption('간편주문')}
-          >
-            간편주문
-          </a>
-        </li>
-        <li>
-          <a
-            className={tapOption === '거래내역' ? 'on' : ''}
-            href="#"
-            onClick={() => setTapOption('거래내역')}
-          >
-            거래내역
-          </a>
-        </li>
-      </ul>
+      <TabList />
     </Block>
   );
 };
