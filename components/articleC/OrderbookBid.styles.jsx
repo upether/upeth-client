@@ -42,12 +42,15 @@ export const Bar = styled.td`
     color: #2b2b2b;
     font-size: 12px;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
-export const Down = styled.td`
+export const Up = styled.td`
   padding-right: 8px;
   background-color: rgba(216, 14, 53, 0.03);
-  color: #0051c7;
 `;
 
 export const TypeFormA = styled.div`
@@ -68,6 +71,7 @@ export const TypeFormB = styled.div`
   width: 40%;
   line-height: 36px;
   text-align: right;
+  font-size: 12px;
 `;
 
 export const InnerBlock = styled.td`

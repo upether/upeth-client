@@ -8,11 +8,11 @@ export const Block = styled.tr`
   }
 
   .up {
-    color: #d60000 !important;
+    color: #d60000;
   }
 
   .down {
-    color: #0051c7 !important;
+    color: #0051c7;
   }
 `;
 
@@ -42,12 +42,15 @@ export const Bar = styled.td`
     color: #2b2b2b;
     font-size: 12px;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const Down = styled.td`
   padding-right: 8px;
   background-color: rgba(0, 98, 223, 0.03);
-  color: #0051c7;
 `;
 
 export const TypeFormA = styled.div`
@@ -71,7 +74,7 @@ export const TypeFormB = styled.div`
   font-size: 12px;
 `;
 
-export const Inner = styled.td`
+export const InnerBlock = styled.td`
   width: 162px;
   vertical-align: bottom;
 
@@ -104,11 +107,12 @@ export const Inner = styled.td`
   & dl dd i {
     color: #999;
     font-size: 10px;
+    padding-left: 2px;
   }
 
   & dl dd em {
     display: block;
-    color: #5c5c5c;
+    color: #999;
     font-size: 11px;
   }
 `;

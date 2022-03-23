@@ -20,14 +20,14 @@ const useOrderbook = (symbolID) => {
     const { ask_price, ask_size } = el;
     const askPrice = setPriceFormat(ask_price);
     const askSize = setVolumeFormat(ask_price, ask_size);
-    return { askPrice, askSize };
+    return { askPrice, askSize, ask_price, ask_size };
   });
 
   const bidData = data[0]?.orderbook_units.reverse().map((el) => {
     const { bid_price, bid_size } = el;
     const bidPrice = setPriceFormat(bid_price);
     const bidSize = setVolumeFormat(bid_price, bid_size);
-    return { bidPrice, bidSize };
+    return { bidPrice, bidSize, bid_price, bid_size };
   });
 
   return { totalAskSize, totalBidSize, askData, bidData };
