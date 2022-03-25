@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import useInput from '../../hooks/useInput';
 import {
   Block,
   CheckOptionBlock,
@@ -16,7 +17,7 @@ const CheckOption = () => {
   const clickCheckOption = useCallback((e, optionState) => {
     e.preventDefault();
     setOption(optionState);
-  });
+  }, []);
 
   return (
     <>
@@ -71,6 +72,16 @@ const Price = () => {
 };
 
 const MarginA = () => {
+  const { inputValue, inputRef, keyDownInput, changeInput } = useInput();
+
+  const clickPlus = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
+  const clickMinus = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
   return (
     <>
       <dt className="marginA">
@@ -79,9 +90,19 @@ const MarginA = () => {
       </dt>
       <MarginBlockA className="marginA">
         <div>
-          <input type="text" defaultValue="48,228,000" />
-          <a className="minus">-</a>
-          <a className="plus">+</a>
+          <input
+            type="text"
+            ref={inputRef}
+            value={inputValue}
+            onKeyDown={(e) => keyDownInput(e)}
+            onChange={(e) => changeInput(e)}
+          />
+          <a className="minus" href="#" onClick={clickPlus}>
+            -
+          </a>
+          <a className="plus" href="#" onClick={clickMinus}>
+            +
+          </a>
         </div>
       </MarginBlockA>
     </>
