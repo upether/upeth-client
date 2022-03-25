@@ -124,12 +124,25 @@ const MarginB = () => {
 };
 
 const Quantity = () => {
+  const clickQuantity = useCallback((e, quantity) => {
+    e.preventDefault();
+    console.log(quantity);
+  }, []);
+
   return (
     <QuantityBlock className="quantity">
-      <a>10%</a>
-      <a>25%</a>
-      <a>50%</a>
-      <a>100%</a>
+      <a href="#" onClick={(e) => clickQuantity(e, 10)}>
+        10%
+      </a>
+      <a href="#" onClick={(e) => clickQuantity(e, 25)}>
+        25%
+      </a>
+      <a href="#" onClick={(e) => clickQuantity(e, 50)}>
+        50%
+      </a>
+      <a href="#" onClick={(e) => clickQuantity(e, 100)}>
+        100%
+      </a>
       <a className="qtInput">직접입력</a>
     </QuantityBlock>
   );
