@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import Image from 'next/image'
 import { observer } from 'mobx-react';
 import {
   Block,
@@ -39,7 +40,7 @@ const TitleA = observer(() => {
     <Block>
       <Select href="">
         <em>
-          <img
+          <Image
             src={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />

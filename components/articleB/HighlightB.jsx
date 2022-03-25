@@ -1,16 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import { Block } from './HighlightB.styles';
+import Image from 'next/image'
 
-const Image = React.memo(({ idx, hlOption }) => {
-  const source =
-    hlOption[0] === parseInt(idx)
-      ? hlOption[1]
+const ImageComponent = React.memo(({ idx, hlOption, alt }) => {
+  const source = hlOption[0] === parseInt(idx) ?
+    (
+      hlOption[1]
         ? 'https://cdn.upbit.com/images/ico_up_down_2.71770c7.png'
         : 'https://cdn.upbit.com/images/ico_up_down_1.d63eb3d.png'
-      : 'https://cdn.upbit.com/images/ico_up_down.d050377.png';
-
-  return <img src={source} />;
+    )
+    : 'https://cdn.upbit.com/images/ico_up_down.d050377.png';
+  return <Image src={source} alt={alt} />;
 });
+ImageComponent.displayName = "ImageComponent";
 
 const HighlightB = () => {
   const [korName, setKorName] = useState(true);
@@ -39,25 +41,25 @@ const HighlightB = () => {
           <th colSpan="3">
             <a href="#" onClick={() => setKorName((prevState) => !prevState)}>
               {korName ? '한글명' : '영문명'}
-              <img src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" />
+              <Image src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" alt="asdf" />
             </a>
           </th>
           <th>
             <a href="#" onClick={() => selectHlOption(1)}>
               현재가
-              <Image idx="1" hlOption={hlOption} />
+              <ImageComponent idx="1" hlOption={hlOption} alt="현재가" />
             </a>
           </th>
           <th>
             <a href="#" onClick={() => selectHlOption(2)}>
               전일대비
-              <Image idx="2" hlOption={hlOption} />
+              <ImageComponent idx="2" hlOption={hlOption} alt="전일대비" />
             </a>
           </th>
           <th>
             <a href="#" onClick={() => selectHlOption(3)}>
               거래대금
-              <Image idx="3" hlOption={hlOption} />
+              <ImageComponent idx="3" hlOption={hlOption} alt="거래대금" />
             </a>
           </th>
         </tr>
