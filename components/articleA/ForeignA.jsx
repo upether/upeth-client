@@ -1,5 +1,5 @@
 import React from 'react';
-import { Block } from './ForeignA.styles';
+import { Block } from './styles/ForeignA.styles';
 
 const ForeignA = () => {
   return (

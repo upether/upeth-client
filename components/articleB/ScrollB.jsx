@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Block } from './ScrollB.styles';
+import { Block } from './styles/ScrollB.styles';
 
 import TableB from './TableB';
 import useExchange from '../../hooks/useExchange';

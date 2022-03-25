@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block, Search, Setting } from './SearchB.styles';
+import { Block, Search, Setting } from './styles/SearchB.styles';
 
 const SearchB = () => {
   const [input, setInput] = useState('');

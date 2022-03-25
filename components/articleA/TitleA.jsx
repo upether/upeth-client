@@ -8,7 +8,7 @@ import {
   InfoTab,
   TextReplace,
   Setting,
-} from './TitleA.styles';
+} from './styles/TitleA.styles';
 
 import useExchange from '../../hooks/useExchange';
 
