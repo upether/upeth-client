@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
-import { Block } from './TabB.styles';
+import { Block } from './styles/TabB.styles';
 
 import ScrollB from './ScrollB';
 import HighlightB from './HighlightB';

@@ -1,6 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Block, TypeFormA, TypeFormB, TypeFormC } from './MarketA.styles';
+import {
+  Block,
+  TypeFormA,
+  TypeFormB,
+  TypeFormC,
+} from './styles/MarketA.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';

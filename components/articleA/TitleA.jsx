@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Image from 'next/image'
 import { observer } from 'mobx-react';
+import style from "styled-jsx";
 import {
   Block,
   Select,
@@ -9,7 +10,7 @@ import {
   InfoTab,
   TextReplace,
   Setting,
-} from './TitleA.styles';
+} from './styles/TitleA.styles';
 
 import useExchange from '../../hooks/useExchange';
 
@@ -39,8 +40,10 @@ const TitleA = observer(() => {
   return (
     <Block>
       <Select href="">
-        <em>
+        <em style={{ transform: "translateY(20%)" }}>
           <Image
+            width="26px"
+            height="26px"
             src={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />
@@ -77,7 +80,7 @@ const TitleA = observer(() => {
           </Setting>
         </dl>
       </InfoTab>
-    </Block>
+    </Block >
   );
 });
 
