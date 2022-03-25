@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block } from './HighlightB.styles';
+import { Block } from './styles/HighlightB.styles';
 
 const Image = React.memo(({ idx, hlOption }) => {
   const source =

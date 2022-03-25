@@ -10,7 +10,7 @@ import {
   Price,
   Percent,
   Volume,
-} from './TableB.styles';
+} from './styles/TableB.styles';
 
 import useExchange from '../../hooks/useExchange';
 

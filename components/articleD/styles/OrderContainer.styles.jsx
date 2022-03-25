@@ -69,7 +69,7 @@ export const Block = styled.div`
   }
 `;
 
-export const CheckOption = styled.dd`
+export const CheckOptionBlock = styled.dd`
   & span {
     display: inline-block;
   }
@@ -108,7 +108,7 @@ export const CheckOption = styled.dd`
   }
 `;
 
-export const Price = styled.dd`
+export const PriceBlock = styled.dd`
   text-align: right;
   height: 53px;
 
@@ -123,7 +123,7 @@ export const Price = styled.dd`
   }
 `;
 
-export const MarginA = styled.dd`
+export const MarginBlockA = styled.dd`
   & input {
     width: 250px;
     height: 38px;
@@ -161,7 +161,7 @@ export const MarginA = styled.dd`
   }
 `;
 
-export const MarginB = styled.dd`
+export const MarginBlockB = styled.dd`
   & input {
     float: left;
     width: 100%;
@@ -176,7 +176,7 @@ export const MarginB = styled.dd`
   }
 `;
 
-export const Quantity = styled.dd`
+export const QuantityBlock = styled.dd`
   & a {
     font-size: 12px;
     margin-left: 7px;
@@ -197,7 +197,7 @@ export const Quantity = styled.dd`
   }
 `;
 
-export const MarginC = styled.dd`
+export const MarginBlockC = styled.dd`
   & input {
     float: left;
     width: 100%;
@@ -212,7 +212,7 @@ export const MarginC = styled.dd`
   }
 `;
 
-export const FixedBottom = styled.div`
+export const FixedBottomBlock = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
