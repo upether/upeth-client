@@ -19,12 +19,14 @@ const CoinListItem = observer(({ coinData }) => {
   const {
     market,
     change,
+    opening_price,
+    high_price,
+    low_price,
     trade_price,
     change_rate,
     change_price,
+    signed_change_price,
     acc_trade_price_24h,
-    high_price,
-    low_price,
     korean_name,
   } = coinData;
   const [a, b] = market.split('-');
@@ -55,8 +57,24 @@ const CoinListItem = observer(({ coinData }) => {
           <Candle>
             <a href="#">
               <div>
-                <Line>-</Line>
-                <Box>-</Box>
+                <Line
+                  opening_price={opening_price}
+                  trade_price={trade_price}
+                  high_price={high_price}
+                  low_price={low_price}
+                  signed_change_price={signed_change_price}
+                >
+                  -
+                </Line>
+                <Box
+                  opening_price={opening_price}
+                  trade_price={trade_price}
+                  high_price={high_price}
+                  low_price={low_price}
+                  signed_change_price={signed_change_price}
+                >
+                  -
+                </Box>
               </div>
             </a>
           </Candle>

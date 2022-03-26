@@ -15,9 +15,11 @@ function useTickerTotal(marketData, totalSymobolData) {
       const {
         market,
         change,
+        opening_price,
         trade_price,
         change_rate,
         change_price,
+        signed_change_price,
         acc_trade_price_24h,
         high_price,
         low_price,
@@ -26,9 +28,11 @@ function useTickerTotal(marketData, totalSymobolData) {
       return {
         market,
         change,
+        opening_price,
         trade_price,
         change_rate,
         change_price,
+        signed_change_price,
         acc_trade_price_24h,
         high_price,
         low_price,
