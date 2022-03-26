@@ -40,7 +40,7 @@ const TitleA = observer(() => {
   return (
     <Block>
       <Select href="">
-        <em style={{ transform: "translateY(20%)" }}>
+        <em >
           <Image
             width="26px"
             height="26px"

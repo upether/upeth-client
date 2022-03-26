@@ -39,7 +39,7 @@ const HighlightB = () => {
         <tr>
           <th colSpan="3">
             <a href="#" onClick={() => setKorName((prevState) => !prevState)}>
-              {korName ? '한글명' : '영문명'}
+              <span>{korName ? '한글명' : '영문명'}</span>
               <Image src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" width="7px" height="10px" alt="btc" />
             </a>
           </th>
@@ -48,11 +48,9 @@ const HighlightB = () => {
               return (
                 <th key={idx}>
                   <a href="#" onClick={() => selectHlOption(idx)}>
-                    <div >
-                      {text}
-                      <div>
-                        <ImageComponent idx={idx} hlOption={hlOption} alt={text} />
-                      </div>
+                    <div>
+                      <span>{text}</span>
+                      <ImageComponent idx={idx} hlOption={hlOption} alt={text} />
                     </div>
                   </a>
                 </th>

@@ -14,17 +14,10 @@ export const Block = styled.table`
       text-decoration: underline;
     }
   }
-  & thead tr th a div {
-    display: flex;
-    justify-content: center;
-    & div{
-      margin-left:3px;
-      align-items: center;
-      transform: translateY(10%);
-    }
-  }
 
-  & thead tr th a img {
+
+  & thead tr th a span:nth-child(2) {
+    margin-left:2px !important;
     vertical-align: middle;
   }
 `;
