@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
-import { Block } from './styles/TabB.styles';
+import { Block } from './styles/CoinListTab.styles';
 
-import ScrollB from './ScrollB';
-import HighlightB from './HighlightB';
+import CoinListHeader from './CoinListHeader';
+import CoinListContainer from './CoinListContainer';
 import useExchange from '../../hooks/useExchange';
 
-const TabB = observer(() => {
+const CoinListTab = observer(() => {
   const exchangeStore = useExchange();
 
   const clickTabOption = useCallback((option) => {
@@ -65,10 +65,10 @@ const TabB = observer(() => {
           </a>
         </li>
       </ul>
-      <HighlightB />
-      <ScrollB />
+      <CoinListHeader />
+      <CoinListContainer />
     </Block>
   );
 });
 
-export default TabB;
+export default CoinListTab;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Block, Search, Setting } from './styles/SearchB.styles';
+import { Block, Search, Setting } from './styles/CoinListSearch.styles';
 
-const SearchB = () => {
+const CoinListSearch = () => {
   const [input, setInput] = useState('');
 
   const changeInput = useCallback((event) => {
@@ -35,4 +35,4 @@ const SearchB = () => {
   );
 };
 
-export default SearchB;
+export default CoinListSearch;

@@ -10,11 +10,11 @@ import {
   Price,
   Percent,
   Volume,
-} from './styles/TableB.styles';
+} from './styles/CoinListItem.styles';
 
 import useExchange from '../../hooks/useExchange';
 
-const TableB = observer(({ coinData }) => {
+const CoinListItem = observer(({ coinData }) => {
   const exchangeStore = useExchange();
   const {
     market,
@@ -118,4 +118,4 @@ const TableB = observer(({ coinData }) => {
   );
 });
 
-export default TableB;
+export default CoinListItem;
