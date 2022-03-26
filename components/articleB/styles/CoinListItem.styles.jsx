@@ -12,12 +12,10 @@ const setLineHeight = (opening_price, high_price, low_price) => {
   let bottom = (((opening_price - low_price) / opening_price) * 100) / 2;
   if (top > 13.5) top = 13.5;
   if (bottom > 13.5) bottom = 13.5;
-  console.log(top + bottom);
   return top + bottom;
 };
 
 const setBoxTop = (opening_price, trade_price, high_price, low_price) => {
-  console.log(trade_price > opening_price);
   if (trade_price > opening_price) {
     let top = (((trade_price - opening_price) / opening_price) * 100) / 2;
 

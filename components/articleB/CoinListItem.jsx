@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import {
   Block,
@@ -31,8 +32,12 @@ const CoinListItem = observer(({ coinData }) => {
   } = coinData;
   const [a, b] = market.split('-');
 
-  const clickTableRow = useCallback((marketID) => {
+  const router = useRouter();
+
+  const clickTableRow = useCallback((e, marketID) => {
+    e.preventDefault();
     exchangeStore.setSymbolID(marketID);
+    router.push(`/exchange?code=${marketID}`);
   }, []);
 
   return (
@@ -48,7 +53,7 @@ const CoinListItem = observer(({ coinData }) => {
       <tbody>
         {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
         {/* <tr className="up"> */}
-        <tr onClick={() => clickTableRow(market)}>
+        <tr onClick={(e) => clickTableRow(e, market)}>
           <td>
             <Bookmark>
               <a href="#">즐겨찾기</a>
