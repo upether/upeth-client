@@ -8,11 +8,11 @@ import {
   InfoTab,
   TextReplace,
   Setting,
-} from './styles/TitleA.styles';
+} from './styles/CoinTitle.styles';
 
 import useExchange from '../../hooks/useExchange';
 
-const TitleA = observer(() => {
+const CoinTitle = observer(() => {
   const exchangeStore = useExchange();
   const { data } = useQuery('data', () =>
     fetch('https://api.upbit.com/v1/market/all').then((res) => res.json())
@@ -80,4 +80,4 @@ const TitleA = observer(() => {
   );
 });
 
-export default TitleA;
+export default CoinTitle;

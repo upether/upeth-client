@@ -5,13 +5,13 @@ import {
   TypeFormA,
   TypeFormB,
   TypeFormC,
-} from './styles/MarketA.styles';
+} from './styles/CoinMarket.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
-const MarketA = observer(() => {
+const CoinMarket = observer(() => {
   const exchangeStore = useExchange();
   const { tickerData = {} } = useTicker(exchangeStore.symbolID);
   const {
@@ -72,4 +72,4 @@ const MarketA = observer(() => {
   );
 });
 
-export default MarketA;
+export default CoinMarket;

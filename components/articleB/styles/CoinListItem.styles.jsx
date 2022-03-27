@@ -1,5 +1,58 @@
 import styled from '@emotion/styled';
 
+const setLineTop = (opening_price, high_price) => {
+  let top = (((high_price - opening_price) / opening_price) * 100) / 2;
+
+  if (top > 13.5) return 0;
+  else return 13.5 - top;
+};
+
+const setLineHeight = (opening_price, high_price, low_price) => {
+  let top = (((high_price - opening_price) / opening_price) * 100) / 2;
+  let bottom = (((opening_price - low_price) / opening_price) * 100) / 2;
+  if (top > 13.5) top = 13.5;
+  if (bottom > 13.5) bottom = 13.5;
+  return top + bottom;
+};
+
+const setBoxTop = (opening_price, trade_price, high_price, low_price) => {
+  if (trade_price > opening_price) {
+    let top = (((trade_price - opening_price) / opening_price) * 100) / 2;
+
+    if (top > 13.5) return 0;
+    else {
+      if (top > 0.1) return 13.5 - top;
+      else return 13.5 - 0.1;
+    }
+  } else if (trade_price < opening_price) {
+    return 13.5;
+  } else {
+    return 13.5;
+  }
+};
+
+const setBoxHeight = (opening_price, trade_price, high_price, low_price) => {
+  if (trade_price > opening_price) {
+    let top = (((trade_price - opening_price) / opening_price) * 100) / 2;
+
+    if (top > 13.5) return 13.5;
+    else {
+      if (top > 0.1) return top;
+      else return 0.1;
+    }
+  } else if (trade_price < opening_price) {
+    let bottom = (((opening_price - trade_price) / opening_price) * 100) / 2;
+
+    if (bottom > 13.5) return 13.5;
+    else {
+      if (bottom > 0.1) return bottom;
+      else return 0.1;
+    }
+  } else {
+    return 0.1;
+  }
+};
+
 export const Block = styled.table`
   width: 100%;
   border-spacing: 0;
@@ -75,10 +128,17 @@ export const Line = styled.span`
   display: block;
   overflow: hidden;
   text-indent: -999em;
-  background-color: #d60000;
+  background-color: ${(props) =>
+    props.signed_change_price > 0
+      ? '#c84a31'
+      : props.signed_change_price < 0
+      ? '#1261c4'
+      : '#333'};
 
-  top: 9.37624px;
-  height: 5.78177px;
+  top: ${(props) => setLineTop(props.opening_price, props.high_price) + 'px'};
+  height: ${(props) =>
+    setLineHeight(props.opening_price, props.high_price, props.low_price) +
+    'px'};
 `;
 
 export const Box = styled.span`
@@ -88,10 +148,27 @@ export const Box = styled.span`
   display: block;
   overflow: hidden;
   text-indent: -999em;
-  background-color: #d60000;
+  background-color: ${(props) =>
+    props.signed_change_price > 0
+      ? '#c84a31'
+      : props.signed_change_price < 0
+      ? '#1261c4'
+      : '#333'};
 
-  top: 12.4584px;
-  height: 1.04157px;
+  top: ${(props) =>
+    setBoxTop(
+      props.opening_price,
+      props.trade_price,
+      props.high_price,
+      props.low_price
+    ) + 'px'};
+  height: ${(props) =>
+    setBoxHeight(
+      props.opening_price,
+      props.trade_price,
+      props.high_price,
+      props.low_price
+    ) + 'px'};
 `;
 
 export const Title = styled.td`

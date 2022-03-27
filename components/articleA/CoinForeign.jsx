@@ -1,7 +1,7 @@
 import React from 'react';
-import { Block } from './styles/ForeignA.styles';
+import { Block } from './styles/CoinForeign.styles';
 
-const ForeignA = () => {
+const CoinForeign = () => {
   return (
     <Block>
       <ul>
@@ -25,4 +25,4 @@ const ForeignA = () => {
   );
 };
 
-export default ForeignA;
+export default CoinForeign;

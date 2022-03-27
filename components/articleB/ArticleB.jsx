@@ -1,14 +1,14 @@
 import React from 'react';
 
 import ArticleTemplate from '../template/ArticleTemplate';
-import SearchB from './SearchB';
-import TabB from './TabB';
+import CoinListSearch from './CoinListSearch';
+import CoinListTab from './CoinListTab';
 
 const ArticleB = () => {
   return (
     <ArticleTemplate>
-      <SearchB />
-      <TabB />
+      <CoinListSearch />
+      <CoinListTab />
     </ArticleTemplate>
   );
 };

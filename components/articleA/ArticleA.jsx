@@ -1,17 +1,19 @@
 import React from 'react';
 
 import ArticleTemplate from '../template/ArticleTemplate';
-import TitleA from './TitleA';
-import MarketA from './MarketA';
-import ForeignA from './ForeignA';
+import CoinTitle from './CoinTitle';
+import CoinMarket from './CoinMarket';
+import CoinForeign from './CoinForeign';
+import CoinChart from './CoinChart';
 
 function ArticleA() {
   return (
     <ArticleTemplate>
-      <TitleA />
+      <CoinTitle />
       <div>
-        <MarketA />
-        <ForeignA />
+        <CoinMarket />
+        <CoinForeign />
+        <CoinChart />
       </div>
     </ArticleTemplate>
   );
