@@ -1,15 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { Block } from './styles/CoinListHeader.styles';
+import Image from 'next/image'
 
-const Image = React.memo(({ idx, hlOption }) => {
-  const source =
-    hlOption[0] === parseInt(idx)
-      ? hlOption[1]
+const ImageComponent = React.memo(function ImageComponent({ idx, hlOption, alt }) {
+  const source = hlOption[0] === parseInt(idx) ?
+    (
+      hlOption[1]
         ? 'https://cdn.upbit.com/images/ico_up_down_2.71770c7.png'
         : 'https://cdn.upbit.com/images/ico_up_down_1.d63eb3d.png'
-      : 'https://cdn.upbit.com/images/ico_up_down.d050377.png';
-
-  return <img src={source} />;
+    )
+    : 'https://cdn.upbit.com/images/ico_up_down.d050377.png';
+  return <Image src={source} width="5px" height="10px" alt={alt} />;
 });
 
 const CoinListHeader = () => {
@@ -38,31 +39,27 @@ const CoinListHeader = () => {
         <tr>
           <th colSpan="3">
             <a href="#" onClick={() => setKorName((prevState) => !prevState)}>
-              {korName ? '한글명' : '영문명'}
-              <img src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" />
+              <span>{korName ? '한글명' : '영문명'}</span>
+              <Image src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" width="7px" height="10px" alt="btc" />
             </a>
           </th>
-          <th>
-            <a href="#" onClick={() => selectHlOption(1)}>
-              현재가
-              <Image idx="1" hlOption={hlOption} />
-            </a>
-          </th>
-          <th>
-            <a href="#" onClick={() => selectHlOption(2)}>
-              전일대비
-              <Image idx="2" hlOption={hlOption} />
-            </a>
-          </th>
-          <th>
-            <a href="#" onClick={() => selectHlOption(3)}>
-              거래대금
-              <Image idx="3" hlOption={hlOption} />
-            </a>
-          </th>
+          {
+            ["현재가", "전일대비", "거래대금"].map((text, idx) => {
+              return (
+                <th key={idx}>
+                  <a href="#" onClick={() => selectHlOption(idx)}>
+                    <div>
+                      <span>{text}</span>
+                      <ImageComponent idx={idx} hlOption={hlOption} alt={text} />
+                    </div>
+                  </a>
+                </th>
+              )
+            })
+          }
         </tr>
       </thead>
-    </Block>
+    </Block >
   );
 };
 

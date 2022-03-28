@@ -11,6 +11,11 @@ import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
+import dynamic from 'next/dynamic'
+const LightweightChart = dynamic(() => import("../lightweightChart"), {
+  ssr: false
+});
+
 const CoinMarket = observer(() => {
   const exchangeStore = useExchange();
   const { tickerData = {} } = useTicker(exchangeStore.symbolID);
@@ -41,7 +46,7 @@ const CoinMarket = observer(() => {
         </span>
       </TypeFormA>
       {/* mini chart position */}
-      <TypeFormB>mini chart</TypeFormB>
+      <TypeFormB><LightweightChart /></TypeFormB>
       <TypeFormC>
         <dl>
           <dt>고가</dt>
