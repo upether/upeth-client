@@ -1,5 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { observer } from 'mobx-react';
 import { Block } from './styles/CoinListHeader.styles';
+
+import useExchange from '../../hooks/useExchange';
 
 const Image = React.memo(({ idx, hlOption }) => {
   const source =
@@ -12,12 +15,18 @@ const Image = React.memo(({ idx, hlOption }) => {
   return <img src={source} />;
 });
 
-const CoinListHeader = () => {
-  const [korName, setKorName] = useState(true);
+const CoinListHeader = observer(() => {
   const [hlOption, setHlOption] = useState([3, true]);
+  const exchangeStore = useExchange();
+
+  const clickKorName = useCallback((e) => {
+    e.preventDefault();
+    exchangeStore.setKorName(!exchangeStore.korName);
+  }, []);
 
   const selectHlOption = useCallback(
-    (idx) => {
+    (e, idx) => {
+      e.preventDefault();
       if (idx === hlOption[0]) setHlOption([idx, !hlOption[1]]);
       else setHlOption([idx, true]);
     },
@@ -37,25 +46,25 @@ const CoinListHeader = () => {
       <thead>
         <tr>
           <th colSpan="3">
-            <a href="#" onClick={() => setKorName((prevState) => !prevState)}>
-              {korName ? '한글명' : '영문명'}
+            <a href="#" onClick={(e) => clickKorName(e)}>
+              {exchangeStore.korName ? '한글명' : '영문명'}
               <img src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" />
             </a>
           </th>
           <th>
-            <a href="#" onClick={() => selectHlOption(1)}>
+            <a href="#" onClick={(e) => selectHlOption(e, 1)}>
               현재가
               <Image idx="1" hlOption={hlOption} />
             </a>
           </th>
           <th>
-            <a href="#" onClick={() => selectHlOption(2)}>
+            <a href="#" onClick={(e) => selectHlOption(e, 2)}>
               전일대비
               <Image idx="2" hlOption={hlOption} />
             </a>
           </th>
           <th>
-            <a href="#" onClick={() => selectHlOption(3)}>
+            <a href="#" onClick={(e) => selectHlOption(e, 3)}>
               거래대금
               <Image idx="3" hlOption={hlOption} />
             </a>
@@ -64,6 +73,6 @@ const CoinListHeader = () => {
       </thead>
     </Block>
   );
-};
+});
 
 export default CoinListHeader;

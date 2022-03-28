@@ -29,6 +29,7 @@ const CoinListItem = observer(({ coinData }) => {
     signed_change_price,
     acc_trade_price_24h,
     korean_name,
+    english_name,
   } = coinData;
   const [a, b] = market.split('-');
 
@@ -51,8 +52,6 @@ const CoinListItem = observer(({ coinData }) => {
         <col width="*" />
       </colgroup>
       <tbody>
-        {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
-        {/* <tr className="up"> */}
         <tr onClick={(e) => clickTableRow(e, market)}>
           <td>
             <Bookmark>
@@ -85,7 +84,9 @@ const CoinListItem = observer(({ coinData }) => {
           </Candle>
           <Title>
             <a href="#">
-              <strong>{korean_name}</strong>
+              <strong>
+                {exchangeStore.korName ? korean_name : english_name}
+              </strong>
             </a>
             <em>
               {b}
@@ -105,8 +106,6 @@ const CoinListItem = observer(({ coinData }) => {
             <span></span>
           </Price>
           <Percent>
-            {/* <p>+11.89%</p>
-            <em>2,410</em> */}
             {change === 'RISE' ? (
               <p>{'+' + (change_rate * 100).toFixed(2) + '%'}</p>
             ) : change === 'FALL' ? (
@@ -125,9 +124,6 @@ const CoinListItem = observer(({ coinData }) => {
             </em>
           </Percent>
           <Volume>
-            {/* <p>
-              957,471<i>백만</i>
-            </p> */}
             <p>
               {Math.floor(acc_trade_price_24h / 1000000)
                 .toString()
