@@ -5,6 +5,7 @@ class ExchangeStore {
   marketID = 'KRW';
   marketOption = 'KRW';
   korName = true;
+  headerOption = [3, true];
 
   constructor() {
     makeAutoObservable(this);
@@ -24,6 +25,10 @@ class ExchangeStore {
 
   setKorName(korName) {
     this.korName = korName;
+  }
+
+  setHeaderOption([idx, option]) {
+    this.headerOption = [idx, option];
   }
 }
 
