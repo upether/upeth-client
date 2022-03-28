@@ -15,7 +15,8 @@ const CoinListContainer = observer(() => {
   const { totalCoinData } = useTickerTotal(
     marketData,
     totalSymobolData,
-    exchangeStore.headerOption
+    exchangeStore.headerOption,
+    exchangeStore.searchInput
   );
 
   // totalCoinData

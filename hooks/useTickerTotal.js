@@ -1,6 +1,11 @@
 import { useQuery } from 'react-query';
 
-function useTickerTotal(marketData, totalSymobolData, headerOption) {
+function useTickerTotal(
+  marketData,
+  totalSymobolData,
+  headerOption,
+  searchInput = ''
+) {
   const { status, data } = useQuery(['tickerTotalData', totalSymobolData], () =>
     fetch(`https://api.upbit.com/v1/ticker?markets=${totalSymobolData}`).then(
       (res) => res.json()
@@ -81,6 +86,18 @@ function useTickerTotal(marketData, totalSymobolData, headerOption) {
         .concat(totalData)
         .sort((a, b) => a.acc_trade_price_24h - b.acc_trade_price_24h);
     }
+  }
+
+  if (searchInput !== '') {
+    totalCoinData = totalCoinData.filter((el) => {
+      const [_, coinID] = el.market.split('-');
+
+      return (
+        el.korean_name.includes(searchInput) ||
+        el.english_name.toLowerCase().includes(searchInput.toLowerCase()) ||
+        coinID.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    });
   }
 
   return {

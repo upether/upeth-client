@@ -6,6 +6,7 @@ class ExchangeStore {
   marketOption = 'KRW';
   korName = true;
   headerOption = [3, true];
+  searchInput = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -29,6 +30,10 @@ class ExchangeStore {
 
   setHeaderOption([idx, option]) {
     this.headerOption = [idx, option];
+  }
+
+  setSearchInput(searchInput) {
+    this.searchInput = searchInput;
   }
 }
 
