@@ -1,13 +1,13 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Block } from './styles/ScrollB.styles';
+import { Block } from './styles/CoinListContainer.styles';
 
-import TableB from './TableB';
+import CoinListItem from './CoinListItem';
 import useExchange from '../../hooks/useExchange';
 import useMarket from '../../hooks/useMarket';
 import useTickerTotal from '../../hooks/useTickerTotal';
 
-const ScrollB = () => {
+const CoinListContainer = () => {
   const exchangeStore = useExchange();
 
   const { marketData, totalSymobolData } = useMarket(exchangeStore.marketID);
@@ -27,11 +27,11 @@ const ScrollB = () => {
     <Block>
       <Scrollbars style={{ width: '100%', height: '770px' }} universal={true}>
         {totalCoinData?.map((el, i) => (
-          <TableB key={i} coinData={el} />
+          <CoinListItem key={i} coinData={el} />
         ))}
       </Scrollbars>
     </Block>
   );
 };
 
-export default ScrollB;
+export default CoinListContainer;

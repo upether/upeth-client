@@ -5,13 +5,18 @@ import {
   TypeFormA,
   TypeFormB,
   TypeFormC,
-} from './styles/MarketA.styles';
+} from './styles/CoinMarket.styles';
 
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
-const MarketA = observer(() => {
+import dynamic from 'next/dynamic'
+const LightweightChart = dynamic(() => import("../lightweightChart"), {
+  ssr: false
+});
+
+const CoinMarket = observer(() => {
   const exchangeStore = useExchange();
   const { tickerData = {} } = useTicker(exchangeStore.symbolID);
   const {
@@ -41,7 +46,7 @@ const MarketA = observer(() => {
         </span>
       </TypeFormA>
       {/* mini chart position */}
-      <TypeFormB>mini chart</TypeFormB>
+      <TypeFormB><LightweightChart /></TypeFormB>
       <TypeFormC>
         <dl>
           <dt>고가</dt>
@@ -72,4 +77,4 @@ const MarketA = observer(() => {
   );
 });
 
-export default MarketA;
+export default CoinMarket;

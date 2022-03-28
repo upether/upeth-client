@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Block } from './styles/HighlightB.styles';
+import { Block } from './styles/CoinListHeader.styles';
 import Image from 'next/image'
 
 const ImageComponent = React.memo(function ImageComponent({ idx, hlOption, alt }) {
@@ -13,7 +13,7 @@ const ImageComponent = React.memo(function ImageComponent({ idx, hlOption, alt }
   return <Image src={source} width="5px" height="10px" alt={alt} />;
 });
 
-const HighlightB = () => {
+const CoinListHeader = () => {
   const [korName, setKorName] = useState(true);
   const [hlOption, setHlOption] = useState([3, true]);
 
@@ -63,4 +63,4 @@ const HighlightB = () => {
   );
 };
 
-export default HighlightB;
+export default CoinListHeader;

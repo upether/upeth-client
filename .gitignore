@@ -33,3 +33,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# 개인 백업 폴더 - backup folder
+/backup_jsc

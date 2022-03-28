@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import {
   Block,
@@ -10,27 +11,33 @@ import {
   Price,
   Percent,
   Volume,
-} from './styles/TableB.styles';
+} from './styles/CoinListItem.styles';
 
 import useExchange from '../../hooks/useExchange';
 
-const TableB = observer(({ coinData }) => {
+const CoinListItem = observer(({ coinData }) => {
   const exchangeStore = useExchange();
   const {
     market,
     change,
+    opening_price,
+    high_price,
+    low_price,
     trade_price,
     change_rate,
     change_price,
+    signed_change_price,
     acc_trade_price_24h,
-    high_price,
-    low_price,
     korean_name,
   } = coinData;
   const [a, b] = market.split('-');
 
-  const clickTableRow = useCallback((marketID) => {
+  const router = useRouter();
+
+  const clickTableRow = useCallback((e, marketID) => {
+    e.preventDefault();
     exchangeStore.setSymbolID(marketID);
+    router.push(`/exchange?code=${marketID}`);
   }, []);
 
   return (
@@ -46,7 +53,7 @@ const TableB = observer(({ coinData }) => {
       <tbody>
         {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
         {/* <tr className="up"> */}
-        <tr onClick={() => clickTableRow(market)}>
+        <tr onClick={(e) => clickTableRow(e, market)}>
           <td>
             <Bookmark>
               <a href="#">즐겨찾기</a>
@@ -55,8 +62,24 @@ const TableB = observer(({ coinData }) => {
           <Candle>
             <a href="#">
               <div>
-                <Line>-</Line>
-                <Box>-</Box>
+                <Line
+                  opening_price={opening_price}
+                  trade_price={trade_price}
+                  high_price={high_price}
+                  low_price={low_price}
+                  signed_change_price={signed_change_price}
+                >
+                  -
+                </Line>
+                <Box
+                  opening_price={opening_price}
+                  trade_price={trade_price}
+                  high_price={high_price}
+                  low_price={low_price}
+                  signed_change_price={signed_change_price}
+                >
+                  -
+                </Box>
               </div>
             </a>
           </Candle>
@@ -118,4 +141,4 @@ const TableB = observer(({ coinData }) => {
   );
 });
 
-export default TableB;
+export default CoinListItem;
