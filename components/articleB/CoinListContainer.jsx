@@ -4,6 +4,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Block } from './styles/CoinListContainer.styles';
 
 import CoinListItem from './CoinListItem';
+import CoinListEmptyText from './CoinListEmptyText';
 import useExchange from '../../hooks/useExchange';
 import useMarket from '../../hooks/useMarket';
 import useTickerTotal from '../../hooks/useTickerTotal';
@@ -52,9 +53,13 @@ const CoinListContainer = observer(() => {
   return (
     <Block>
       <Scrollbars style={{ width: '100%', height: '770px' }} universal={true}>
-        {totalCoinData?.map((el, i) => (
-          <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
-        ))}
+        {exchangeStore.marketOption !== '보유' ? (
+          totalCoinData?.map((el, i) => (
+            <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
+          ))
+        ) : (
+          <CoinListEmptyText />
+        )}
       </Scrollbars>
     </Block>
   );

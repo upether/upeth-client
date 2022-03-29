@@ -34,42 +34,83 @@ const CoinListHeader = observer(() => {
 
   return (
     <Block>
-      <colgroup>
-        <col width="26" />
-        <col width="26" />
-        <col width="94" />
-        <col width="88" />
-        <col width="78" />
-        <col width="*" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th colSpan="3">
-            <a href="#" onClick={(e) => clickKorName(e)}>
-              {exchangeStore.korName ? '한글명' : '영문명'}
-              <img src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" />
-            </a>
-          </th>
-          <th>
-            <a href="#" onClick={(e) => selectHlOption(e, 1)}>
-              현재가
-              <Image idx="1" />
-            </a>
-          </th>
-          <th>
-            <a href="#" onClick={(e) => selectHlOption(e, 2)}>
-              전일대비
-              <Image idx="2" />
-            </a>
-          </th>
-          <th>
-            <a href="#" onClick={(e) => selectHlOption(e, 3)}>
-              거래대금
-              <Image idx="3" />
-            </a>
-          </th>
-        </tr>
-      </thead>
+      {exchangeStore.marketOption !== '보유' ? (
+        <>
+          <colgroup>
+            <col width="26" />
+            <col width="26" />
+            <col width="94" />
+            <col width="88" />
+            <col width="78" />
+            <col width="*" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th colSpan="3">
+                <a href="#" onClick={(e) => clickKorName(e)}>
+                  {exchangeStore.korName ? '한글명' : '영문명'}
+                  <img src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" />
+                </a>
+              </th>
+              <th>
+                <a href="#" onClick={(e) => selectHlOption(e, 1)}>
+                  현재가
+                  <Image idx="1" />
+                </a>
+              </th>
+              <th>
+                <a href="#" onClick={(e) => selectHlOption(e, 2)}>
+                  전일대비
+                  <Image idx="2" />
+                </a>
+              </th>
+              <th>
+                <a href="#" onClick={(e) => selectHlOption(e, 3)}>
+                  거래대금
+                  <Image idx="3" />
+                </a>
+              </th>
+            </tr>
+          </thead>
+        </>
+      ) : (
+        <>
+          <colgroup>
+            <col width="100" />
+            <col width="120" />
+            <col width="100" />
+            <col width="*" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>
+                <a href="#">
+                  코인명
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  보유(평가금)
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  매수평균가
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  수익률
+                  <Image />
+                </a>
+              </th>
+            </tr>
+          </thead>
+        </>
+      )}
     </Block>
   );
 });
