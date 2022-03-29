@@ -103,30 +103,6 @@ const CoinListHeader = observer(() => {
                   );
                 }
               )}
-              {/* <th>
-                <a href="#">
-                  코인명
-                  <ImageComponent />
-                </a>
-              </th>
-              <th>
-                <a href="#">
-                  보유(평가금)
-                  <ImageComponent />
-                </a>
-              </th>
-              <th>
-                <a href="#">
-                  매수평균가
-                  <ImageComponent />
-                </a>
-              </th>
-              <th>
-                <a href="#">
-                  수익률
-                  <ImageComponent />
-                </a>
-              </th> */}
             </tr>
           </thead>
         </>
