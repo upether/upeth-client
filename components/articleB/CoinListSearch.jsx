@@ -1,15 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { observer } from 'mobx-react';
 import { Block, Search, Setting } from './styles/CoinListSearch.styles';
 
-const CoinListSearch = () => {
-  const [input, setInput] = useState('');
+import useExchange from '../../hooks/useExchange';
+
+const CoinListSearch = observer(() => {
+  const exchangeStore = useExchange();
 
   const changeInput = useCallback((event) => {
-    setInput(event.target.value);
+    exchangeStore.setSearchInput(event.target.value);
   }, []);
 
   const clearInput = useCallback(() => {
-    setInput('');
+    exchangeStore.setSearchInput('');
   }, []);
 
   return (
@@ -19,9 +22,9 @@ const CoinListSearch = () => {
           type="text"
           placeholder="코인명/심볼검색"
           onChange={changeInput}
-          value={input}
+          value={exchangeStore.searchInput}
         />
-        {input !== '' && (
+        {exchangeStore.searchInput !== '' && (
           <a className="btnX" href="#" onClick={clearInput}>
             X
           </a>
@@ -33,6 +36,6 @@ const CoinListSearch = () => {
       </Setting>
     </Block>
   );
-};
+});
 
 export default CoinListSearch;

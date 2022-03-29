@@ -15,7 +15,7 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 
-const CoinListItem = observer(({ coinData }) => {
+const CoinListItem = observer(({ coinData, setBookmark }) => {
   const exchangeStore = useExchange();
   const {
     market,
@@ -29,6 +29,7 @@ const CoinListItem = observer(({ coinData }) => {
     signed_change_price,
     acc_trade_price_24h,
     korean_name,
+    english_name,
   } = coinData;
   const [a, b] = market.split('-');
 
@@ -38,6 +39,11 @@ const CoinListItem = observer(({ coinData }) => {
     e.preventDefault();
     exchangeStore.setSymbolID(marketID);
     router.push(`/exchange?code=${marketID}`);
+  }, []);
+
+  const clickBookmark = useCallback((e, market) => {
+    e.preventDefault();
+    setBookmark(market);
   }, []);
 
   return (
@@ -51,12 +57,20 @@ const CoinListItem = observer(({ coinData }) => {
         <col width="*" />
       </colgroup>
       <tbody>
-        {/* {change === 'RISE' ? <tr className="up"> : <tr className="down">} */}
-        {/* <tr className="up"> */}
         <tr onClick={(e) => clickTableRow(e, market)}>
           <td>
             <Bookmark>
-              <a href="#">즐겨찾기</a>
+              <a
+                className={
+                  JSON.parse(localStorage.getItem('bookmark')).includes(market)
+                    ? 'bookmark__on'
+                    : ''
+                }
+                href="#"
+                onClick={(e) => clickBookmark(e, market)}
+              >
+                즐겨찾기
+              </a>
             </Bookmark>
           </td>
           <Candle>
@@ -85,7 +99,9 @@ const CoinListItem = observer(({ coinData }) => {
           </Candle>
           <Title>
             <a href="#">
-              <strong>{korean_name}</strong>
+              <strong>
+                {exchangeStore.korName ? korean_name : english_name}
+              </strong>
             </a>
             <em>
               {b}
@@ -105,8 +121,6 @@ const CoinListItem = observer(({ coinData }) => {
             <span></span>
           </Price>
           <Percent>
-            {/* <p>+11.89%</p>
-            <em>2,410</em> */}
             {change === 'RISE' ? (
               <p>{'+' + (change_rate * 100).toFixed(2) + '%'}</p>
             ) : change === 'FALL' ? (
@@ -125,9 +139,6 @@ const CoinListItem = observer(({ coinData }) => {
             </em>
           </Percent>
           <Volume>
-            {/* <p>
-              957,471<i>백만</i>
-            </p> */}
             <p>
               {Math.floor(acc_trade_price_24h / 1000000)
                 .toString()

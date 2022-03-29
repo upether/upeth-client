@@ -1,9 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 
 class ExchangeStore {
-  marketID = 'KRW';
   symbolID = 'KRW-BTC';
+  marketID = 'KRW';
   marketOption = 'KRW';
+  korName = true;
+  headerOption = [3, true];
+  searchInput = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -19,6 +22,18 @@ class ExchangeStore {
 
   setMarketOption(marketOption) {
     this.marketOption = marketOption;
+  }
+
+  setKorName(korName) {
+    this.korName = korName;
+  }
+
+  setHeaderOption([idx, option]) {
+    this.headerOption = [idx, option];
+  }
+
+  setSearchInput(searchInput) {
+    this.searchInput = searchInput;
   }
 }
 

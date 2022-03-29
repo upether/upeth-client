@@ -1,6 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { observer } from 'mobx-react';
 import { Block } from './styles/CoinListHeader.styles';
 import Image from 'next/image'
+
+import useExchange from '../../hooks/useExchange';
 
 const ImageComponent = React.memo(function ImageComponent({ idx, hlOption, alt }) {
   const source = hlOption[0] === parseInt(idx) ?
@@ -13,54 +16,98 @@ const ImageComponent = React.memo(function ImageComponent({ idx, hlOption, alt }
   return <Image src={source} width="5px" height="10px" alt={alt} />;
 });
 
-const CoinListHeader = () => {
-  const [korName, setKorName] = useState(true);
-  const [hlOption, setHlOption] = useState([3, true]);
+const CoinListHeader = observer(() => {
+  const exchangeStore = useExchange();
 
-  const selectHlOption = useCallback(
-    (idx) => {
-      if (idx === hlOption[0]) setHlOption([idx, !hlOption[1]]);
-      else setHlOption([idx, true]);
-    },
-    [hlOption]
-  );
+  const clickKorName = useCallback((e) => {
+    e.preventDefault();
+    exchangeStore.setKorName(!exchangeStore.korName);
+  }, []);
+
+  const selectHlOption = useCallback((e, idx) => {
+    e.preventDefault();
+    if (idx === exchangeStore.headerOption[0])
+      exchangeStore.setHeaderOption([idx, !exchangeStore.headerOption[1]]);
+    else exchangeStore.setHeaderOption([idx, true]);
+  }, []);
 
   return (
     <Block>
-      <colgroup>
-        <col width="26" />
-        <col width="26" />
-        <col width="94" />
-        <col width="88" />
-        <col width="78" />
-        <col width="*" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th colSpan="3">
-            <a href="#" onClick={() => setKorName((prevState) => !prevState)}>
-              <span>{korName ? '한글명' : '영문명'}</span>
-              <Image src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" width="7px" height="10px" alt="btc" />
-            </a>
-          </th>
-          {
-            ["현재가", "전일대비", "거래대금"].map((text, idx) => {
-              return (
-                <th key={idx}>
-                  <a href="#" onClick={() => selectHlOption(idx)}>
-                    <div>
-                      <span>{text}</span>
-                      <ImageComponent idx={idx} hlOption={hlOption} alt={text} />
-                    </div>
-                  </a>
-                </th>
-              )
-            })
-          }
-        </tr>
-      </thead>
-    </Block >
+      {exchangeStore.marketOption !== '보유' ? (
+        <>
+          <colgroup>
+            <col width="26" />
+            <col width="26" />
+            <col width="94" />
+            <col width="88" />
+            <col width="78" />
+            <col width="*" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th colSpan="3">
+                <a href="#" onClick={(e) => clickKorName(e)}>
+                  {exchangeStore.korName ? '한글명' : '영문명'}
+                  <Image src="https://cdn.upbit.com/images/ico_change.c6ad0e9.png" width="7px" height="10px" alt="btc" />
+                </a>
+              </th>
+              {
+                ["현재가", "전일대비", "거래대금"].map((text, idx) => {
+                  return (
+                    <th key={idx}>
+                      <a href="#" onClick={() => selectHlOption(idx)}>
+                        <div>
+                          <span>{text}</span>
+                          <ImageComponent idx={idx} hlOption={hlOption} alt={text} />
+                        </div>
+                      </a>
+                    </th>
+                  )
+                })
+              }
+            </tr>
+          </thead>
+        </>
+      ) : (
+        <>
+          <colgroup>
+            <col width="100" />
+            <col width="120" />
+            <col width="100" />
+            <col width="*" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>
+                <a href="#">
+                  코인명
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  보유(평가금)
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  매수평균가
+                  <Image />
+                </a>
+              </th>
+              <th>
+                <a href="#">
+                  수익률
+                  <Image />
+                </a>
+              </th>
+            </tr>
+          </thead>
+        </>
+      )}
+    </Block>
   );
-};
+});
 
 export default CoinListHeader;
