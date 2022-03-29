@@ -15,7 +15,9 @@ export const Block = styled.table`
     }
   }
 
-  & thead tr th a img {
+
+  & thead tr th a span:nth-child(2) {
+    margin-left:2px !important;
     vertical-align: middle;
   }
 `;

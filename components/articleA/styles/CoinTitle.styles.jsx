@@ -17,6 +17,10 @@ export const Select = styled.a`
     float: left;
     line-height: 42px;
     padding-right: 10px;
+    // 추가
+    display: flex;
+    align-items: center;
+    height: inherit;
   }
 
   & em img {

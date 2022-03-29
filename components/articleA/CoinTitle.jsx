@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import Image from 'next/image'
 import { observer } from 'mobx-react';
+import style from "styled-jsx";
 import {
   Block,
   Select,
@@ -38,8 +40,10 @@ const CoinTitle = observer(() => {
   return (
     <Block>
       <Select href="">
-        <em>
-          <img
+        <em >
+          <Image
+            width="26px"
+            height="26px"
             src={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />
@@ -76,7 +80,7 @@ const CoinTitle = observer(() => {
           </Setting>
         </dl>
       </InfoTab>
-    </Block>
+    </Block >
   );
 });
 
