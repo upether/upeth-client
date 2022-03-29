@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Block } from './styles/CoinListContainer.styles';
@@ -19,6 +19,26 @@ const CoinListContainer = observer(() => {
     exchangeStore.searchInput
   );
 
+  const setBookmark = useCallback((market) => {
+    const bookmark = localStorage.getItem('bookmark');
+    if (bookmark) {
+      const parseBookmark = JSON.parse(bookmark);
+      if (!parseBookmark.includes(market)) {
+        localStorage.setItem(
+          'bookmark',
+          JSON.stringify([...parseBookmark, market])
+        );
+      } else {
+        localStorage.setItem(
+          'bookmark',
+          JSON.stringify(parseBookmark.filter((el) => el !== market))
+        );
+      }
+    } else {
+      localStorage.setItem('bookmark', JSON.stringify([market]));
+    }
+  }, []);
+
   // totalCoinData
   // market: KRW-BTC
   // change: 'RISE', 'FALL', 'EVEN'
@@ -33,7 +53,7 @@ const CoinListContainer = observer(() => {
     <Block>
       <Scrollbars style={{ width: '100%', height: '770px' }} universal={true}>
         {totalCoinData?.map((el, i) => (
-          <CoinListItem key={i} coinData={el} />
+          <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
         ))}
       </Scrollbars>
     </Block>

@@ -107,6 +107,10 @@ export const Bookmark = styled.span`
     overflow: hidden;
     text-indent: 999em;
   }
+
+  & a.bookmark__on {
+    background-position: -100px -50px;
+  }
 `;
 
 export const Candle = styled.td`

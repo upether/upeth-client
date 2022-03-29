@@ -15,7 +15,7 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 
-const CoinListItem = observer(({ coinData }) => {
+const CoinListItem = observer(({ coinData, setBookmark }) => {
   const exchangeStore = useExchange();
   const {
     market,
@@ -41,6 +41,11 @@ const CoinListItem = observer(({ coinData }) => {
     router.push(`/exchange?code=${marketID}`);
   }, []);
 
+  const clickBookmark = useCallback((e, market) => {
+    e.preventDefault();
+    setBookmark(market);
+  }, []);
+
   return (
     <Block change={change}>
       <colgroup>
@@ -55,7 +60,17 @@ const CoinListItem = observer(({ coinData }) => {
         <tr onClick={(e) => clickTableRow(e, market)}>
           <td>
             <Bookmark>
-              <a href="#">즐겨찾기</a>
+              <a
+                className={
+                  JSON.parse(localStorage.getItem('bookmark')).includes(market)
+                    ? 'bookmark__on'
+                    : ''
+                }
+                href="#"
+                onClick={(e) => clickBookmark(e, market)}
+              >
+                즐겨찾기
+              </a>
             </Bookmark>
           </td>
           <Candle>
