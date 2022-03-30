@@ -22,8 +22,8 @@ const CoinForeign = () => {
   return (
     <Block>
       <ul>
-        {foreignData.map((el) => (
-          <ForeignItem data={el} />
+        {foreignData.map((el, i) => (
+          <ForeignItem key={i} data={el} />
         ))}
       </ul>
     </Block>
