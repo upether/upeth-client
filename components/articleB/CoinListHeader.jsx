@@ -63,7 +63,7 @@ const CoinListHeader = observer(() => {
               {['현재가', '전일대비', '거래대금'].map((text, idx) => {
                 return (
                   <th key={idx}>
-                    <a href="#" onClick={() => selectHlOption(idx)}>
+                    <a href="#" onClick={(e) => selectHlOption(e, idx + 1)}>
                       <div>
                         <span>{text}</span>
                         <ImageComponent
@@ -93,7 +93,7 @@ const CoinListHeader = observer(() => {
                 (text, idx) => {
                   return (
                     <th key={idx}>
-                      <a href="#" onClick={() => selectHlOption(idx)}>
+                      <a href="#" onClick={(e) => selectHlOption(e, idx + 1)}>
                         <div>
                           <span>{text}</span>
                           <ImageComponent idx={idx} alt={text} />
