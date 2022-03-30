@@ -37,11 +37,21 @@ const useForiegn = (symbolID) => {
         `https://api.kraken.com/0/public/Ticker?pair=${queryStringSymbol}`
       ).then((res) => res.json())
   );
+  const { status: rateStatus, data: rateData } = useQuery('rateData', () =>
+    fetch(
+      'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD'
+    ).then((res) => res.json())
+  );
 
   let binanceData;
   let huobiData;
   let krakenData;
-  let foreignData = [];
+  let basePrice;
+  const foreignData = [];
+
+  if (rateStatus === 'success') {
+    basePrice = rateData[0].basePrice;
+  }
 
   if (binanceStatus === 'success') {
     const { lastPrice: price } = binanceTickerData;
@@ -62,23 +72,31 @@ const useForiegn = (symbolID) => {
     krakenData = { price: parseFloat(c[0]) };
   }
 
-  if (binanceData) {
+  if (binanceData && basePrice) {
     foreignData.push({
       exchange: 'Binance',
+      krwPrice: Math.floor(binanceData.price * basePrice).toLocaleString(
+        'ko-KR'
+      ),
       price: binanceData.price.toLocaleString('ko-KR'),
     });
+    console.log(basePrice);
   }
 
-  if (huobiData) {
+  if (huobiData && basePrice) {
     foreignData.push({
       exchange: 'Huobi',
+      krwPrice: Math.floor(huobiData.price * basePrice).toLocaleString('ko-KR'),
       price: huobiData.price.toLocaleString('ko-KR'),
     });
   }
 
-  if (krakenData) {
+  if (krakenData && basePrice) {
     foreignData.push({
       exchange: 'Kraken',
+      krwPrice: Math.floor(krakenData.price * basePrice).toLocaleString(
+        'ko-KR'
+      ),
       price: krakenData.price.toLocaleString('ko-KR'),
     });
   }
