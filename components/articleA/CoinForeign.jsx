@@ -2,6 +2,8 @@ import React from 'react';
 import useForiegn from '../../hooks/useForiegn';
 import { Block } from './styles/CoinForeign.styles';
 
+import useExchange from '../../hooks/useExchange';
+
 const ForeignItem = ({ data }) => {
   const { exchange, price } = data;
   return (
@@ -17,7 +19,8 @@ const ForeignItem = ({ data }) => {
 };
 
 const CoinForeign = () => {
-  const { foreignData = [] } = useForiegn();
+  const exchangeStore = useExchange();
+  const { foreignData = [] } = useForiegn(exchangeStore.symbolID);
 
   return (
     <Block>
