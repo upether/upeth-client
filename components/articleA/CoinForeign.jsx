@@ -1,25 +1,30 @@
 import React from 'react';
+import useForiegn from '../../hooks/useForiegn';
 import { Block } from './styles/CoinForeign.styles';
 
+const ForeignItem = ({ data }) => {
+  const { exchange, price } = data;
+  return (
+    <li>
+      <em>{exchange}</em>
+      <strong>52,348,716</strong>
+      <p>(${price})</p>
+      {/* <em>Bitfinex</em>
+      <strong>52,348,716</strong>
+      <p>($43,534.33)</p> */}
+    </li>
+  );
+};
+
 const CoinForeign = () => {
+  const { foreignData = [] } = useForiegn();
+
   return (
     <Block>
       <ul>
-        <li>
-          <em>Bitfinex</em>
-          <strong>52,348,716</strong>
-          <p>($43,534.33)</p>
-        </li>
-        <li>
-          <em>Kraken</em>
-          <strong>52,301,399</strong>
-          <p>($43,511.50)</p>
-        </li>
-        <li>
-          <em>Liquid</em>
-          <strong>52,361,614</strong>
-          <p>(¥5,038,615.00)</p>
-        </li>
+        {foreignData.map((el) => (
+          <ForeignItem data={el} />
+        ))}
       </ul>
     </Block>
   );
