@@ -80,7 +80,6 @@ const useForiegn = (symbolID) => {
       ),
       price: binanceData.price.toLocaleString('ko-KR'),
     });
-    console.log(basePrice);
   }
 
   if (huobiData && basePrice) {
