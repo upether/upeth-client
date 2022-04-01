@@ -45,15 +45,18 @@ const CoinListContainer = observer(() => {
   let bookmarkData;
 
   if (typeof window !== 'undefined') {
-    const { marketAllData } = useMarketAll();
-    const { totalCoinData: bookmark } = useTickerBookmark(
-      marketAllData,
-      JSON.parse(localStorage.getItem('bookmark')).join(),
-      exchangeStore.headerOption,
-      exchangeStore.searchInput
-    );
-
-    bookmarkData = bookmark;
+    if (localStorage.getItem('bookmark') === null) {
+      localStorage.setItem('bookmark', '[]');
+    } else {
+      const { marketAllData } = useMarketAll();
+      const { totalCoinData: bookmark } = useTickerBookmark(
+        marketAllData,
+        JSON.parse(localStorage.getItem('bookmark')).join(),
+        exchangeStore.headerOption,
+        exchangeStore.searchInput
+      );
+      bookmarkData = bookmark;
+    }
   }
 
   // totalCoinData
