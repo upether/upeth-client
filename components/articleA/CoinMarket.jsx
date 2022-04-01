@@ -10,11 +10,15 @@ import {
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
+import CoinMiniHighChart from '../HighChart/CoinMiniHighChart';
+// import dynamic from 'next/dynamic'
+// const LightweightChart = dynamic(() => import("../lightweightChart"), {
+//   ssr: false
+// });
 
-import dynamic from 'next/dynamic'
-const LightweightChart = dynamic(() => import("../lightweightChart"), {
-  ssr: false
-});
+const option = {
+
+}
 
 const CoinMarket = observer(() => {
   const exchangeStore = useExchange();
@@ -46,7 +50,7 @@ const CoinMarket = observer(() => {
         </span>
       </TypeFormA>
       {/* mini chart position */}
-      <TypeFormB><LightweightChart /></TypeFormB>
+      <TypeFormB><CoinMiniHighChart  /></TypeFormB>
       <TypeFormC>
         <dl>
           <dt>고가</dt>
