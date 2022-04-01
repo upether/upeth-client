@@ -15,10 +15,7 @@ const useTickerBookmark = (
   let totalData;
   let totalCoinData;
 
-  if (
-    (status === 'success' && !Object.keys(data).includes('error')) ||
-    marketAllData
-  ) {
+  if (status === 'success' && !Object.keys(data).includes('error')) {
     totalData = data?.map((el, i) => {
       const {
         market,
