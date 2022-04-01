@@ -122,7 +122,6 @@ const CoinhighChart = observer(() => {
         return <span>Error: {error.message}</span>;
     }
     return <div><Chart data={data} symbolID={symbolID}></Chart></div>;
-    // return <div>{<Chart data={data}></Chart>}</div>;
 });
 
 export default CoinhighChart;

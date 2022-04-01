@@ -16,7 +16,7 @@ const CoinMiniHighChart = observer(() => {
         const pivotPrice = data.slice(-1)[0]["trade_price"];
         const splitPriceData = [];
         let isUp = false;
-        for (let i = 1; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             const flag = data[i].trade_price > pivotPrice;
             if (isUp !== flag) {
                 splitPriceData.push({ color: !flag ? "red" : "blue", value: i });
@@ -73,10 +73,10 @@ const CoinMiniHighChart = observer(() => {
             }
         },
         series: [{
-            data: [...data.map(el => el.trade_price)],
+            data: [...data.map(el => el.trade_price).reverse()],
             lineWidth: 1,
             zoneAxis: 'x',
-            zones: [...getIndexFromSplitData(data)],
+            zones: [...getIndexFromSplitData(data.reverse())],
             states: {
                 hover: {
                     enabled: false,
