@@ -6,6 +6,8 @@ import OrderbookBid from './OrderbookBid';
 import OrderbookAsk from './OrderbookAsk';
 import useExchange from '../../hooks/useExchange';
 import useOrderbook from '../../hooks/useOrderbook';
+import useWebsocket from '../../hooks/useWebSocket';
+import useWebSocketOrderbook from '../../hooks/useWebSocketOrderbook';
 
 const OrderbookPrice = observer(() => {
   const exchangeStore = useExchange();
@@ -15,6 +17,15 @@ const OrderbookPrice = observer(() => {
     askData = [],
     bidData = [],
   } = useOrderbook(exchangeStore.symbolID);
+
+  // const { wsInstance } = useWebsocket();
+  // const {
+  //   totalAskSize,
+  //   totalBidSize,
+  //   askData = [],
+  //   bidData = [],
+  // } = useWebSocketOrderbook(wsInstance);
+  // console.log(wsInstance);
 
   return (
     <Block>
