@@ -13,7 +13,7 @@ const useWebsocket = () => {
       const request = [
         { ticket: 'test' },
         { type: 'orderbook', codes: ['KRW-BTC'] },
-        { type: 'trade', codes: ['KRW-BTC'] },
+        // { type: 'trade', codes: ['KRW-BTC'] },
       ];
       ws.send(JSON.stringify(request));
     };

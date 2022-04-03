@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
+import isEqual from 'react-fast-compare';
 import {
   Block,
   Bar,
@@ -15,50 +16,54 @@ import useTrades from '../../hooks/useTrades';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
-const Inner = observer(() => {
-  const exchangeStore = useExchange();
-  const { tradesData = [] } = useTrades(exchangeStore.symbolID);
+const Inner = React.memo(
+  observer(() => {
+    const exchangeStore = useExchange();
+    const { tradesData = [] } = useTrades(exchangeStore.symbolID);
 
-  return (
-    <InnerBlock colSpan="2" rowSpan="15">
-      <dl>
-        <dt>체결강도</dt>
-        <dd>+100.00%</dd>
-      </dl>
-      <OverFlow>
-        <table>
-          <colgroup>
-            <col width="50%" />
-            <col width="*" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>체결가</th>
-              <th>체결량</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tradesData?.map((el, i) => {
-              return (
-                <tr key={i}>
-                  <td>{el.tradePrice}</td>
-                  <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
-                    {el.tradeVolume}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </OverFlow>
-    </InnerBlock>
-  );
-});
+    return (
+      <InnerBlock colSpan="2" rowSpan="15">
+        <dl>
+          <dt>체결강도</dt>
+          <dd>+100.00%</dd>
+        </dl>
+        <OverFlow>
+          <table>
+            <colgroup>
+              <col width="50%" />
+              <col width="*" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>체결가</th>
+                <th>체결량</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tradesData?.map((el, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{el.tradePrice}</td>
+                    <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
+                      {el.tradeVolume}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </OverFlow>
+      </InnerBlock>
+    );
+  })
+);
 
-const OrderbookBid = observer(({ idx, data, total }) => {
-  const exchangeStore = useExchange();
-  const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-  const { prevClosingPrice } = useCoinInfo(tickerData);
+const OrderbookBid = React.memo(({ idx, data, total }) => {
+  // const exchangeStore = useExchange();
+  // const { tickerData = [] } = useTicker(exchangeStore.symbolID);
+  // const { prevClosingPrice } = useCoinInfo(tickerData);
+
+  const prevClosingPrice = 56369000;
 
   const clickOrderbook = useCallback((e) => {
     e.preventDefault();
@@ -120,6 +125,6 @@ const OrderbookBid = observer(({ idx, data, total }) => {
       <td></td>
     </Block>
   );
-});
+}, isEqual);
 
 export default OrderbookBid;

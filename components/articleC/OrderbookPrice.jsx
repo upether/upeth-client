@@ -10,22 +10,21 @@ import useWebsocket from '../../hooks/useWebSocket';
 import useWebSocketOrderbook from '../../hooks/useWebSocketOrderbook';
 
 const OrderbookPrice = observer(() => {
-  const exchangeStore = useExchange();
-  const {
-    totalAskSize,
-    totalBidSize,
-    askData = [],
-    bidData = [],
-  } = useOrderbook(exchangeStore.symbolID);
-
-  // const { wsInstance } = useWebsocket();
+  // const exchangeStore = useExchange();
   // const {
   //   totalAskSize,
   //   totalBidSize,
   //   askData = [],
   //   bidData = [],
-  // } = useWebSocketOrderbook(wsInstance);
-  // console.log(wsInstance);
+  // } = useOrderbook(exchangeStore.symbolID);
+
+  const { wsInstance } = useWebsocket();
+  const {
+    totalAskSize,
+    totalBidSize,
+    askData = [],
+    bidData = [],
+  } = useWebSocketOrderbook(wsInstance);
 
   return (
     <Block>
