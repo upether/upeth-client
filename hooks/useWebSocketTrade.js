@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useWebsocket = () => {
+const useWebsocketTrade = (symbolID) => {
   const [wsInstance, setWsInstance] = useState(null);
 
   let ws;
@@ -11,8 +11,8 @@ const useWebsocket = () => {
 
     ws.onopen = () => {
       const request = [
-        { ticket: 'test' },
-        { type: 'orderbook', codes: ['KRW-BTC'] },
+        { ticket: 'test2' },
+        { type: 'trade', codes: [`${symbolID}`] },
       ];
       ws.send(JSON.stringify(request));
     };
@@ -24,15 +24,15 @@ const useWebsocket = () => {
     };
 
     ws.onclose = () => {
-      console.log('orderbook closing');
+      console.log('trade closing');
     };
 
     return () => {
       ws.close();
     };
-  }, []);
+  }, [symbolID]);
 
   return { wsInstance };
 };
 
-export default useWebsocket;
+export default useWebsocketTrade;
