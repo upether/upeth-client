@@ -11,6 +11,8 @@ import useTickerTotal from '../../hooks/useTickerTotal';
 import useMarketAll from '../../hooks/useMarketAll';
 import useTickerBookmark from '../../hooks/useTickerBookmark';
 
+import useWebSocketTickerTotal from '../../hooks/useWebSocketTickerTotal';
+
 const CoinListContainer = observer(() => {
   const exchangeStore = useExchange();
 
@@ -21,6 +23,9 @@ const CoinListContainer = observer(() => {
     exchangeStore.headerOption,
     exchangeStore.searchInput
   );
+
+  const { wsInstance } = useWebSocketTickerTotal();
+  console.log('wsInstance', wsInstance);
 
   const setBookmark = useCallback((market) => {
     const bookmark = localStorage.getItem('bookmark');
