@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Block } from './styles/CoinListContainer.styles';
@@ -12,6 +12,7 @@ import useMarketAll from '../../hooks/useMarketAll';
 import useTickerBookmark from '../../hooks/useTickerBookmark';
 
 import useWebSocketTickerTotal from '../../hooks/useWebSocketTickerTotal';
+import useWebSocketTickerTotalData from '../../hooks/useWebSocketTickerTotalData';
 
 const CoinListContainer = observer(() => {
   const exchangeStore = useExchange();
@@ -23,9 +24,11 @@ const CoinListContainer = observer(() => {
     exchangeStore.headerOption,
     exchangeStore.searchInput
   );
-
   const { wsInstance } = useWebSocketTickerTotal();
-  console.log('wsInstance', wsInstance);
+  const { tickerTotalData } = useWebSocketTickerTotalData(
+    totalCoinData,
+    wsInstance
+  );
 
   const setBookmark = useCallback((market) => {
     const bookmark = localStorage.getItem('bookmark');
@@ -79,7 +82,10 @@ const CoinListContainer = observer(() => {
       <Scrollbars style={{ width: '100%', height: '770px' }} universal={true}>
         {exchangeStore.marketOption !== '보유' &&
         exchangeStore.marketOption !== '관심' ? (
-          totalCoinData?.map((el, i) => (
+          // totalCoinData?.map((el, i) => (
+          //   <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
+          // ))
+          tickerTotalData?.map((el, i) => (
             <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
           ))
         ) : exchangeStore.marketOption === '보유' ? (

@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 
 const useWebSocketTickerTotal = (totalSymbolID) => {
-  const [wsInstance, setWsInstance] = useState(null);
+  const [wsInstance, setWsInstance] = useState([]);
 
   let ws;
   let buffer = [];
 
   useEffect(() => {
     const loop = setInterval(() => {
-      console.log('buffer', buffer);
       setWsInstance(buffer);
       buffer = [];
     }, 1000);
@@ -139,7 +138,7 @@ const useWebSocketTickerTotal = (totalSymbolID) => {
       const enc = new TextDecoder('utf-8');
       const arr = new Uint8Array(e.data);
       const data = JSON.parse(enc.decode(arr));
-      buffer.push(data);
+      buffer.unshift(data);
     };
 
     ws.onclose = () => {
