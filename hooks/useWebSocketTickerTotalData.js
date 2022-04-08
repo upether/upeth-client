@@ -1,4 +1,4 @@
-const useWebSocketTickerTotalData = (totalCoinData, wsInstance) => {
+const useWebSocketTickerTotalData = (totalCoinData, wsInstance, data = []) => {
   const unique = wsInstance.filter((el, i) => {
     return (
       wsInstance.findIndex((el2) => {
@@ -44,57 +44,112 @@ const useWebSocketTickerTotalData = (totalCoinData, wsInstance) => {
   let uniqueData;
   let tickerTotalData;
 
-  if (unique.length !== 0) {
-    uniqueData = unique.map((el) => {
-      const {
-        acc_trade_price_24h,
-        change,
-        change_price,
-        change_rate,
-        high_price,
-        low_price,
-        code: market,
-        opening_price,
-        signed_change_price,
-        signed_change_rate,
-        trade_price,
-      } = el;
-      // english_name
-      return {
-        market,
-        opening_price,
-        high_price,
-        low_price,
-        trade_price,
-        change,
-        change_price,
-        change_rate,
-        signed_change_price,
-        signed_change_rate,
-        acc_trade_price_24h,
-      };
-    });
+  if (data.length === 0) {
+    if (unique.length !== 0) {
+      uniqueData = unique.map((el) => {
+        const {
+          acc_trade_price_24h,
+          change,
+          change_price,
+          change_rate,
+          high_price,
+          low_price,
+          code: market,
+          opening_price,
+          signed_change_price,
+          signed_change_rate,
+          trade_price,
+        } = el;
+        // english_name
+        return {
+          market,
+          opening_price,
+          high_price,
+          low_price,
+          trade_price,
+          change,
+          change_price,
+          change_rate,
+          signed_change_price,
+          signed_change_rate,
+          acc_trade_price_24h,
+        };
+      });
 
-    tickerTotalData = totalCoinData.map((el) => {
-      let filtered = uniqueData.filter((el2) => el2.market === el.market);
-      if (filtered.length !== 0) {
-        filtered[0].english_name = el.english_name;
-        filtered[0].korean_name = el.korean_name;
-        if (filtered[0].trade_price !== el.trade_price) {
-          console.log(filtered[0]);
-        }
-        if (filtered[0].trade_price > el.trade_price) {
-          filtered[0].highlight = 'up';
-        } else if (filtered[0].trade_price < el.trade_price) {
-          filtered[0].highlight = 'down';
+      tickerTotalData = totalCoinData.map((el) => {
+        let filtered = uniqueData.filter((el2) => el2.market === el.market);
+        if (filtered.length !== 0) {
+          filtered[0].english_name = el.english_name;
+          filtered[0].korean_name = el.korean_name;
+          if (filtered[0].trade_price !== el.trade_price) {
+            console.log(filtered[0]);
+          }
+          if (filtered[0].trade_price > el.trade_price) {
+            filtered[0].highlight = 'up';
+          } else if (filtered[0].trade_price < el.trade_price) {
+            filtered[0].highlight = 'down';
+          } else {
+            filtered[0].highlight = '';
+          }
+          return filtered[0];
         } else {
-          filtered[0].highlight = '';
+          return el;
         }
-        return filtered[0];
-      } else {
-        return el;
-      }
-    });
+      });
+    }
+  } else {
+    if (unique.length !== 0) {
+      uniqueData = unique.map((el) => {
+        const {
+          acc_trade_price_24h,
+          change,
+          change_price,
+          change_rate,
+          high_price,
+          low_price,
+          code: market,
+          opening_price,
+          signed_change_price,
+          signed_change_rate,
+          trade_price,
+        } = el;
+        // english_name
+        return {
+          market,
+          opening_price,
+          high_price,
+          low_price,
+          trade_price,
+          change,
+          change_price,
+          change_rate,
+          signed_change_price,
+          signed_change_rate,
+          acc_trade_price_24h,
+        };
+      });
+
+      tickerTotalData = data.map((el) => {
+        let filtered = uniqueData.filter((el2) => el2.market === el.market);
+        if (filtered.length !== 0) {
+          filtered[0].english_name = el.english_name;
+          filtered[0].korean_name = el.korean_name;
+          if (filtered[0].trade_price !== el.trade_price) {
+            console.log(filtered[0]);
+          }
+          if (filtered[0].trade_price > el.trade_price) {
+            filtered[0].highlight = 'up';
+          } else if (filtered[0].trade_price < el.trade_price) {
+            filtered[0].highlight = 'down';
+          } else {
+            filtered[0].highlight = '';
+          }
+          return filtered[0];
+        } else {
+          return el;
+        }
+      });
+    }
   }
 
   // acc_trade_price_24h: 737404114636.6044;

@@ -25,10 +25,17 @@ const CoinListContainer = observer(() => {
     exchangeStore.searchInput
   );
   const { wsInstance } = useWebSocketTickerTotal();
-  const { tickerTotalData } = useWebSocketTickerTotalData(
-    totalCoinData,
-    wsInstance
-  );
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const { tickerTotalData } = useWebSocketTickerTotalData(
+      totalCoinData,
+      wsInstance,
+      data
+    );
+    console.log(data);
+    setData(tickerTotalData);
+  }, [wsInstance]);
 
   const setBookmark = useCallback((market) => {
     const bookmark = localStorage.getItem('bookmark');
@@ -85,7 +92,10 @@ const CoinListContainer = observer(() => {
           // totalCoinData?.map((el, i) => (
           //   <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
           // ))
-          tickerTotalData?.map((el, i) => (
+          // tickerTotalData?.map((el, i) => (
+          //   <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
+          // ))
+          data?.map((el, i) => (
             <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
           ))
         ) : exchangeStore.marketOption === '보유' ? (
