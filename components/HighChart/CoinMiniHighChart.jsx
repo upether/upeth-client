@@ -8,22 +8,16 @@ import useExchange from './../../hooks/useExchange';
 const CoinMiniHighChart = observer(() => {
     const exchangeStore = useExchange();
     const { symbolID = "KRW-BTC" } = exchangeStore;
-    const { status, isLoading, error, data } = useChartInfoOfMinutes({ symbolID, count: 200 });
+    const { status, isLoading, error, data = [] } = useChartInfoOfMinutes({ symbolID, count: 200 });
     if (isLoading) return "Loading...";
     if (error) return "An error has occurred: " + error.message;
-
     const getIndexFromSplitData = (data) => {
-        const pivotPrice = data.slice(-1)[0]["trade_price"];
+        const pivotPrice = data[0]["trade_price"];
         const splitPriceData = [];
-        let isUp = false;
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 1; i < data.length; i++) {
             const flag = data[i].trade_price > pivotPrice;
-            if (isUp !== flag) {
-                splitPriceData.push({ color: !flag ? "red" : "blue", value: i });
-            }
-            isUp = flag;
+            splitPriceData.push({ color: flag ? "red" : "blue", value: i });
         }
-        splitPriceData.push({ color: !data.slice(-1)[0].trade_price > pivotPrice ? "red" : "blue", value: data.length });
         return splitPriceData;
     }
 
@@ -73,10 +67,10 @@ const CoinMiniHighChart = observer(() => {
             }
         },
         series: [{
-            data: [...data.map(el => el.trade_price).reverse()],
+            data: [...data.map(el => el.trade_price)],
             lineWidth: 1,
             zoneAxis: 'x',
-            zones: [...getIndexFromSplitData(data.reverse())],
+            zones: [...getIndexFromSplitData(data)],
             states: {
                 hover: {
                     enabled: false,

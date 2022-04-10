@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
-import { useChartInfoOfDaysWeeksMonths } from '../../hooks/useChartInfo'
+import { useChartInfoOfDaysWeeksMonths, useChartInfo } from '../../hooks/useChartInfo'
 
 
 import Highcharts from "highcharts/highstock";
@@ -50,6 +50,7 @@ const units = [[
 
 const defaultOptions = {
     chart: {
+        height: "inherit"
         // events: {
         //     click: (e) => {
         //         console.log(
@@ -59,6 +60,10 @@ const defaultOptions = {
         //     }
         // }
     },
+    xAxis: [
+        units
+    ],
+
     yAxis: [
         {
             height: "80%"
@@ -92,9 +97,9 @@ const Chart = ({ data, symbolID }) => {
     const [options, setOptions] = useState(defaultOptions);
     useEffect(() => {
         let newOptions = { ...defaultOptions };
-        newOptions.series[0].data = data.ohlc.reverse();
+        newOptions.series[0].data = data.ohlc;
         newOptions.series[0].name = symbolID;
-        newOptions.series[1].data = data.volume.reverse();
+        newOptions.series[1].data = data.volume;
         newOptions.series[1].name = "거래량";
         setOptions(newOptions);
         console.log(newOptions)
@@ -110,10 +115,12 @@ const Chart = ({ data, symbolID }) => {
         </div>
     );
 }
-const CoinhighChart = observer(() => {
+const CoinhighChart = observer(({ periodicity }) => {
+    const periodicity0 = periodicity.split(' ')[0]
+    console.log(periodicity0)
     const exchangeStore = useExchange();
     const { symbolID = "KRW-BTC" } = exchangeStore;
-    const { isLoading, isError, error, data, isSuccess } = useChartInfoOfDaysWeeksMonths({ symbolID, count: 200 });
+    const { isLoading, isError, error, data, isSuccess } = useChartInfoOfDaysWeeksMonths({ type: periodicity0, symbolID, count: 200, refetchInterval: null });
     if (isLoading) {
         return <span>Loading...</span>;
     }
