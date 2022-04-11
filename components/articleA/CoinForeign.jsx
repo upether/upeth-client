@@ -22,13 +22,17 @@ const CoinForeign = () => {
   const { foreignData = [] } = useForiegn(router.query.code);
 
   return (
-    <Block>
-      <ul>
-        {foreignData.map((el, i) => (
-          <ForeignItem key={i} data={el} />
-        ))}
-      </ul>
-    </Block>
+    <>
+      {foreignData.length !== 0 && (
+        <Block>
+          <ul>
+            {foreignData.map((el, i) => (
+              <ForeignItem key={i} data={el} />
+            ))}
+          </ul>
+        </Block>
+      )}
+    </>
   );
 };
 

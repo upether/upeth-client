@@ -19,7 +19,7 @@ const CoinHeader = () => {
   const [pairID, setPairID] = useState('');
   const [coinID, setCoinID] = useState('');
   const [korName, setKorName] = useState('');
-  // REST API(market/all) 가져오기 (목적은 korean_name을 가져오기)
+  // REST API marketAllData 가져오기 (목적은 korean_name을 가져오기)
   const { marketAllData = [] } = useMarketAll();
 
   // pairID, CoinID를 구하기 (방법은 query의 code를 보고 판단하기)

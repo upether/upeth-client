@@ -61,7 +61,7 @@ const TypeFormC = React.memo(({ tickerData }) => {
 // ArticleA 해당 코인의 마켓정보를 담당 (ArticleA/CoinContainer/CoinMarket)
 const CoinMarket = () => {
   const router = useRouter();
-  // 업비트의 해당하는 코인의 Ticker 데이터 가져오기
+  // RestAPI Ticker 데이터 가져오기
   const { tickerData = {} } = useTicker(router.query.code);
   // tickerData 가공하기
   const { pairID } = useTickerData(tickerData);
