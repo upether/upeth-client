@@ -13,15 +13,15 @@ import useMarketAll from '../../hooks/useMarketAll';
 
 const CoinHeader = () => {
   const router = useRouter();
+  // REST API(market/all) 가져오기 (목적은 korean_name을 가져오기)
   const { marketAllData = [] } = useMarketAll();
   const [tapOption, setTapOption] = useState('시세');
   const [pairID, setPairID] = useState('');
   const [coinID, setCoinID] = useState('');
   const [korName, setKorName] = useState('');
-  // custom hook에서 빈배열로 초기화 할건지
-  // 값 받아올때 undefined일때 빈배열로 초기화 할건지
-  // 두개다 하는게 좋아보인다
 
+  // pairID, CoinID를 구하기 (방법은 query의 code를 보고 판단하기)
+  // korName 구하기 (방법은 REST API로 가져온 데이터 필터링하기)
   useEffect(() => {
     if (router.query.code && marketAllData.length !== 0) {
       const [pair, coin] = router.query.code.split('-');
@@ -34,15 +34,18 @@ const CoinHeader = () => {
     }
   }, [router.query, marketAllData]);
 
+  // Title 클릭시 핸들러
   const clickTitle = useCallback((e) => {
     e.preventDefault();
   }, []);
 
+  // Option 클릭시 핸들러
   const clickOption = useCallback((e, option) => {
     e.preventDefault();
     setTapOption(option);
   }, []);
 
+  // Setting 클릭시 핸들러
   const clickSetting = useCallback((e) => {
     e.preventDefault();
   }, []);
