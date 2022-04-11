@@ -13,7 +13,7 @@ function Header() {
           <Link href="/">UPeth</Link>
         </h1>
         <nav>
-          <Link href="/exchange">
+          <Link href="/exchange?code=KRW-BTC">
             <a className={router.pathname === '/exchange' ? 'active' : ''}>
               거래소
             </a>

@@ -5,18 +5,24 @@ import CoinTitle from './CoinTitle';
 import CoinMarket from './CoinMarket';
 import CoinForeign from './CoinForeign';
 import CoinChart from './CoinChart';
+import CoinHeader from './CoinHeader';
+import CoinContainer from './CoinContainer';
 
-function ArticleA() {
+// import Coin
+
+const ArticleA = () => {
   return (
     <ArticleTemplate>
-      <CoinTitle />
-      <div>
+      <CoinHeader />
+      {/* <CoinTitle /> */}
+      <CoinContainer />
+      {/* <div>
         <CoinMarket />
         <CoinForeign />
         <CoinChart />
-      </div>
+      </div> */}
     </ArticleTemplate>
   );
-}
+};
 
 export default ArticleA;
