@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-// WebSocket Trade 데이터 가져오기
-// 사용되는 곳
+// WebSocket Ticker 데이터 가져오기
+// 사용되는 곳 CoinMarket
 const useWebSocketTrade = (symbolID) => {
   const [wsInstance, setWsInstance] = useState(null);
 
@@ -13,8 +13,8 @@ const useWebSocketTrade = (symbolID) => {
 
     ws.onopen = () => {
       const request = [
-        { ticket: 'trade' },
-        { type: 'trade', codes: [`${symbolID}`] },
+        { ticket: 'ticker' },
+        { type: 'ticker', codes: [`${symbolID}`] },
       ];
       ws.send(JSON.stringify(request));
     };
@@ -26,7 +26,7 @@ const useWebSocketTrade = (symbolID) => {
     };
 
     ws.onclose = () => {
-      console.log('trade closing');
+      console.log('ticker closing');
     };
 
     return () => {

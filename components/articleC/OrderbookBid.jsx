@@ -16,14 +16,14 @@ import useTrades from '../../hooks/useTrades';
 // import useTicker from '../../hooks/useTicker';
 // import useCoinInfo from '../../hooks/useCoinInfo';
 
-import useWebsocketTrade from '../../hooks/useWebsocketTrade';
+import useWebSocketTrade from '../../hooks/useWebSocketTrade';
 
 const Inner = observer(() => {
   const [data, setData] = useState([]);
   const [symbol, setSymbol] = useState('');
   const exchangeStore = useExchange();
   const { tradesData = [] } = useTrades(exchangeStore.symbolID);
-  const { wsInstance } = useWebsocketTrade(exchangeStore.symbolID);
+  const { wsInstance } = useWebSocketTrade(exchangeStore.symbolID);
 
   useEffect(() => {
     setSymbol(exchangeStore.symbolID);

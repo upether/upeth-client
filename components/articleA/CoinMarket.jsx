@@ -1,83 +1,96 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { useRouter } from 'next/router';
 import {
   Block,
   TypeFormA,
   TypeFormB,
-  TypeFormC,
+  TypeFormCBlock,
 } from './styles/CoinMarket.styles';
 
-import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
-import useCoinInfo from '../../hooks/useCoinInfo';
+import useTickerData from '../../hooks/useTickerData';
+import useWebSocketTicker from '../../hooks/useWebSocketTicker';
+import useWebSocketTickerData from '../../hooks/useWebSocketTickerData';
 
 import dynamic from 'next/dynamic';
 const LightweightChart = dynamic(() => import('../lightweightChart'), {
   ssr: false,
 });
 
-// ArticleA 해당 코인의 마켓정보를 담당 (ArticleA/CoinContainer/CoinMarket)
-const CoinMarket = observer(() => {
-  const exchangeStore = useExchange();
-  const { tickerData = {} } = useTicker(exchangeStore.symbolID);
+const TypeFormC = React.memo(({ tickerData }) => {
+  // tickerData 가공하기
   const {
     pairID,
     coinID,
-    change,
-    trade_price,
-    change_rate,
-    change_price,
-    high_price,
-    low_price,
-    acc_trade_price_24h,
-    acc_trade_volume_24h,
-  } = useCoinInfo(tickerData);
+    highPrice,
+    lowPrice,
+    accTradePrice24h,
+    accTradeVolume24h,
+  } = useTickerData(tickerData);
+
+  return (
+    <TypeFormCBlock>
+      <dl>
+        <dt>고가</dt>
+        <dd>
+          <strong className="up">{highPrice}</strong>
+        </dd>
+        <dt>저가</dt>
+        <dd>
+          <strong className="down">{lowPrice}</strong>
+        </dd>
+      </dl>
+      <dl>
+        <dt>거래량(24H)</dt>
+        <dd>
+          <strong>{accTradeVolume24h}</strong>
+          &nbsp;
+          <i>{coinID}</i>
+        </dd>
+        <dt>거래대금(24H)</dt>
+        <dd>
+          <strong>{accTradePrice24h}</strong>
+          &nbsp;
+          <i>{pairID}</i>
+        </dd>
+      </dl>
+    </TypeFormCBlock>
+  );
+});
+
+// ArticleA 해당 코인의 마켓정보를 담당 (ArticleA/CoinContainer/CoinMarket)
+const CoinMarket = () => {
+  const router = useRouter();
+  // 업비트의 해당하는 코인의 Ticker 데이터 가져오기
+  const { tickerData = {} } = useTicker(router.query.code);
+  // tickerData 가공하기
+  const { pairID } = useTickerData(tickerData);
+  // WebSocket Ticker 데이터 가져오기
+  const { wsInstance } = useWebSocketTicker(router.query.code);
+  // WebSocket TickerData 가공하기
+  const { change, tradePrice, changePrice, signedChangeRate } =
+    useWebSocketTickerData(wsInstance);
 
   return (
     <Block>
       <TypeFormA change={change}>
         <span>
-          <strong>{trade_price}</strong>
+          <strong>{tradePrice}</strong>
           <em>{pairID}</em>
         </span>
         <span>
           <p>전일대비</p>
-          <strong>{change_rate}</strong>
-          <strong change={change}>{change_price}</strong>
+          <strong>{signedChangeRate + '%'}</strong>
+          <strong change={change}>{changePrice}</strong>
         </span>
       </TypeFormA>
       {/* mini chart position */}
       <TypeFormB>
         <LightweightChart />
       </TypeFormB>
-      <TypeFormC>
-        <dl>
-          <dt>고가</dt>
-          <dd>
-            <strong className="up">{high_price}</strong>
-          </dd>
-          <dt>저가</dt>
-          <dd>
-            <strong className="down">{low_price}</strong>
-          </dd>
-        </dl>
-        <dl>
-          <dt>거래량(24H)</dt>
-          <dd>
-            <strong>{acc_trade_volume_24h}</strong>
-            &nbsp;
-            <i>{coinID}</i>
-          </dd>
-          <dt>거래대금(24H)</dt>
-          <dd>
-            <strong>{acc_trade_price_24h}</strong>
-            &nbsp;
-            <i>{pairID}</i>
-          </dd>
-        </dl>
-      </TypeFormC>
+      <TypeFormC tickerData={tickerData} />
     </Block>
   );
-});
+};
 
 export default CoinMarket;

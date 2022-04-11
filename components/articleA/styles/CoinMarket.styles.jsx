@@ -85,7 +85,7 @@ export const TypeFormB = styled.div`
   overflow: hidden;
 `;
 
-export const TypeFormC = styled.div`
+export const TypeFormCBlock = styled.div`
   float: right;
   width: 490px;
   display: block;
