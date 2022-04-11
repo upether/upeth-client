@@ -81,9 +81,9 @@ const useWebSocketTickerTotalData = (totalCoinData, wsInstance, data = []) => {
         if (filtered.length !== 0) {
           filtered[0].english_name = el.english_name;
           filtered[0].korean_name = el.korean_name;
-          if (filtered[0].trade_price !== el.trade_price) {
-            console.log(filtered[0]);
-          }
+          // if (filtered[0].trade_price !== el.trade_price) {
+          //   console.log(filtered[0]);
+          // }
           if (filtered[0].trade_price > el.trade_price) {
             filtered[0].highlight = 'up';
           } else if (filtered[0].trade_price < el.trade_price) {
@@ -134,9 +134,9 @@ const useWebSocketTickerTotalData = (totalCoinData, wsInstance, data = []) => {
         if (filtered.length !== 0) {
           filtered[0].english_name = el.english_name;
           filtered[0].korean_name = el.korean_name;
-          if (filtered[0].trade_price !== el.trade_price) {
-            console.log(filtered[0]);
-          }
+          // if (filtered[0].trade_price !== el.trade_price) {
+          //   console.log(filtered[0]);
+          // }
           if (filtered[0].trade_price > el.trade_price) {
             filtered[0].highlight = 'up';
           } else if (filtered[0].trade_price < el.trade_price) {

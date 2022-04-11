@@ -9,16 +9,18 @@ import {
   TextReplace,
   Setting,
 } from './styles/CoinTitle.styles';
+
 import useMarketAll from '../../hooks/useMarketAll';
 
+// ArticleA에 header부분을 담당 (ArticleA/CoinHeader)
 const CoinHeader = () => {
   const router = useRouter();
-  // REST API(market/all) 가져오기 (목적은 korean_name을 가져오기)
-  const { marketAllData = [] } = useMarketAll();
   const [tapOption, setTapOption] = useState('시세');
   const [pairID, setPairID] = useState('');
   const [coinID, setCoinID] = useState('');
   const [korName, setKorName] = useState('');
+  // REST API(market/all) 가져오기 (목적은 korean_name을 가져오기)
+  const { marketAllData = [] } = useMarketAll();
 
   // pairID, CoinID를 구하기 (방법은 query의 code를 보고 판단하기)
   // korName 구하기 (방법은 REST API로 가져온 데이터 필터링하기)

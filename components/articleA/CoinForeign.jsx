@@ -15,6 +15,7 @@ const ForeignItem = ({ data }) => {
   );
 };
 
+// ArticleA 해외거래소별 코인가격들을 담당 (ArticleA/CoinContainer/CoinForeign)
 const CoinForeign = () => {
   const router = useRouter();
   // 가공된 해외 거래소 데이터 가져오기

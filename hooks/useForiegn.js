@@ -1,5 +1,7 @@
 import { useQuery } from 'react-query';
 
+// 해외 거래소별 코인 데이터 가져와 가공하기
+// 사용되는 곳 CoinForeign
 // symbolID가 undefined일때 KRW-BTC로 초기화
 const useForiegn = (symbolID = 'KRW-BTC') => {
   let queryStringSymbol;

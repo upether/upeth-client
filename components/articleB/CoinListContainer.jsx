@@ -33,7 +33,7 @@ const CoinListContainer = observer(() => {
       wsInstance,
       data
     );
-    console.log(data);
+    // console.log(data);
     setData(tickerTotalData);
   }, [wsInstance]);
 

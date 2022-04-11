@@ -11,11 +11,12 @@ import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
 
-import dynamic from 'next/dynamic'
-const LightweightChart = dynamic(() => import("../lightweightChart"), {
-  ssr: false
+import dynamic from 'next/dynamic';
+const LightweightChart = dynamic(() => import('../lightweightChart'), {
+  ssr: false,
 });
 
+// ArticleA 해당 코인의 마켓정보를 담당 (ArticleA/CoinContainer/CoinMarket)
 const CoinMarket = observer(() => {
   const exchangeStore = useExchange();
   const { tickerData = {} } = useTicker(exchangeStore.symbolID);
@@ -46,7 +47,9 @@ const CoinMarket = observer(() => {
         </span>
       </TypeFormA>
       {/* mini chart position */}
-      <TypeFormB><LightweightChart /></TypeFormB>
+      <TypeFormB>
+        <LightweightChart />
+      </TypeFormB>
       <TypeFormC>
         <dl>
           <dt>고가</dt>
