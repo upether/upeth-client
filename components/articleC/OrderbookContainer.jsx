@@ -5,6 +5,7 @@ import { Block } from './styles/OrderbookContainer.styles';
 import OrderbookPrice from './OrderbookPrice';
 // import OrderbookTotal from './OrderbookTotal';
 
+// ArticleC에 container부분을 담당 (ArticleC/OrderbookContainer)
 const OrderbookContainer = () => {
   return (
     <Block>

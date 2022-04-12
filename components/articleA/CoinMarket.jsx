@@ -63,11 +63,11 @@ const CoinMarket = () => {
   const router = useRouter();
   // RestAPI Ticker 데이터 가져오기
   const { tickerData = {} } = useTicker(router.query.code);
-  // tickerData 가공하기
+  // RestAPI Ticker 데이터 가공하기
   const { pairID } = useTickerData(tickerData);
   // WebSocket Ticker 데이터 가져오기
   const { wsInstance } = useWebSocketTicker(router.query.code);
-  // WebSocket TickerData 가공하기
+  // WebSocket Ticker 데이터 가공하기
   const { change, tradePrice, changePrice, signedChangeRate } =
     useWebSocketTickerData(wsInstance);
 

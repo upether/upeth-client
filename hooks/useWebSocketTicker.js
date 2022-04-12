@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // WebSocket Ticker 데이터 가져오기
 // 사용되는 곳 CoinMarket
-const useWebSocketTrade = (symbolID) => {
+const useWebSocketTicker = (symbolID) => {
   const [wsInstance, setWsInstance] = useState(null);
 
   let ws;
@@ -37,4 +37,4 @@ const useWebSocketTrade = (symbolID) => {
   return { wsInstance };
 };
 
-export default useWebSocketTrade;
+export default useWebSocketTicker;

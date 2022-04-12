@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import isEqual from 'react-fast-compare';
 import {
@@ -13,7 +14,9 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 import useTrades from '../../hooks/useTrades';
-// import useTicker from '../../hooks/useTicker';
+import useTicker from '../../hooks/useTicker';
+import useTickerData from '../../hooks/useTickerData';
+import useOrderbookBidData from '../../hooks/useOrderbookBidData';
 // import useCoinInfo from '../../hooks/useCoinInfo';
 
 import useWebSocketTrade from '../../hooks/useWebSocketTrade';
@@ -67,7 +70,7 @@ const Inner = observer(() => {
   // ------
 
   return (
-    <InnerBlock colSpan="2" rowSpan="15">
+    <InnerBlock colSpan='2' rowSpan='15'>
       <dl>
         <dt>체결강도</dt>
         <dd>+100.00%</dd>
@@ -75,8 +78,8 @@ const Inner = observer(() => {
       <OverFlow>
         <table>
           <colgroup>
-            <col width="50%" />
-            <col width="*" />
+            <col width='50%' />
+            <col width='*' />
           </colgroup>
           <thead>
             <tr>
@@ -105,12 +108,20 @@ const Inner = observer(() => {
     </InnerBlock>
   );
 });
-const OrderbookBid = React.memo(({ idx, data, total }) => {
-  // const exchangeStore = useExchange();
-  // const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-  // const { prevClosingPrice } = useCoinInfo(tickerData);
 
-  const prevClosingPrice = 56369000;
+// ArticleC에 Bid부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookBid)
+const OrderbookBid = React.memo(({ idx, data, total }) => {
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData = {} } = useTicker(router.query.code);
+  // RestAPI Ticker 데이터 가공하기
+  const { prev_closing_price } = useTickerData(tickerData);
+  // Orderbook BidData 가공하기
+  const { changePrice, changeRate, sizeRate } = useOrderbookBidData(
+    data,
+    prev_closing_price,
+    total
+  );
 
   const clickOrderbook = useCallback((e) => {
     e.preventDefault();
@@ -125,43 +136,21 @@ const OrderbookBid = React.memo(({ idx, data, total }) => {
       {idx === 0 && <Inner />}
       <Up>
         <a
-          className={
-            data.bid_price - prevClosingPrice > 0
-              ? 'up'
-              : data.bid_price - prevClosingPrice < 0
-              ? 'down'
-              : ''
-          }
-          href="#"
+          className={changePrice > 0 ? 'up' : changePrice < 0 ? 'down' : ''}
+          href='#'
           onClick={(e) => clickOrderbook(e)}
         >
           <TypeFormA>
             <strong>{data.bidPrice}</strong>
           </TypeFormA>
-          <TypeFormB>
-            {data.bid_price - prevClosingPrice > 0
-              ? '+' +
-                (
-                  ((data.bid_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) +
-                '%'
-              : (
-                  ((data.bid_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) + '%'}
-          </TypeFormB>
+          <TypeFormB>{changeRate + '%'}</TypeFormB>
         </a>
       </Up>
       <Bar onClick={(e) => clickOrderbookBar(e)}>
-        <a href="#">
+        <a href='#'>
           <div
             style={{
-              width: `${
-                (data.bid_size / total) * 100 * 5 > 100
-                  ? 100 + '%'
-                  : (data.bid_size / total) * 100 * 5 + '%'
-              }`,
+              width: `${sizeRate > 100 ? 100 + '%' : sizeRate + '%'}`,
             }}
           >
             -

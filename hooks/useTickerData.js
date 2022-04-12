@@ -1,5 +1,5 @@
 // trade wsInstance 가공하기
-// 사용되는 곳 CoinMarket
+// 사용되는 곳 CoinMarket, OrderbookAsk, OrderbookBid
 const useTickerData = (tickerData) => {
   const {
     market,
@@ -37,6 +37,7 @@ const useTickerData = (tickerData) => {
   }
 
   return {
+    prev_closing_price,
     pairID,
     coinID,
     highPrice,

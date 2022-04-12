@@ -1,30 +1,25 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import { Block } from './styles/OrderbookPrice.styles';
 
 import OrderbookBid from './OrderbookBid';
 import OrderbookAsk from './OrderbookAsk';
-import useExchange from '../../hooks/useExchange';
-import useOrderbook from '../../hooks/useOrderbook';
-import useWebsocket from '../../hooks/useWebSocket';
 import useWebSocketOrderbook from '../../hooks/useWebSocketOrderbook';
+import useWebSocketOrderbookData from '../../hooks/useWebSocketOrderbookData';
 
+// ArticleC에 Price부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice)
 const OrderbookPrice = observer(() => {
-  // const exchangeStore = useExchange();
-  // const {
-  //   totalAskSize,
-  //   totalBidSize,
-  //   askData = [],
-  //   bidData = [],
-  // } = useOrderbook(exchangeStore.symbolID);
-
-  const { wsInstance } = useWebsocket();
+  const router = useRouter();
+  // WebSocket Orderbook 데이터 가져오기
+  const { wsInstance } = useWebSocketOrderbook(router.query.code);
+  // WebSocket Orderbook 데이터 가공하기
   const {
     totalAskSize,
     totalBidSize,
     askData = [],
     bidData = [],
-  } = useWebSocketOrderbook(wsInstance);
+  } = useWebSocketOrderbookData(wsInstance);
 
   return (
     <Block>

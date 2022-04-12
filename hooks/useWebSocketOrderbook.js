@@ -1,52 +1,40 @@
-const useWebSocketOrderbook = (wsInstance) => {
-  let totalAskSize;
-  let totalBidSize;
-  let askData;
-  let bidData;
+import { useState, useEffect } from 'react';
 
-  if (wsInstance && wsInstance.type === 'orderbook') {
-    const { total_ask_size, total_bid_size, orderbook_units } = wsInstance;
+// WebSocket Orderbook 데이터 가져오기
+// 사용하는 곳 OrderbookPrice
+const useWebSocketOrderbook = (symbolID) => {
+  const [wsInstance, setWsInstance] = useState(null);
 
-    totalAskSize = total_ask_size;
-    totalBidSize = total_bid_size;
+  let ws;
 
-    askData = orderbook_units.reverse().map((el) => {
-      const { ask_price, ask_size } = el;
-      const askPrice = setPriceFormat(ask_price);
-      const askSize = setVolumeFormat(ask_price, ask_size);
-      return { askPrice, askSize, ask_size, ask_size };
-    });
+  useEffect(() => {
+    ws = new WebSocket('wss://api.upbit.com/websocket/v1');
+    ws.binaryType = 'arraybuffer';
 
-    bidData = orderbook_units.reverse().map((el) => {
-      const { bid_price, bid_size } = el;
-      const bidPrice = setPriceFormat(bid_price);
-      const bidSize = setVolumeFormat(bid_price, bid_size);
-      return { bidPrice, bidSize, bid_price, bid_size };
-    });
-  }
+    ws.onopen = () => {
+      const request = [
+        { ticket: 'orderbook' },
+        { type: 'orderbook', codes: [`${symbolID}`] },
+      ];
+      ws.send(JSON.stringify(request));
+    };
 
-  return { totalAskSize, totalBidSize, askData, bidData };
-};
+    ws.onmessage = (e) => {
+      const enc = new TextDecoder('utf-8');
+      const arr = new Uint8Array(e.data);
+      setWsInstance(JSON.parse(enc.decode(arr)));
+    };
 
-const setPriceFormat = (price) => {
-  if (price >= 100) {
-    return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  } else if (price >= 1) {
-    return price.toFixed(2);
-  } else {
-    return price.toFixed(4);
-  }
-};
+    ws.onclose = () => {
+      console.log('orderbook closing');
+    };
 
-const setVolumeFormat = (price, volume) => {
-  if (price >= 1) {
-    return volume
-      .toFixed(3)
-      .toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  } else {
-    return Math.floor(volume);
-  }
+    return () => {
+      ws.close();
+    };
+  }, [symbolID]);
+
+  return { wsInstance };
 };
 
 export default useWebSocketOrderbook;

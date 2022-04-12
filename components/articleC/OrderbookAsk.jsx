@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import isEqual from 'react-fast-compare';
 import {
@@ -13,6 +14,8 @@ import {
 import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useCoinInfo from '../../hooks/useCoinInfo';
+import useTickerData from '../../hooks/useTickerData';
+import useOrderbookAskData from '../../hooks/useOrderbookAskData';
 
 const Inner = React.memo(
   observer(() => {
@@ -34,7 +37,7 @@ const Inner = React.memo(
     } = useCoinInfo(tickerData);
 
     return (
-      <InnerBlock colSpan="2" rowSpan="15">
+      <InnerBlock colSpan='2' rowSpan='15'>
         <dl>
           <dt>거래량</dt>
           <dd>
@@ -46,8 +49,8 @@ const Inner = React.memo(
             {accTradePrice24h}
             <i>
               <img
-                src="https://cdn.upbit.com/images/ico_million.9f2273e.png"
-                alt="백만원"
+                src='https://cdn.upbit.com/images/ico_million.9f2273e.png'
+                alt='백만원'
               />
             </i>
             <em>(최근24시간)</em>
@@ -55,12 +58,12 @@ const Inner = React.memo(
         </dl>
         <dl>
           <dt>52주 최고</dt>
-          <dd className="up">
+          <dd className='up'>
             {highest_52_week_price}
             <em>({highest_52_week_date})</em>
           </dd>
           <dt>52주 최저</dt>
-          <dd className="down">
+          <dd className='down'>
             {lowest_52_week_price}
             <em>({lowest_52_week_date})</em>
           </dd>
@@ -90,12 +93,19 @@ const Inner = React.memo(
   })
 );
 
+// ArticleC에 Ask부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookAsk)
 const OrderbookAsk = React.memo(({ idx, data, total }) => {
-  // const exchangeStore = useExchange();
-  // const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-  // const { prevClosingPrice } = useCoinInfo(tickerData);
-
-  const prevClosingPrice = 56369000;
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData = {} } = useTicker(router.query.code);
+  // RestAPI Ticker 데이터 가공하기
+  const { prev_closing_price } = useTickerData(tickerData);
+  // Orderbook AskData 가공하기
+  const { changePrice, changeRate, sizeRate } = useOrderbookAskData(
+    data,
+    prev_closing_price,
+    total
+  );
 
   const clickOrderbook = useCallback((e) => {
     e.preventDefault();
@@ -109,14 +119,10 @@ const OrderbookAsk = React.memo(({ idx, data, total }) => {
     <Block>
       <td></td>
       <Bar onClick={(e) => clickOrderbookBar(e)}>
-        <a href="#">
+        <a href='#'>
           <div
             style={{
-              width: `${
-                (data.ask_size / total) * 100 * 5 > 100
-                  ? 100 + '%'
-                  : (data.ask_size / total) * 100 * 5 + '%'
-              }`,
+              width: `${sizeRate > 100 ? 100 + '%' : sizeRate + '%'}`,
             }}
           >
             -
@@ -126,32 +132,14 @@ const OrderbookAsk = React.memo(({ idx, data, total }) => {
       </Bar>
       <Down>
         <a
-          className={
-            data.ask_price - prevClosingPrice > 0
-              ? 'up'
-              : data.ask_price - prevClosingPrice < 0
-              ? 'down'
-              : ''
-          }
-          href="#"
+          className={changePrice > 0 ? 'up' : changePrice < 0 ? 'down' : ''}
+          href='#'
           onClick={(e) => clickOrderbook(e)}
         >
           <TypeFormA>
             <strong>{data.askPrice}</strong>
           </TypeFormA>
-          <TypeFormB>
-            {data.ask_price - prevClosingPrice > 0
-              ? '+' +
-                (
-                  ((data.ask_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) +
-                '%'
-              : (
-                  ((data.ask_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) + '%'}
-          </TypeFormB>
+          <TypeFormB>{changeRate + '%'}</TypeFormB>
         </a>
       </Down>
       {idx === 0 && <Inner />}
