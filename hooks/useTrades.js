@@ -1,41 +1,16 @@
 import { useQuery } from 'react-query';
 
-const useTrades = (symbolID) => {
-  const { data = [] } = useQuery(['tradesData', symbolID], () =>
+// Rest API Trades 데이터 가져오기
+// 사용되는 곳 OrderbookBid
+// https://docs.upbit.com/reference/%EC%B5%9C%EA%B7%BC-%EC%B2%B4%EA%B2%B0-%EB%82%B4%EC%97%AD
+const useTrades = (symbolID = 'KRW-BTC') => {
+  const { data: rawTradesData = [] } = useQuery(['tradesData', symbolID], () =>
     fetch(
       `https://api.upbit.com/v1/trades/ticks?market=${symbolID}&count=30`
     ).then((res) => res.json())
   );
 
-  const tradesData = data.map((el) => {
-    const { ask_bid, trade_price, trade_volume } = el;
-    const tradePrice = setPriceFormat(trade_price);
-    const tradeVolume = setVolumeFormat(trade_price, trade_volume);
-    return { ask_bid, trade_price, trade_volume, tradePrice, tradeVolume };
-  });
-
-  return { tradesData };
-};
-
-const setPriceFormat = (price) => {
-  if (price >= 100) {
-    return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  } else if (price >= 1) {
-    return price.toFixed(2);
-  } else {
-    return price.toFixed(4);
-  }
-};
-
-const setVolumeFormat = (price, volume) => {
-  if (price >= 1) {
-    return volume
-      .toFixed(3)
-      .toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  } else {
-    return Math.floor(volume);
-  }
+  return { rawTradesData };
 };
 
 export default useTrades;

@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { observer } from 'mobx-react';
 import isEqual from 'react-fast-compare';
 import {
   Block,
@@ -12,63 +11,41 @@ import {
   OverFlow,
 } from './styles/OrderbookBid.styles';
 
-import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
 import useTickerData from '../../hooks/useTickerData';
 import useOrderbookBidData from '../../hooks/useOrderbookBidData';
 import useTrades from '../../hooks/useTrades';
-// import useCoinInfo from '../../hooks/useCoinInfo';
 
 import useWebSocketTrade from '../../hooks/useWebSocketTrade';
+import useTradesData from '../../hooks/useTradesData';
+import useWebSocketTradeData from '../../hooks/useWebSocketTradeData';
 
-// 이 부분
-const Inner = observer(() => {
+// OrderbookBid의 Inner를 담당
+const Inner = React.memo(() => {
   const [data, setData] = useState([]);
-  const [symbol, setSymbol] = useState('');
-  const exchangeStore = useExchange();
-  const { tradesData = [] } = useTrades(exchangeStore.symbolID);
-  const { wsInstance } = useWebSocketTrade(exchangeStore.symbolID);
+  const router = useRouter();
+  // RestAPI Trades 데이터 가져오기
+  const { rawTradesData = [] } = useTrades(router.query.code);
+  // WebSocket Trade 데이터 가져오기
+  const { wsInstance } = useWebSocketTrade(router.query.code);
 
   useEffect(() => {
-    setSymbol(exchangeStore.symbolID);
-  }, [exchangeStore.symbolID]);
+    // RestAPI Trades 데이터 가공하기
+    const { tradesData } = useTradesData(rawTradesData);
+    let temp = [...tradesData];
+    temp.shift();
+    setData(temp);
+  }, [rawTradesData]);
 
   useEffect(() => {
-    if (data.length < 30 || symbol !== exchangeStore.symbolID) {
-      setData([...tradesData]);
-    }
-  }, [tradesData]);
-
-  useEffect(() => {
-    if (wsInstance) {
+    if (data.length !== 0 && rawTradesData && wsInstance) {
+      // WebSocket Trade 데이터 가공하기
+      const { webSocketTradeData = {} } = useWebSocketTradeData(wsInstance);
       let temp = [...data];
-      temp.pop();
-      const { ask_bid, trade_price, trade_volume } = wsInstance;
-      setData([{ ask_bid, trade_price, trade_volume }, ...temp]);
+      if (data.length === 30) temp.pop();
+      setData([webSocketTradeData, ...temp]);
     }
   }, [wsInstance]);
-
-  // ask_bid
-  // trade_price
-  // trade_volume
-  // tradePrice
-  // tradeVolume
-
-  // ------
-  // console.log(exchangeStore);
-
-  // console.log(tradesData);
-  // console.log(wsInstance);
-  // console.log('data', data);
-  // []
-  // null
-
-  // array(30)
-  // null
-
-  // array(30)
-  // wsInstance
-  // ------
 
   return (
     <InnerBlock colSpan='2' rowSpan='15'>
@@ -92,13 +69,9 @@ const Inner = observer(() => {
             {data?.map((el, i) => {
               return (
                 <tr key={i}>
-                  {/* <td>{el.tradePrice}</td>
+                  <td>{el.tradePrice}</td>
                   <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
                     {el.tradeVolume}
-                  </td> */}
-                  <td>{el.trade_price}</td>
-                  <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
-                    {el.trade_volume}
                   </td>
                 </tr>
               );

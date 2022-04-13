@@ -14,7 +14,7 @@ import useTicker from '../../hooks/useTicker';
 import useTickerData from '../../hooks/useTickerData';
 import useOrderbookAskData from '../../hooks/useOrderbookAskData';
 
-// Inner를 담당
+// OrderbookAsk의 Inner를 담당
 const Inner = React.memo(() => {
   const router = useRouter();
   // RestAPI Ticker 데이터 가져오기

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // WebSocket Trade 데이터 가져오기
-// 사용되는 곳
+// 사용되는 곳 OrderbookBid
 const useWebSocketTrade = (symbolID) => {
   const [wsInstance, setWsInstance] = useState(null);
 
