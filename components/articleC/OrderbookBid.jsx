@@ -13,14 +13,15 @@ import {
 } from './styles/OrderbookBid.styles';
 
 import useExchange from '../../hooks/useExchange';
-import useTrades from '../../hooks/useTrades';
 import useTicker from '../../hooks/useTicker';
 import useTickerData from '../../hooks/useTickerData';
 import useOrderbookBidData from '../../hooks/useOrderbookBidData';
+import useTrades from '../../hooks/useTrades';
 // import useCoinInfo from '../../hooks/useCoinInfo';
 
 import useWebSocketTrade from '../../hooks/useWebSocketTrade';
 
+// 이 부분
 const Inner = observer(() => {
   const [data, setData] = useState([]);
   const [symbol, setSymbol] = useState('');

@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { observer } from 'mobx-react';
 import isEqual from 'react-fast-compare';
 import {
   Block,
@@ -11,87 +10,86 @@ import {
   InnerBlock,
 } from './styles/OrderbookAsk.styles';
 
-import useExchange from '../../hooks/useExchange';
 import useTicker from '../../hooks/useTicker';
-import useCoinInfo from '../../hooks/useCoinInfo';
 import useTickerData from '../../hooks/useTickerData';
 import useOrderbookAskData from '../../hooks/useOrderbookAskData';
 
-const Inner = React.memo(
-  observer(() => {
-    const exchangeStore = useExchange();
-    const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-    const {
-      coinID,
-      accTradePrice24h,
-      accTradeVolume24h,
-      highChangeRate,
-      lowChangeRate,
-      high_price,
-      low_price,
-      prev_closing_price,
-      highest_52_week_price,
-      highest_52_week_date,
-      lowest_52_week_price,
-      lowest_52_week_date,
-    } = useCoinInfo(tickerData);
+// Inner를 담당
+const Inner = React.memo(() => {
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData = {} } = useTicker(router.query.code);
+  // RestAPI Ticker 데이터 가공하기
+  const {
+    coinID,
+    highPrice,
+    lowPrice,
+    prevClosingPrice,
+    accTradePrice24hB,
+    accTradeVolume24hB,
+    highest52WeekPrice,
+    highest52WeekDate,
+    lowest52WeekPrice,
+    lowest52WeekData,
+    highChangeRate,
+    lowChangeRate,
+  } = useTickerData(tickerData);
 
-    return (
-      <InnerBlock colSpan='2' rowSpan='15'>
-        <dl>
-          <dt>거래량</dt>
-          <dd>
-            {accTradeVolume24h}
-            <i>{coinID}</i>
-          </dd>
-          <dt>거래대금</dt>
-          <dd>
-            {accTradePrice24h}
-            <i>
-              <img
-                src='https://cdn.upbit.com/images/ico_million.9f2273e.png'
-                alt='백만원'
-              />
-            </i>
-            <em>(최근24시간)</em>
-          </dd>
-        </dl>
-        <dl>
-          <dt>52주 최고</dt>
-          <dd className='up'>
-            {highest_52_week_price}
-            <em>({highest_52_week_date})</em>
-          </dd>
-          <dt>52주 최저</dt>
-          <dd className='down'>
-            {lowest_52_week_price}
-            <em>({lowest_52_week_date})</em>
-          </dd>
-        </dl>
-        <dl>
-          <dt>전일종가</dt>
-          <dd>{prev_closing_price}</dd>
-          <dt>당일고가</dt>
-          <dd className={highChangeRate > 0 ? 'up' : ''}>
-            {high_price}
-            <em className={highChangeRate > 0 ? 'up' : ''}>
-              {highChangeRate > 0
-                ? '+' + highChangeRate + '%'
-                : highChangeRate + '%'}
-            </em>
-          </dd>
-          <dt>당일저가</dt>
-          <dd className={lowChangeRate < 0 ? 'down' : ''}>
-            {low_price}
-            <em className={lowChangeRate < 0 ? 'down' : ''}>
-              {lowChangeRate + '%'}
-            </em>
-          </dd>
-        </dl>
-      </InnerBlock>
-    );
-  })
-);
+  return (
+    <InnerBlock colSpan='2' rowSpan='15'>
+      <dl>
+        <dt>거래량</dt>
+        <dd>
+          {accTradeVolume24hB}
+          <i>{coinID}</i>
+        </dd>
+        <dt>거래대금</dt>
+        <dd>
+          {accTradePrice24hB}
+          <i>
+            <img
+              src='https://cdn.upbit.com/images/ico_million.9f2273e.png'
+              alt='백만원'
+            />
+          </i>
+          <em>(최근24시간)</em>
+        </dd>
+      </dl>
+      <dl>
+        <dt>52주 최고</dt>
+        <dd className='up'>
+          {highest52WeekPrice}
+          <em>({highest52WeekDate})</em>
+        </dd>
+        <dt>52주 최저</dt>
+        <dd className='down'>
+          {lowest52WeekPrice}
+          <em>({lowest52WeekData})</em>
+        </dd>
+      </dl>
+      <dl>
+        <dt>전일종가</dt>
+        <dd>{prevClosingPrice}</dd>
+        <dt>당일고가</dt>
+        <dd className={highChangeRate > 0 ? 'up' : ''}>
+          {highPrice}
+          <em className={highChangeRate > 0 ? 'up' : ''}>
+            {highChangeRate > 0
+              ? '+' + highChangeRate + '%'
+              : highChangeRate + '%'}
+          </em>
+        </dd>
+        <dt>당일저가</dt>
+        <dd className={lowChangeRate < 0 ? 'down' : ''}>
+          {lowPrice}
+          <em className={lowChangeRate < 0 ? 'down' : ''}>
+            {lowChangeRate + '%'}
+          </em>
+        </dd>
+      </dl>
+    </InnerBlock>
+  );
+});
 
 // ArticleC에 Ask부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookAsk)
 const OrderbookAsk = React.memo(({ idx, data, total }) => {
