@@ -20,6 +20,7 @@ const useWebSocketTradeData = (wsInstance) => {
   return { webSocketTradeData };
 };
 
+// price Format 정해주기
 const setPriceFormat = (price) => {
   if (price >= 100) {
     return price.toLocaleString('ko-KR');
@@ -30,6 +31,7 @@ const setPriceFormat = (price) => {
   }
 };
 
+// volume Format 정해주기
 const setVolumeFormat = (price, volume) => {
   if (price >= 1) {
     return volume
