@@ -33,7 +33,8 @@ const useTickerAll = (
           high_price,
           low_price,
         } = el;
-        const { korean_name, english_name } = marketData[i];
+        const filteredData = marketData.filter((el) => el.market === market)[0];
+        const { korean_name, english_name } = filteredData;
         return {
           market,
           change,
@@ -51,6 +52,8 @@ const useTickerAll = (
         };
       });
       setCombinedData(tempTickerAllData);
+    } else {
+      setTickerAllData([]);
     }
   }, [rawTickerAllData, marketData]);
 

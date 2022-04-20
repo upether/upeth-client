@@ -8,11 +8,13 @@ import CoinListEmptyText from './CoinListEmptyText';
 import useExchange from '../../hooks/useExchange';
 import useMarketAll from './hooks/useMarketAll';
 import useTickerAll from './hooks/useTickerAll';
-import useTickerBookmark from '../../hooks/useTickerBookmark';
+
+import useBookmark from './hooks/useBookmark';
+
+import useMarketQuery from '../../hooks/query/useMarketQuery';
 
 const CoinListContainerB = observer(() => {
   const exchangeStore = useExchange();
-  // 비동기 작성?
   const { marketData, symbolData } = useMarketAll(exchangeStore.pairID);
   const { tickerAllData } = useTickerAll(
     marketData,
@@ -21,44 +23,15 @@ const CoinListContainerB = observer(() => {
     exchangeStore.subOptionBoolB,
     exchangeStore.searchInput
   );
-  console.log(tickerAllData);
-
-  const setBookmark = useCallback((market) => {
-    const bookmark = localStorage.getItem('bookmark');
-    if (bookmark) {
-      const parseBookmark = JSON.parse(bookmark);
-      if (!parseBookmark.includes(market)) {
-        localStorage.setItem(
-          'bookmark',
-          JSON.stringify([...parseBookmark, market])
-        );
-      } else {
-        localStorage.setItem(
-          'bookmark',
-          JSON.stringify(parseBookmark.filter((el) => el !== market))
-        );
-      }
-    } else {
-      localStorage.setItem('bookmark', JSON.stringify([market]));
-    }
-  }, []);
-
-  let bookmarkData;
-
-  if (typeof window !== 'undefined') {
-    if (localStorage.getItem('bookmark') === null) {
-      localStorage.setItem('bookmark', '[]');
-    } else {
-      const { marketAllData } = useMarketAll();
-      const { totalCoinData: bookmark } = useTickerBookmark(
-        marketAllData,
-        JSON.parse(localStorage.getItem('bookmark')).join(),
-        exchangeStore.headerOption,
-        exchangeStore.searchInput
-      );
-      bookmarkData = bookmark;
-    }
-  }
+  const { marketData: bookmarkMarketData } = useMarketQuery();
+  const { setBookmark, bookmarkSymbolData } = useBookmark();
+  const { tickerAllData: bookmarkAllData } = useTickerAll(
+    bookmarkMarketData,
+    bookmarkSymbolData,
+    exchangeStore.subOptionB,
+    exchangeStore.subOptionBoolB,
+    exchangeStore.searchInput
+  );
 
   return (
     <Block>
@@ -71,7 +44,7 @@ const CoinListContainerB = observer(() => {
         ) : exchangeStore.optionB === '보유' ? (
           <CoinListEmptyText />
         ) : (
-          bookmarkData?.map((el, i) => (
+          bookmarkAllData?.map((el, i) => (
             <CoinListItem key={i} coinData={el} setBookmark={setBookmark} />
           ))
         )}
