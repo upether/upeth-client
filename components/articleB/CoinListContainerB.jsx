@@ -7,16 +7,18 @@ import CoinListItem from './CoinListItem';
 import CoinListEmptyText from './CoinListEmptyText';
 import useExchange from '../../hooks/useExchange';
 import useMarketAll from './hooks/useMarketAll';
-import useTickerAll from './hooks/useTickerAll';
+import useTickerAllData from './hooks/useTickerAllData';
 
 import useBookmark from './hooks/useBookmark';
 
 import useMarketQuery from '../../hooks/query/useMarketQuery';
 
+import useBookmarkAllData from './hooks/useBookmarkAllData';
+
 const CoinListContainerB = observer(() => {
   const exchangeStore = useExchange();
   const { marketData, symbolData } = useMarketAll(exchangeStore.pairID);
-  const { tickerAllData } = useTickerAll(
+  const { tickerAllData } = useTickerAllData(
     marketData,
     symbolData,
     exchangeStore.subOptionB,
@@ -24,8 +26,8 @@ const CoinListContainerB = observer(() => {
     exchangeStore.searchInput
   );
   const { marketData: bookmarkMarketData } = useMarketQuery();
-  const { setBookmark, bookmarkSymbolData } = useBookmark();
-  const { tickerAllData: bookmarkAllData } = useTickerAll(
+  const { setBookmark, bookmarkSymbolData } = useBookmark(exchangeStore.pairID);
+  const { tickerAllData: bookmarkAllData } = useBookmarkAllData(
     bookmarkMarketData,
     bookmarkSymbolData,
     exchangeStore.subOptionB,

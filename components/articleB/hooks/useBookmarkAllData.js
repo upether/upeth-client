@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import useTickerAllQuery from '../../../hooks/query/useTickerAllQuery';
 
-const useTickerAll = (
+const useBookmarkAllData = (
   marketData,
   symbolData,
   subOptionB,
@@ -12,13 +12,11 @@ const useTickerAll = (
   const [combinedData, setCombinedData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [tickerAllData, setTickerAllData] = useState([]);
+  const { tickerAllData: rawTickerAllData } = useTickerAllQuery(symbolData);
 
-  const { tickerAllData: rawTickerAllData = [] } =
-    useTickerAllQuery(symbolData);
-
-  // combine
   useEffect(() => {
-    if (rawTickerAllData.length !== 0 && marketData.length !== 0) {
+    // if (rawTickerAllData.length !== 0 && marketData.length !== 0) {
+    if (rawTickerAllData && marketData.length !== 0) {
       const tempTickerAllData = rawTickerAllData?.map((el, i) => {
         const {
           market,
@@ -52,8 +50,11 @@ const useTickerAll = (
         };
       });
       setCombinedData(tempTickerAllData);
-    } else {
-      setTickerAllData([]);
+    }
+
+    if (rawTickerAllData && rawTickerAllData.length === 0) {
+      // setTickerAllData([]);
+      setCombinedData([]);
     }
   }, [rawTickerAllData, marketData]);
 
@@ -99,6 +100,8 @@ const useTickerAll = (
           );
         }
       }
+    } else {
+      setSortedData([]);
     }
   }, [combinedData, subOptionB, subOptionBoolB]);
 
@@ -116,10 +119,12 @@ const useTickerAll = (
           );
         })
       );
+    } else {
+      setTickerAllData([]);
     }
   }, [sortedData, searchInput]);
 
   return { tickerAllData };
 };
 
-export default useTickerAll;
+export default useBookmarkAllData;

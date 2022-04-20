@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useBookmark = () => {
+const useBookmark = (pairID) => {
   const [bookmarkSymbolData, setBookmarkSymobolData] = useState();
 
   const setBookmark = useCallback((market) => {
@@ -37,9 +37,13 @@ const useBookmark = () => {
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('bookmark') === null) {
         localStorage.setItem('bookmark', '[]');
+      } else {
+        setBookmarkSymobolData(
+          JSON.parse(localStorage.getItem('bookmark')).join()
+        );
       }
     }
-  }, []);
+  }, [pairID]);
 
   return { setBookmark, bookmarkSymbolData };
 };
