@@ -26,7 +26,7 @@ const useTickerAllWebSocket = (allSymbolID) => {
     ws.onopen = () => {
       const request = [
         { ticket: 'tickerAll' },
-        { type: 'ticker', codes: [`${allSymbolID}`] },
+        { type: 'ticker', codes: allSymbolID },
       ];
       ws.send(JSON.stringify(request));
     };

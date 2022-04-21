@@ -15,6 +15,10 @@ import useMarketQuery from '../../hooks/query/useMarketQuery';
 
 import useBookmarkAllData from './hooks/useBookmarkAllData';
 
+import useTickerAllWebSocket from '../../hooks/websocket/useTickerAllWebSocket';
+
+import useWebsocketSymbolData from './hooks/useWebsocketSymbolData';
+
 const CoinListContainerB = observer(() => {
   const exchangeStore = useExchange();
   const { marketData, symbolData } = useMarketAll(exchangeStore.pairID);
@@ -34,6 +38,11 @@ const CoinListContainerB = observer(() => {
     exchangeStore.subOptionBoolB,
     exchangeStore.searchInput
   );
+
+  const { symbolData: webSocketSymbolData } = useWebsocketSymbolData(
+    exchangeStore.pairID
+  );
+  // const { wsInstance } = useTickerAllWebSocket(webSocketSymbolData);
 
   return (
     <Block>
