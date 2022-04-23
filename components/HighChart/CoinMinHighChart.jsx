@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
 import { useChartInfoOfMinutes } from '../../hooks/useChartInfo'
 
+import isEqual from 'react-fast-compare';
 
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -24,11 +25,19 @@ if (typeof Highcharts === 'object') {
     FullScreen(Highcharts);
     StockTools(Highcharts);
 }
+
+const units = [[
+    'minute',
+    [1]
+]];
 const defaultOptions = {
     chart: {
         height: "inherit",
         marginRight: 55,
     },
+    xAxis: [
+        units
+    ],
     yAxis: [
         {
             height: "80%",
@@ -44,13 +53,13 @@ const defaultOptions = {
         {
             type: 'candlestick',
             name: '',
-            data: [],
+            data: [1],
             id: 'BTC',
             yAxis: 0,
         }, {
             type: 'column',
             name: '거래량',
-            data: [],
+            data: [1],
             yAxis: 1,
         }
     ],
@@ -74,14 +83,16 @@ const CoinMinhighChart = observer(({ period }) => {
     const exchangeStore = useExchange();
     const { symbolID = "KRW-BTC" } = exchangeStore;
     const { isLoading, isError, error, data, isSuccess } = useChartInfoOfMinutes({ symbolID, value: periodicityNumber, count: 200 });
-    console.log(data)
     const [options, setOptions] = useState(defaultOptions);
+    const [units, setUnits] = useState([[
+        'minute',
+        [periodicityNumber]
+    ]]);
     const [ohlc, setOhlc] = useState([]);
     const [volume, setVolume] = useState([]);
     const { wsInstance } = useWebSocketTrade(symbolID);
     useEffect(() => {
         if (isSuccess) {
-            console.log("result", data)
             let newOhlc = [...data.ohlc];
             let newVolume = [...data.volume];
             if (wsInstance !== null && newOhlc.length > 0) {
@@ -95,9 +106,9 @@ const CoinMinhighChart = observer(({ period }) => {
                     wsTrade_price
                 ]
                 newOhlc[newOhlc.length - 1] = result;
+                setOhlc(newOhlc);
+                setVolume(newVolume);
             }
-            setOhlc(newOhlc);
-            setVolume(newVolume);
         }
     }, [data, isSuccess, wsInstance])
     useEffect(() => {
@@ -106,6 +117,7 @@ const CoinMinhighChart = observer(({ period }) => {
             newOptions.series[0].data = ohlc;
             newOptions.series[0].name = symbolID;
             newOptions.series[1].data = volume;
+            newOptions.xAxis[0] = units;
             setOptions(newOptions);
         }
     }, [ohlc, volume, symbolID, isSuccess]);

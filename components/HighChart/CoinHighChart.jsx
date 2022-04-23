@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
 import { useChartInfoOfDaysWeeksMonths, useChartInfo } from '../../hooks/useChartInfo'
+import isEqual from 'react-fast-compare';
 
 
 import Highcharts from "highcharts/highstock";
@@ -118,9 +119,9 @@ const CoinhighChart = observer(({ period }) => {
                     wsTrade_price
                 ]
                 newOhlc[newOhlc.length - 1] = result;
+                setOhlc(newOhlc);
+                setVolume(newVolume);
             }
-            setOhlc(newOhlc);
-            setVolume(newVolume);
         }
     }, [data, isSuccess, wsInstance])
     useEffect(() => {
