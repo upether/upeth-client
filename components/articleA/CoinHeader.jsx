@@ -10,7 +10,7 @@ import {
   Setting,
 } from './styles/CoinTitle.styles';
 
-import useMarketAll from '../../hooks/useMarketAll';
+import useMarketQuery from '../../hooks/query/useMarketQuery';
 
 // ArticleA에 header부분을 담당 (ArticleA/CoinHeader)
 const CoinHeader = () => {
@@ -20,12 +20,12 @@ const CoinHeader = () => {
   const [coinID, setCoinID] = useState('');
   const [korName, setKorName] = useState('');
   // REST API marketAllData 가져오기 (목적은 korean_name을 가져오기)
-  const { marketAllData = [] } = useMarketAll();
+  const { marketData: marketAllData } = useMarketQuery();
 
   // pairID, CoinID를 구하기 (방법은 query의 code를 보고 판단하기)
   // korName 구하기 (방법은 REST API로 가져온 데이터 필터링하기)
   useEffect(() => {
-    if (router.query.code && marketAllData.length !== 0) {
+    if (router.query.code && marketAllData) {
       const [pair, coin] = router.query.code.split('-');
       const marketData = marketAllData.filter(
         (el) => el.market === router.query.code
@@ -54,13 +54,13 @@ const CoinHeader = () => {
 
   return (
     <Block>
-      <Select href="#" onClick={(e) => clickTitle(e)}>
+      <Select href='#' onClick={(e) => clickTitle(e)}>
         {pairID !== '' && coinID !== '' && korName !== '' && (
           <>
             <em>
               <Image
-                width="26px"
-                height="26px"
+                width='26px'
+                height='26px'
                 src={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
                 alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
               />
@@ -72,7 +72,7 @@ const CoinHeader = () => {
           </>
         )}
       </Select>
-      <Arrow href="#" onClick={(e) => clickTitle(e)}>
+      <Arrow href='#' onClick={(e) => clickTitle(e)}>
         Arrow
       </Arrow>
       <InfoTab>
@@ -81,7 +81,7 @@ const CoinHeader = () => {
           <dd>
             <a
               className={tapOption === '시세' ? 'on' : ''}
-              href="#"
+              href='#'
               onClick={(e) => clickOption(e, '시세')}
             >
               시세
@@ -90,14 +90,14 @@ const CoinHeader = () => {
           <dd>
             <a
               className={tapOption === '정보' ? 'on' : ''}
-              href="#"
+              href='#'
               onClick={(e) => clickOption(e, '정보')}
             >
               정보
             </a>
           </dd>
           <Setting>
-            <a href="#" onClick={(e) => clickSetting(e)}>
+            <a href='#' onClick={(e) => clickSetting(e)}>
               화면설정
             </a>
           </Setting>
