@@ -15,6 +15,14 @@ import {
 
 import useExchange from '../../hooks/useExchange';
 
+import {
+  setPriceFormat,
+  setCoinListVolumeFormat,
+} from '../../utils/setDataFormat';
+
+// ArticleB Item를 담당
+// (ArticleB/CoinListTab/CoinListContainer/CoinListDefaultList/CoinListItem)
+// (ArticleB/CoinListTab/CoinListContainer/CoinListBookrmarkList/CoinListItem)
 const CoinListItem = observer(({ coinData, setBookmark }) => {
   const exchangeStore = useExchange();
   const {
@@ -31,7 +39,7 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
     korean_name,
     english_name,
   } = coinData;
-  const [a, b] = market.split('-');
+  const [pairID, coinID] = market.split('-');
 
   const router = useRouter();
 
@@ -104,20 +112,12 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
               </strong>
             </a>
             <em>
-              {b}
-              <span>/{a}</span>
+              {coinID}
+              <span>/{pairID}</span>
             </em>
           </Title>
           <Price>
-            <strong>
-              {trade_price > 100
-                ? trade_price
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                : trade_price >= 1
-                ? trade_price.toFixed(2)
-                : trade_price.toFixed(4)}
-            </strong>
+            <strong>{setPriceFormat(trade_price)}</strong>
             <span></span>
           </Price>
           <Percent>
@@ -128,21 +128,11 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
             ) : (
               <p>{(change_rate * 100).toFixed(2) + '%'}</p>
             )}
-            <em>
-              {change_price > 100
-                ? change_price
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                : change_price >= 1
-                ? change_price.toFixed(2)
-                : change_price.toFixed(4)}
-            </em>
+            <em>{setPriceFormat(change_price)}</em>
           </Percent>
           <Volume>
             <p>
-              {Math.floor(acc_trade_price_24h / 1000000)
-                .toString()
-                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+              {setCoinListVolumeFormat(acc_trade_price_24h)}
               <i>백만</i>
             </p>
           </Volume>

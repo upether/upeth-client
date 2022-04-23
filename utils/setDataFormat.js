@@ -8,19 +8,23 @@ export const setPriceFormat = (price) => {
   }
 };
 
-export const setVolumeFormat = (price, volume) => {
-  if (price >= 1) {
-    return volume
-      .toFixed(3)
-      .toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  } else {
-    return Math.floor()
-      .toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  }
+export const setCoinListVolumeFormat = (volume) => {
+  return Math.floor(volume / 1000000).toLocaleString('ko-KR');
 };
 
-export const setDateFormat = (date) => {
-  return date.replace(/-/g, '.');
-};
+// export const setVolumeFormat = (price, volume) => {
+//   if (price >= 1) {
+//     return volume
+//       .toFixed(3)
+//       .toString()
+//       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+//   } else {
+//     return Math.floor()
+//       .toString()
+//       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+//   }
+// };
+
+// export const setDateFormat = (date) => {
+//   return date.replace(/-/g, '.');
+// };

@@ -1,8 +1,9 @@
 import React from 'react';
 
+import CoinListItem from './CoinListItem';
+import useExchange from '../../hooks/useExchange';
 import useMarketQuery from '../../hooks/query/useMarketQuery';
 import useTickerAllQuery from '../../hooks/query/useTickerAllQuery';
-import CoinListItem from './CoinListItem';
 
 import {
   selectTickerAllData,
@@ -12,16 +13,15 @@ import {
 } from '../../utils/setTickerAllData';
 
 // ArticleB DefaultList를 담당 (ArticleB/CoinListTab/CoinListContainer/CoinListDefaultList)
-const CoinListDefaultList = ({
-  setBookmark,
-  pairID,
-  subOptionB,
-  subOptionBoolB,
-  searchInput,
-}) => {
+const CoinListDefaultList = ({ setBookmark }) => {
+  const exchangeStore = useExchange();
+
   // marketData, symbolData 정하기
   const { marketData: rawMarketData } = useMarketQuery();
-  const { marketData, symbolData } = selectTickerAllData(rawMarketData, pairID);
+  const { marketData, symbolData } = selectTickerAllData(
+    rawMarketData,
+    exchangeStore.pairID
+  );
 
   // tickerAllData 정하기
   const { tickerAllData: rawTickerAllData } = useTickerAllQuery(symbolData);
@@ -31,12 +31,12 @@ const CoinListDefaultList = ({
   );
   const { sortedTickerAllData } = sortTickerAllData(
     combinedTickerAllData,
-    subOptionB,
-    subOptionBoolB
+    exchangeStore.subOptionB,
+    exchangeStore.subOptionBoolB
   );
   const { filteredTickerAllData: tickerAllData } = filterTickerAllData(
     sortedTickerAllData,
-    searchInput
+    exchangeStore.searchInput
   );
 
   return (

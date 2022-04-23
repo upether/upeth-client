@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoinListItem from './CoinListItem';
+import useExchange from '../../hooks/useExchange';
 import useMarketQuery from '../../hooks/query/useMarketQuery';
 import useTickerAllQuery from '../../hooks/query/useTickerAllQuery';
 
@@ -11,12 +12,9 @@ import {
 } from '../../utils/setTickerAllData';
 
 // ArticleB BookrmarkList를 담당 (ArticleB/CoinListTab/CoinListContainer/CoinListBookrmarkList)
-const CoinListBookrmarkList = ({
-  setBookmark,
-  subOptionB,
-  subOptionBoolB,
-  searchInput,
-}) => {
+const CoinListBookrmarkList = ({ setBookmark }) => {
+  const exchangeStore = useExchange();
+
   let tickerAllData;
 
   if (typeof window !== 'undefined') {
@@ -32,12 +30,12 @@ const CoinListBookrmarkList = ({
     );
     const { sortedTickerAllData } = sortTickerAllData(
       combinedTickerAllData,
-      subOptionB,
-      subOptionBoolB
+      exchangeStore.subOptionB,
+      exchangeStore.subOptionBoolB
     );
     const { filteredTickerAllData } = filterTickerAllData(
       sortedTickerAllData,
-      searchInput
+      exchangeStore.searchInput
     );
 
     tickerAllData = filteredTickerAllData;
