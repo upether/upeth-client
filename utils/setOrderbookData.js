@@ -4,36 +4,6 @@ import {
   setDateFormat,
 } from './setDataFormat';
 
-export const setOrderbookWebSocketData = (wsInstance) => {
-  let totalAskSize;
-  let totalBidSize;
-  let askData;
-  let bidData;
-
-  if (wsInstance && wsInstance.type === 'orderbook') {
-    const { total_ask_size, total_bid_size, orderbook_units } = wsInstance;
-
-    totalAskSize = total_ask_size;
-    totalBidSize = total_bid_size;
-
-    askData = orderbook_units.reverse().map((el) => {
-      const { ask_price, ask_size } = el;
-      const askPrice = setPriceFormat(ask_price);
-      const askSize = setVolumeFormat(ask_price, ask_size, true);
-      return { askPrice, askSize, ask_price, ask_size };
-    });
-
-    bidData = orderbook_units.reverse().map((el) => {
-      const { bid_price, bid_size } = el;
-      const bidPrice = setPriceFormat(bid_price);
-      const bidSize = setVolumeFormat(bid_price, bid_size, true);
-      return { bidPrice, bidSize, bid_price, bid_size };
-    });
-  }
-
-  return { totalAskSize, totalBidSize, askData, bidData };
-};
-
 export const setOrderbookAskData = (data, prev_closing_price, total) => {
   let changePrice;
   let changeRate;
@@ -150,4 +120,34 @@ export const setOrderbookInnerData = (tickerData) => {
     highChangeRate,
     lowChangeRate,
   };
+};
+
+export const setOrderbookWebSocketData = (wsInstance) => {
+  let totalAskSize;
+  let totalBidSize;
+  let askData;
+  let bidData;
+
+  if (wsInstance && wsInstance.type === 'orderbook') {
+    const { total_ask_size, total_bid_size, orderbook_units } = wsInstance;
+
+    totalAskSize = total_ask_size;
+    totalBidSize = total_bid_size;
+
+    askData = orderbook_units.reverse().map((el) => {
+      const { ask_price, ask_size } = el;
+      const askPrice = setPriceFormat(ask_price);
+      const askSize = setVolumeFormat(ask_price, ask_size, true);
+      return { askPrice, askSize, ask_price, ask_size };
+    });
+
+    bidData = orderbook_units.reverse().map((el) => {
+      const { bid_price, bid_size } = el;
+      const bidPrice = setPriceFormat(bid_price);
+      const bidSize = setVolumeFormat(bid_price, bid_size, true);
+      return { bidPrice, bidSize, bid_price, bid_size };
+    });
+  }
+
+  return { totalAskSize, totalBidSize, askData, bidData };
 };

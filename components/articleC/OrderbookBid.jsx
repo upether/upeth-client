@@ -11,40 +11,40 @@ import {
   OverFlow,
 } from './styles/OrderbookBid.styles';
 
-import useTrades from '../../hooks/useTrades';
-
-import useWebSocketTrade from '../../hooks/useWebSocketTrade';
-import useTradesData from '../../hooks/useTradesData';
-import useWebSocketTradeData from '../../hooks/useWebSocketTradeData';
-
 import useTickerQuery from '../../hooks/query/useTickerQuery';
+import useTradesQuery from '../../hooks/query/useTradesQuery';
+import useTradeWebSocket from '../../hooks/websocket/useTradeWebSocket';
 
 import { setOrderbookBidData } from '../../utils/setOrderbookData';
+import {
+  setTradesData,
+  setTradesWebSocketData,
+} from '../../utils/setTradesData';
 
 // OrderbookBid의 Inner를 담당
 const Inner = React.memo(() => {
   const [data, setData] = useState([]);
   const router = useRouter();
   // RestAPI Trades 데이터 가져오기
-  const { rawTradesData = [] } = useTrades(router.query.code);
+  const { tradesData: rawTradesData } = useTradesQuery(router.query.code);
   // WebSocket Trade 데이터 가져오기
-  const { wsInstance } = useWebSocketTrade(router.query.code);
+  const { wsInstance } = useTradeWebSocket(router.query.code);
 
   useEffect(() => {
-    // RestAPI Trades 데이터 가공하기
-    const { tradesData } = useTradesData(rawTradesData);
-    let temp = [...tradesData];
-    temp.shift();
-    setData(temp);
+    if (rawTradesData) {
+      const { tradesData } = setTradesData(rawTradesData);
+      let temp = [...tradesData];
+      temp.shift();
+      setData(temp);
+    }
   }, [rawTradesData]);
 
   useEffect(() => {
-    if (data.length !== 0 && rawTradesData && wsInstance) {
-      // WebSocket Trade 데이터 가공하기
-      const { webSocketTradeData = {} } = useWebSocketTradeData(wsInstance);
+    if (wsInstance) {
+      const { tradesWebSocketData } = setTradesWebSocketData(wsInstance);
       let temp = [...data];
       if (data.length === 30) temp.pop();
-      setData([webSocketTradeData, ...temp]);
+      setData([tradesWebSocketData, ...temp]);
     }
   }, [wsInstance]);
 
