@@ -11,7 +11,6 @@ import {
   OverFlow,
 } from './styles/OrderbookBid.styles';
 
-import useTickerQuery from '../../hooks/query/useTickerQuery';
 import useTradesQuery from '../../hooks/query/useTradesQuery';
 import useTradeWebSocket from '../../hooks/websocket/useTradeWebSocket';
 
@@ -85,14 +84,11 @@ const Inner = React.memo(() => {
 });
 
 // ArticleC에 Bid부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookBid)
-const OrderbookBid = React.memo(({ idx, data, total }) => {
-  const router = useRouter();
-  // RestAPI Ticker 데이터 가져오기
-  const { tickerData } = useTickerQuery(router.query.code);
+const OrderbookBid = React.memo(({ idx, data, total, prev_closing_price }) => {
   // Orderbook Bid 데이터 가공하기
   const { changePrice, changeRate, sizeRate } = setOrderbookBidData(
     data,
-    tickerData.prev_closing_price,
+    prev_closing_price,
     total
   );
 
