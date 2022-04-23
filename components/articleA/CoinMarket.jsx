@@ -7,10 +7,13 @@ import {
   TypeFormCBlock,
 } from './styles/CoinMarket.styles';
 
-import useTicker from '../../hooks/useTicker';
-import useTickerData from '../../hooks/useTickerData';
-import useWebSocketTicker from '../../hooks/useWebSocketTicker';
-import useWebSocketTickerData from '../../hooks/useWebSocketTickerData';
+import useTickerQuery from '../../hooks/query/useTickerQuery';
+import useTickerWebSocket from '../../hooks/websocket/useTickerWebSocket';
+
+import {
+  setTickerData,
+  setTickerWebSocketData,
+} from '../../utils/setTickerData';
 
 import dynamic from 'next/dynamic';
 const LightweightChart = dynamic(() => import('../lightweightChart'), {
@@ -26,18 +29,18 @@ const TypeFormC = React.memo(({ tickerData }) => {
     lowPrice,
     accTradePrice24h,
     accTradeVolume24h,
-  } = useTickerData(tickerData);
+  } = setTickerData(tickerData);
 
   return (
     <TypeFormCBlock>
       <dl>
         <dt>고가</dt>
         <dd>
-          <strong className="up">{highPrice}</strong>
+          <strong className='up'>{highPrice}</strong>
         </dd>
         <dt>저가</dt>
         <dd>
-          <strong className="down">{lowPrice}</strong>
+          <strong className='down'>{lowPrice}</strong>
         </dd>
       </dl>
       <dl>
@@ -62,14 +65,14 @@ const TypeFormC = React.memo(({ tickerData }) => {
 const CoinMarket = () => {
   const router = useRouter();
   // RestAPI Ticker 데이터 가져오기
-  const { tickerData = {} } = useTicker(router.query.code);
+  const { tickerData } = useTickerQuery(router.query.code);
   // RestAPI Ticker 데이터 가공하기
-  const { pairID } = useTickerData(tickerData);
+  const { pairID } = setTickerData(tickerData);
   // WebSocket Ticker 데이터 가져오기
-  const { wsInstance } = useWebSocketTicker(router.query.code);
+  const { wsInstance } = useTickerWebSocket(router.query.code);
   // WebSocket Ticker 데이터 가공하기
   const { change, tradePrice, changePrice, signedChangeRate } =
-    useWebSocketTickerData(wsInstance);
+    setTickerWebSocketData(wsInstance);
 
   return (
     <Block>
