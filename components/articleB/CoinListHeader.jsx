@@ -9,7 +9,8 @@ const CoinListHeader = observer(() => {
   const exchangeStore = useExchange();
 
   // option 클릭시 optionB(Global 상태), pairID(Global 상태) 수정
-  const clickOption = useCallback((option) => {
+  const clickOption = useCallback((e, option) => {
+    e.preventDefault();
     if (option === 'KRW' || option === 'BTC' || option === 'USDT') {
       exchangeStore.setPairID(option);
     }
@@ -23,7 +24,7 @@ const CoinListHeader = observer(() => {
           <a
             className={exchangeStore.optionB === 'KRW' ? 'on' : ''}
             href='#'
-            onClick={() => clickOption('KRW')}
+            onClick={(e) => clickOption(e, 'KRW')}
           >
             원화
           </a>
@@ -32,7 +33,7 @@ const CoinListHeader = observer(() => {
           <a
             className={exchangeStore.optionB === 'BTC' ? 'on' : ''}
             href='#'
-            onClick={() => clickOption('BTC')}
+            onClick={(e) => clickOption(e, 'BTC')}
           >
             BTC
           </a>
@@ -41,7 +42,7 @@ const CoinListHeader = observer(() => {
           <a
             className={exchangeStore.optionB === 'USDT' ? 'on' : ''}
             href='#'
-            onClick={() => clickOption('USDT')}
+            onClick={(e) => clickOption(e, 'USDT')}
           >
             USDT
           </a>
@@ -50,7 +51,7 @@ const CoinListHeader = observer(() => {
           <a
             className={exchangeStore.optionB === '보유' ? 'on' : ''}
             href='#'
-            onClick={() => clickOption('보유')}
+            onClick={(e) => clickOption(e, '보유')}
           >
             보유
           </a>
@@ -59,7 +60,7 @@ const CoinListHeader = observer(() => {
           <a
             className={exchangeStore.optionB === '관심' ? 'on' : ''}
             href='#'
-            onClick={() => clickOption('관심')}
+            onClick={(e) => clickOption(e, '관심')}
           >
             관심
           </a>
