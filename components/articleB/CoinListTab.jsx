@@ -3,8 +3,7 @@ import { Block } from './styles/CoinListTab.styles';
 
 import CoinListHeader from './CoinListHeader';
 import CoinListSubHeader from './CoinListSubHeader';
-// import CoinListContainer from './CoinListContainer';
-import CoinListContainerB from './CoinListContainerB';
+import CoinListContainer from './CoinListContainer';
 
 // ArticleB Tab를 담당 (ArticleB/CoinListTab)
 const CoinListTab = () => {
@@ -12,8 +11,7 @@ const CoinListTab = () => {
     <Block>
       <CoinListHeader />
       <CoinListSubHeader />
-      {/* <CoinListContainer /> */}
-      <CoinListContainerB />
+      <CoinListContainer />
     </Block>
   );
 };

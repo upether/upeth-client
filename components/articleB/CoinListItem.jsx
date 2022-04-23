@@ -49,12 +49,12 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
   return (
     <Block change={change}>
       <colgroup>
-        <col width="26" />
-        <col width="26" />
-        <col width="94" />
-        <col width="98" />
-        <col width="58" />
-        <col width="*" />
+        <col width='26' />
+        <col width='26' />
+        <col width='94' />
+        <col width='98' />
+        <col width='58' />
+        <col width='*' />
       </colgroup>
       <tbody>
         <tr onClick={(e) => clickTableRow(e, market)}>
@@ -66,7 +66,7 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
                     ? 'bookmark__on'
                     : ''
                 }
-                href="#"
+                href='#'
                 onClick={(e) => clickBookmark(e, market)}
               >
                 즐겨찾기
@@ -74,7 +74,7 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
             </Bookmark>
           </td>
           <Candle>
-            <a href="#">
+            <a href='#'>
               <div>
                 <Line
                   opening_price={opening_price}
@@ -98,7 +98,7 @@ const CoinListItem = observer(({ coinData, setBookmark }) => {
             </a>
           </Candle>
           <Title>
-            <a href="#">
+            <a href='#'>
               <strong>
                 {exchangeStore.korName ? korean_name : english_name}
               </strong>
