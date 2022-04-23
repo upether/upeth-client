@@ -66,24 +66,40 @@ const Menu = styled.div`
 `;
 
 
-const dropdownTable = {
-    "minitues 1": "1분",
-    "minitues 3": "3분",
-    "minitues 5": "5분",
-    "days 1": "1일",
-    "weeks 1": "1주",
-    "months 1": "1달",
+const periodicityTable = {
+    "minutes": "분",
+    "days": "일",
+    "weeks": "주",
+    "months": "달",
 }
-const dropdownItems = ["minitues 1", "minitues 3", "minitues 5", "days 1", "weeks 1", "months 1",]
+const dropdownItems = [{
+    periodicity: "minutes",
+    periodicityNumber: 1
+}, {
+    periodicity: "minutes",
+    periodicityNumber: 3
+}, {
+    periodicity: "minutes",
+    periodicityNumber: 5
+}, {
+    periodicity: "days",
+    periodicityNumber: 1
+}, {
+    periodicity: "weeks",
+    periodicityNumber: 1
+}, {
+    periodicity: "months",
+    periodicityNumber: 1
+}]
 
-const ChartNav = observer(({ periodicity, setPeriodicity }) => {
-    const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+const ChartNav = observer(({ period, setPeriod }) => {
+    const [isOpenDropdown, setIsOpenDropdown] = useState(period);
     const isOpenHandler = () => {
         setIsOpenDropdown(prev => !prev)
     }
 
-    const onClickDropdownItemHandler = (periodicity = "days 1") => {
-        setPeriodicity(periodicity);
+    const onClickDropdownItemHandler = (period) => {
+        setPeriod(period);
     }
     return <Nav>
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -100,12 +116,13 @@ const ChartNav = observer(({ periodicity, setPeriodicity }) => {
             </div>
             <Menu className="menu" onClick={isOpenHandler} >
                 <button style={{ width: "38px", height: "38px" }}>
-                    {dropdownTable[periodicity]}
+                    {`${period?.periodicityNumber}${periodicityTable[period?.periodicity]}`}
                 </button>
                 {isOpenDropdown && <Dropdown >
-                    {dropdownItems.map(el =>
-                        <DropdownItem key={el} onClick={() =>
-                            onClickDropdownItemHandler(el)}>{dropdownTable[el]}
+                    {dropdownItems.map(({ periodicity, periodicityNumber }) =>
+                        <DropdownItem key={`${periodicity} ${periodicityNumber}`}
+                            onClick={() => onClickDropdownItemHandler({ periodicity, periodicityNumber })}>
+                            {`${periodicityNumber}${periodicityTable[periodicity]}`}
                         </DropdownItem>
                     )}
                 </Dropdown>}

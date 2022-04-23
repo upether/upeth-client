@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import CoinhighChart from '../HighChart/CoinHighChart';
+import CoinMinHighChart from '../HighChart/CoinMinHighChart';
 import ChartNav from '../HighChart/ChartNav';
 
 const CoinChart = () => {
-    const [periodicity, setPeriodicity] = useState('days 1')
+    const [period, setPeriod] = useState({
+        periodicity: "days",
+        periodicityNumber: 1,
+    })
     return <>
-        <ChartNav periodicity={periodicity} setPeriodicity={setPeriodicity}></ChartNav>
-        <CoinhighChart periodicity={periodicity} />
+        <ChartNav period={period} setPeriod={setPeriod}></ChartNav>
+        {period.periodicity === "minutes" && < CoinMinHighChart period={period} />}
+        {period.periodicity !== "minutes" && <CoinhighChart period={period} />}
     </>;
 };
 

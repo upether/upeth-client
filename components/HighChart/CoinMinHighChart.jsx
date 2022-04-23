@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
-import { useChartInfoOfDaysWeeksMonths, useChartInfo } from '../../hooks/useChartInfo'
+import { useChartInfoOfMinutes } from '../../hooks/useChartInfo'
 
 
 import Highcharts from "highcharts/highstock";
@@ -24,39 +24,15 @@ if (typeof Highcharts === 'object') {
     FullScreen(Highcharts);
     StockTools(Highcharts);
 }
-
-const units = [[
-    'minute',
-    [1, 2, 5, 10, 15, 30]
-], [
-    'hour',
-    [1, 2, 3, 4, 6, 8, 12]
-], [
-    'day',
-    [1]
-], [
-    'week',
-    [1]
-], [
-    'month',
-    [1]
-], [
-    'year',
-    [1]
-]];
 const defaultOptions = {
     chart: {
         height: "inherit",
-        marginRight: 30,
+        marginRight: 55,
     },
-    xAxis: [
-        units
-    ],
-
     yAxis: [
         {
             height: "80%",
-            offset: 25
+            offset: 50
         },
         {
             top: "80%",
@@ -93,18 +69,19 @@ const Chart = React.memo(({ data, symbolID, options, setOptions }) => {
 });
 Chart.displayName = "Chart";
 
-const CoinhighChart = observer(({ period }) => {
+const CoinMinhighChart = observer(({ period }) => {
     const { periodicity, periodicityNumber } = period;
     const exchangeStore = useExchange();
     const { symbolID = "KRW-BTC" } = exchangeStore;
-    const { isLoading, isError, error, data, isSuccess } = useChartInfoOfDaysWeeksMonths({ type: periodicity, symbolID, count: 200 });
+    const { isLoading, isError, error, data, isSuccess } = useChartInfoOfMinutes({ symbolID, value: periodicityNumber, count: 200 });
+    console.log(data)
     const [options, setOptions] = useState(defaultOptions);
     const [ohlc, setOhlc] = useState([]);
     const [volume, setVolume] = useState([]);
     const { wsInstance } = useWebSocketTrade(symbolID);
-
     useEffect(() => {
         if (isSuccess) {
+            console.log("result", data)
             let newOhlc = [...data.ohlc];
             let newVolume = [...data.volume];
             if (wsInstance !== null && newOhlc.length > 0) {
@@ -141,4 +118,4 @@ const CoinhighChart = observer(({ period }) => {
     return <div><Chart data={data} symbolID={symbolID} options={options} setOhlc={setOhlc} setVolume={setVolume}></Chart></div>;
 });
 
-export default CoinhighChart;
+export default CoinMinhighChart;

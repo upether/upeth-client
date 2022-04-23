@@ -1,14 +1,14 @@
 import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { useChartInfoOfMinutes } from '../../hooks/useChartInfo'
+import { useMiniChartInfoOfMinutes } from '../../hooks/useChartInfo'
 import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
 
 const CoinMiniHighChart = observer(() => {
     const exchangeStore = useExchange();
     const { symbolID = "KRW-BTC" } = exchangeStore;
-    const { status, isLoading, error, data = [] } = useChartInfoOfMinutes({ symbolID, count: 200 });
+    const { status, isLoading, error, data = [] } = useMiniChartInfoOfMinutes({ symbolID, count: 200 });
     if (isLoading) return "Loading...";
     if (error) return "An error has occurred: " + error.message;
     const getIndexFromSplitData = (data) => {
