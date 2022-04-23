@@ -10,30 +10,33 @@ import {
   InnerBlock,
 } from './styles/OrderbookAsk.styles';
 
-import useTicker from '../../hooks/useTicker';
-import useTickerData from '../../hooks/useTickerData';
-import useOrderbookAskData from '../../hooks/useOrderbookAskData';
+import useTickerQuery from '../../hooks/query/useTickerQuery';
+
+import {
+  setOrderbookAskData,
+  setOrderbookInnerData,
+} from '../../utils/setOrderbookData';
 
 // OrderbookAsk의 Inner를 담당
 const Inner = React.memo(() => {
   const router = useRouter();
   // RestAPI Ticker 데이터 가져오기
-  const { tickerData = {} } = useTicker(router.query.code);
+  const { tickerData } = useTickerQuery(router.query.code);
   // RestAPI Ticker 데이터 가공하기
   const {
     coinID,
     highPrice,
     lowPrice,
     prevClosingPrice,
-    accTradePrice24hB,
-    accTradeVolume24hB,
     highest52WeekPrice,
     highest52WeekDate,
     lowest52WeekPrice,
     lowest52WeekData,
+    accTradePrice24hB,
+    accTradeVolume24hB,
     highChangeRate,
     lowChangeRate,
-  } = useTickerData(tickerData);
+  } = setOrderbookInnerData(tickerData);
 
   return (
     <InnerBlock colSpan='2' rowSpan='15'>
@@ -95,13 +98,11 @@ const Inner = React.memo(() => {
 const OrderbookAsk = React.memo(({ idx, data, total }) => {
   const router = useRouter();
   // RestAPI Ticker 데이터 가져오기
-  const { tickerData = {} } = useTicker(router.query.code);
-  // RestAPI Ticker 데이터 가공하기
-  const { prev_closing_price } = useTickerData(tickerData);
-  // Orderbook AskData 가공하기
-  const { changePrice, changeRate, sizeRate } = useOrderbookAskData(
+  const { tickerData } = useTickerQuery(router.query.code);
+  // Orderbook Ask 데이터 가공하기
+  const { changePrice, changeRate, sizeRate } = setOrderbookAskData(
     data,
-    prev_closing_price,
+    tickerData.prev_closing_price,
     total
   );
 
