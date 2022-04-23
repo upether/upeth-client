@@ -5,30 +5,31 @@ import { Block } from './styles/OrderbookPrice.styles';
 
 import OrderbookBid from './OrderbookBid';
 import OrderbookAsk from './OrderbookAsk';
-import useWebSocketOrderbook from '../../hooks/useWebSocketOrderbook';
-import useWebSocketOrderbookData from '../../hooks/useWebSocketOrderbookData';
+import useOrderbookWebSocket from '../../hooks/websocket/useOrderbookWebSocket';
+
+import { setOrderbookWebSocketData } from '../../utils/setOrderbookData';
 
 // ArticleC에 Price부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice)
 const OrderbookPrice = observer(() => {
   const router = useRouter();
   // WebSocket Orderbook 데이터 가져오기
-  const { wsInstance } = useWebSocketOrderbook(router.query.code);
+  const { wsInstance } = useOrderbookWebSocket(router.query.code);
   // WebSocket Orderbook 데이터 가공하기
   const {
     totalAskSize,
     totalBidSize,
     askData = [],
     bidData = [],
-  } = useWebSocketOrderbookData(wsInstance);
+  } = setOrderbookWebSocketData(wsInstance);
 
   return (
     <Block>
       <colgroup>
-        <col width="42" />
-        <col width="120" />
-        <col width="*" />
-        <col width="120" />
-        <col width="42" />
+        <col width='42' />
+        <col width='120' />
+        <col width='*' />
+        <col width='120' />
+        <col width='42' />
       </colgroup>
       <tbody>
         {askData?.map((el, i) => (

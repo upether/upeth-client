@@ -30,6 +30,7 @@ export const setDateFormat = (date) => {
 
 // percent 정해주기 (추가 예정)
 
+// volume Format 정해주기 (CoinList) (삭제예정)
 export const setCoinListVolumeFormat = (volume) => {
   return Math.floor(volume / 1000000).toLocaleString('ko-KR');
 };

@@ -32,8 +32,8 @@ const Inner = React.memo(() => {
     highest52WeekDate,
     lowest52WeekPrice,
     lowest52WeekData,
-    accTradePrice24hB,
-    accTradeVolume24hB,
+    accTradePrice24h,
+    accTradeVolume24h,
     highChangeRate,
     lowChangeRate,
   } = setOrderbookInnerData(tickerData);
@@ -43,12 +43,12 @@ const Inner = React.memo(() => {
       <dl>
         <dt>거래량</dt>
         <dd>
-          {accTradeVolume24hB}
+          {accTradeVolume24h}
           <i>{coinID}</i>
         </dd>
         <dt>거래대금</dt>
         <dd>
-          {accTradePrice24hB}
+          {accTradePrice24h}
           <i>
             <img
               src='https://cdn.upbit.com/images/ico_million.9f2273e.png'
