@@ -1,8 +1,8 @@
 import React from 'react';
-import useForiegn from '../../hooks/useForiegn';
+import { useRouter } from 'next/router';
 import { Block } from './styles/CoinForeign.styles';
 
-import useExchange from '../../hooks/useExchange';
+import useForiegn from '../../hooks/useForiegn';
 
 const ForeignItem = ({ data }) => {
   const { exchange, krwPrice, price } = data;
@@ -15,18 +15,24 @@ const ForeignItem = ({ data }) => {
   );
 };
 
+// ArticleA 해외거래소별 코인가격들을 담당 (ArticleA/CoinContainer/CoinForeign)
 const CoinForeign = () => {
-  const exchangeStore = useExchange();
-  const { foreignData = [] } = useForiegn(exchangeStore.symbolID);
+  const router = useRouter();
+  // 가공된 해외 거래소 데이터 가져오기
+  const { foreignData = [] } = useForiegn(router.query.code);
 
   return (
-    <Block>
-      <ul>
-        {foreignData.map((el, i) => (
-          <ForeignItem key={i} data={el} />
-        ))}
-      </ul>
-    </Block>
+    <>
+      {foreignData.length !== 0 && (
+        <Block>
+          <ul>
+            {foreignData.map((el, i) => (
+              <ForeignItem key={i} data={el} />
+            ))}
+          </ul>
+        </Block>
+      )}
+    </>
   );
 };
 

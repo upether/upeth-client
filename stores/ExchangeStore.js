@@ -4,9 +4,16 @@ class ExchangeStore {
   symbolID = 'KRW-BTC';
   marketID = 'KRW';
   marketOption = 'KRW';
-  korName = true;
   headerOption = [3, true];
+  // articleB
   searchInput = '';
+  pairID = 'KRW';
+  optionB = 'KRW';
+  korName = true;
+  subOptionB = '거래대금';
+  subOptionBoolB = true;
+  holdOption = '보유(평가금)';
+  holdOptionBool = true;
 
   constructor() {
     makeAutoObservable(this);
@@ -24,17 +31,51 @@ class ExchangeStore {
     this.marketOption = marketOption;
   }
 
-  setKorName(korName) {
-    this.korName = korName;
-  }
-
   setHeaderOption([idx, option]) {
     this.headerOption = [idx, option];
   }
 
+  // articleA
+
+  // articleB
+  // articleB/CoinListSearch
   setSearchInput(searchInput) {
     this.searchInput = searchInput;
   }
+
+  // articleB/CoinListHeader
+  setOptionB(optionB) {
+    this.optionB = optionB;
+  }
+
+  setPairID(pairID) {
+    this.pairID = pairID;
+  }
+
+  // articleB/CoinListSubHeader
+  setKorName(korName) {
+    this.korName = korName;
+  }
+
+  setSubOptionB(subOptionB) {
+    this.subOptionB = subOptionB;
+  }
+
+  setSubOptionBoolB(subOptionBoolB) {
+    this.subOptionBoolB = subOptionBoolB;
+  }
+
+  setHoldOption(holdOption) {
+    this.holdOption = holdOption;
+  }
+
+  setHoldOptionBool(holdOptionBool) {
+    this.holdOptionBool = holdOptionBool;
+  }
+
+  // articleC
+
+  // aritcleD
 }
 
 export default new ExchangeStore();

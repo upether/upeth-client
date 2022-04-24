@@ -1,22 +1,39 @@
 import styled from '@emotion/styled';
 
-export const Block = styled.table`
+export const Block = styled.span`
+  display: block;
   width: 100%;
-  border-spacing: 0;
 
-  & thead tr th {
-    height: 30px;
-    background-color: #f9fafc;
-    color: #666;
-    font-size: 11px;
+  & ul {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  & ul li {
+    display: table-cell;
+    width: auto;
+    float: none;
+  }
+
+  & ul li a {
+    display: block;
+    width: 100%;
+    height: 43px;
+    border-bottom: 1px solid #d4d6dc;
+    line-height: 43px;
+    color: #2b2b2b;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
 
     :hover {
       text-decoration: underline;
     }
   }
 
-  & thead tr th a span:nth-of-type(2) {
-    margin-left: 2px !important;
-    vertical-align: middle;
+  .on {
+    border-bottom: 3px solid #115dcb;
+    color: #115dcb;
   }
 `;

@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { observer } from 'mobx-react';
+import { useRouter } from 'next/router';
+import isEqual from 'react-fast-compare';
 import {
   Block,
   Bar,
@@ -9,30 +10,36 @@ import {
   InnerBlock,
 } from './styles/OrderbookAsk.styles';
 
-import useExchange from '../../hooks/useExchange';
-import useTicker from '../../hooks/useTicker';
-import useCoinInfo from '../../hooks/useCoinInfo';
+import useTickerQuery from '../../hooks/query/useTickerQuery';
 
-const Inner = observer(() => {
-  const exchangeStore = useExchange();
-  const { tickerData = [] } = useTicker(exchangeStore.symbolID);
+import {
+  setOrderbookAskData,
+  setOrderbookInnerData,
+} from '../../utils/setOrderbookData';
+
+// OrderbookAsk의 Inner를 담당
+const Inner = React.memo(() => {
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData } = useTickerQuery(router.query.code);
+  // RestAPI Ticker 데이터 가공하기
   const {
     coinID,
+    highPrice,
+    lowPrice,
+    prevClosingPrice,
+    highest52WeekPrice,
+    highest52WeekDate,
+    lowest52WeekPrice,
+    lowest52WeekData,
     accTradePrice24h,
     accTradeVolume24h,
     highChangeRate,
     lowChangeRate,
-    high_price,
-    low_price,
-    prev_closing_price,
-    highest_52_week_price,
-    highest_52_week_date,
-    lowest_52_week_price,
-    lowest_52_week_date,
-  } = useCoinInfo(tickerData);
+  } = setOrderbookInnerData(tickerData);
 
   return (
-    <InnerBlock colSpan="2" rowSpan="15">
+    <InnerBlock colSpan='2' rowSpan='15'>
       <dl>
         <dt>거래량</dt>
         <dd>
@@ -44,8 +51,8 @@ const Inner = observer(() => {
           {accTradePrice24h}
           <i>
             <img
-              src="https://cdn.upbit.com/images/ico_million.9f2273e.png"
-              alt="백만원"
+              src='https://cdn.upbit.com/images/ico_million.9f2273e.png'
+              alt='백만원'
             />
           </i>
           <em>(최근24시간)</em>
@@ -53,22 +60,22 @@ const Inner = observer(() => {
       </dl>
       <dl>
         <dt>52주 최고</dt>
-        <dd className="up">
-          {highest_52_week_price}
-          <em>({highest_52_week_date})</em>
+        <dd className='up'>
+          {highest52WeekPrice}
+          <em>({highest52WeekDate})</em>
         </dd>
         <dt>52주 최저</dt>
-        <dd className="down">
-          {lowest_52_week_price}
-          <em>({lowest_52_week_date})</em>
+        <dd className='down'>
+          {lowest52WeekPrice}
+          <em>({lowest52WeekData})</em>
         </dd>
       </dl>
       <dl>
         <dt>전일종가</dt>
-        <dd>{prev_closing_price}</dd>
+        <dd>{prevClosingPrice}</dd>
         <dt>당일고가</dt>
         <dd className={highChangeRate > 0 ? 'up' : ''}>
-          {high_price}
+          {highPrice}
           <em className={highChangeRate > 0 ? 'up' : ''}>
             {highChangeRate > 0
               ? '+' + highChangeRate + '%'
@@ -77,7 +84,7 @@ const Inner = observer(() => {
         </dd>
         <dt>당일저가</dt>
         <dd className={lowChangeRate < 0 ? 'down' : ''}>
-          {low_price}
+          {lowPrice}
           <em className={lowChangeRate < 0 ? 'down' : ''}>
             {lowChangeRate + '%'}
           </em>
@@ -87,10 +94,17 @@ const Inner = observer(() => {
   );
 });
 
-const OrderbookAsk = observer(({ idx, data, total }) => {
-  const exchangeStore = useExchange();
-  const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-  const { prevClosingPrice } = useCoinInfo(tickerData);
+// ArticleC에 Ask부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookAsk)
+const OrderbookAsk = React.memo(({ idx, data, total }) => {
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData } = useTickerQuery(router.query.code);
+  // Orderbook Ask 데이터 가공하기
+  const { changePrice, changeRate, sizeRate } = setOrderbookAskData(
+    data,
+    tickerData.prev_closing_price,
+    total
+  );
 
   const clickOrderbook = useCallback((e) => {
     e.preventDefault();
@@ -104,14 +118,10 @@ const OrderbookAsk = observer(({ idx, data, total }) => {
     <Block>
       <td></td>
       <Bar onClick={(e) => clickOrderbookBar(e)}>
-        <a href="#">
+        <a href='#'>
           <div
             style={{
-              width: `${
-                (data.ask_size / total) * 100 * 5 > 100
-                  ? 100 + '%'
-                  : (data.ask_size / total) * 100 * 5 + '%'
-              }`,
+              width: `${sizeRate > 100 ? 100 + '%' : sizeRate + '%'}`,
             }}
           >
             -
@@ -121,37 +131,19 @@ const OrderbookAsk = observer(({ idx, data, total }) => {
       </Bar>
       <Down>
         <a
-          className={
-            data.ask_price - prevClosingPrice > 0
-              ? 'up'
-              : data.ask_price - prevClosingPrice < 0
-              ? 'down'
-              : ''
-          }
-          href="#"
+          className={changePrice > 0 ? 'up' : changePrice < 0 ? 'down' : ''}
+          href='#'
           onClick={(e) => clickOrderbook(e)}
         >
           <TypeFormA>
             <strong>{data.askPrice}</strong>
           </TypeFormA>
-          <TypeFormB>
-            {data.ask_price - prevClosingPrice > 0
-              ? '+' +
-                (
-                  ((data.ask_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) +
-                '%'
-              : (
-                  ((data.ask_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) + '%'}
-          </TypeFormB>
+          <TypeFormB>{changeRate + '%'}</TypeFormB>
         </a>
       </Down>
       {idx === 0 && <Inner />}
     </Block>
   );
-});
+}, isEqual);
 
 export default OrderbookAsk;

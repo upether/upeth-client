@@ -1,21 +1,33 @@
 import { useQuery } from 'react-query';
 
-const useForiegn = (symbolID) => {
-  // Error: cors error
-  // const { data: bitfinexData } = useQuery('bitfinexData', () =>
-  //   fetch(`https://api-pub.bitfinex.com/v2/ticker/tBTCUSD`).then((res) =>
-  //     res.json()
-  //   )
-  // );
-
-  const [pairID, coinID] = symbolID.split('-');
+// 해외 거래소별 코인 데이터 가져와 가공하기
+// 사용되는 곳 CoinForeign
+// symbolID가 undefined일때 KRW-BTC로 초기화
+const useForiegn = (symbolID = 'KRW-BTC') => {
   let queryStringSymbol;
-  if (pairID === 'KRW' || pairID === 'USDT') {
-    queryStringSymbol = coinID + 'USDT';
-  } else if (pairID === 'BTC') {
-    queryStringSymbol = coinID + pairID;
+  let binanceData;
+  let huobiData;
+  let krakenData;
+  let basePrice;
+  const foreignData = [];
+
+  // symobolID로 queryStringSymbol 만들기
+  if (symbolID) {
+    const [pairID, coinID] = symbolID.split('-');
+    if (pairID === 'KRW' || pairID === 'USDT') {
+      queryStringSymbol = coinID + 'USDT';
+    } else if (pairID === 'BTC') {
+      queryStringSymbol = coinID + pairID;
+    }
   }
 
+  // 두나무 REST API를 통해 환율 데이터 가져오기
+  const { status: rateStatus, data: rateData } = useQuery('rateData', () =>
+    fetch(
+      'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD'
+    ).then((res) => res.json())
+  );
+  // 거래소별로 REST API를 통해 해당 데이터 가져오기
   const { status: binanceStatus, data: binanceTickerData = {} } = useQuery(
     ['binanceTickerData', queryStringSymbol],
     () =>
@@ -37,34 +49,21 @@ const useForiegn = (symbolID) => {
         `https://api.kraken.com/0/public/Ticker?pair=${queryStringSymbol}`
       ).then((res) => res.json())
   );
-  const { status: rateStatus, data: rateData } = useQuery('rateData', () =>
-    fetch(
-      'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD'
-    ).then((res) => res.json())
-  );
 
-  let binanceData;
-  let huobiData;
-  let krakenData;
-  let basePrice;
-  const foreignData = [];
-
+  // REST API를 통해 가져온 데이터 가공하기
   if (rateStatus === 'success') {
     basePrice = rateData[0].basePrice;
   }
-
   if (binanceStatus === 'success') {
     const { lastPrice: price } = binanceTickerData;
     binanceData = { price: parseFloat(price) };
   }
-
   if (huobiStatus === 'success' && huobiTickerData.status === 'ok') {
     const {
       tick: { close: price },
     } = huobiTickerData;
     huobiData = { price };
   }
-
   if (krakenStatus === 'success' && krakenTickerData.error.length === 0) {
     const { result } = krakenTickerData;
     const symbol = Object.keys(result)[0];
@@ -72,6 +71,7 @@ const useForiegn = (symbolID) => {
     krakenData = { price: parseFloat(c[0]) };
   }
 
+  // 가공된 데이터를 foreginData에 넣어주기
   if (binanceData && basePrice) {
     foreignData.push({
       exchange: 'Binance',
@@ -81,7 +81,6 @@ const useForiegn = (symbolID) => {
       price: binanceData.price.toLocaleString('ko-KR'),
     });
   }
-
   if (huobiData && basePrice) {
     foreignData.push({
       exchange: 'Huobi',
@@ -89,7 +88,6 @@ const useForiegn = (symbolID) => {
       price: huobiData.price.toLocaleString('ko-KR'),
     });
   }
-
   if (krakenData && basePrice) {
     foreignData.push({
       exchange: 'Kraken',
