@@ -70,3 +70,21 @@ export const Block = styled.header`
     font-weight: 700;
   }
 `;
+
+export const SignInStatus = styled.li`
+  color: white;
+
+  & p {
+    display: flex;
+    align-items: center;
+  }
+
+  & p img {
+    border-radius: 50%;
+  }
+
+  & p strong {
+    margin-left: 8px;
+    font-size: 16px;
+  }
+`;
