@@ -16,11 +16,6 @@ import {
   setTickerWebSocketData,
 } from '../../utils/setTickerData';
 
-import dynamic from 'next/dynamic';
-const LightweightChart = dynamic(() => import('../lightweightChart'), {
-  ssr: false,
-});
-
 const TypeFormC = React.memo(({ tickerData }) => {
   // tickerData 가공하기
   const {
@@ -89,7 +84,9 @@ const CoinMarket = () => {
         </span>
       </TypeFormA>
       {/* mini chart position */}
-      <TypeFormB><CoinMiniHighChart /></TypeFormB>
+      <TypeFormB>
+        <CoinMiniHighChart />
+      </TypeFormB>
       <TypeFormC tickerData={tickerData} />
     </Block>
   );
