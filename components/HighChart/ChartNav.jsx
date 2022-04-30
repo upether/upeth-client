@@ -33,7 +33,7 @@ const dropdownItems = [{
 }]
 
 const ChartNav = observer(({ period, setPeriod }) => {
-    const [isOpenDropdown, setIsOpenDropdown] = useState(period);
+    const [isOpenDropdown, setIsOpenDropdown] = useState(false);
     const isOpenHandler = () => {
         setIsOpenDropdown(prev => !prev)
     }

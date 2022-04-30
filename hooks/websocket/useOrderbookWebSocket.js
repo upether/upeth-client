@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const useWebsocketTrade = (symbolID) => {
+// WebSocket Orderbook 데이터 가져오기
+// 사용되는 곳:
+const useOrderbookWebSocket = (symbolID) => {
   const [wsInstance, setWsInstance] = useState(null);
 
   let ws;
@@ -11,8 +13,8 @@ const useWebsocketTrade = (symbolID) => {
 
     ws.onopen = () => {
       const request = [
-        { ticket: 'test2' },
-        { type: 'trade', codes: [`${symbolID}`] },
+        { ticket: 'orderbook' },
+        { type: 'orderbook', codes: [`${symbolID}`] },
       ];
       ws.send(JSON.stringify(request));
     };
@@ -24,7 +26,7 @@ const useWebsocketTrade = (symbolID) => {
     };
 
     ws.onclose = () => {
-      console.log('trade closing');
+      console.log('orderbook closing');
     };
 
     return () => {
@@ -35,4 +37,4 @@ const useWebsocketTrade = (symbolID) => {
   return { wsInstance };
 };
 
-export default useWebsocketTrade;
+export default useOrderbookWebSocket;

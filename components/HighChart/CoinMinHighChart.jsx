@@ -13,8 +13,7 @@ import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
 import PriceIndicator from "highcharts/modules/price-indicator.js";
 import FullScreen from "highcharts/modules/full-screen.js";
 import StockTools from "highcharts/modules/stock-tools.js";
-import useWebSocketTrade from '../../hooks/useWebSocketTrade';
-import useWebSocketChart from '../../hooks/useWebSocketChart';
+import useWebSocketTrade from '../../hooks/websocket/useTradeWebSocket';
 
 
 if (typeof Highcharts === 'object') {

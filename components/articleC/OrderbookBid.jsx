@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { observer } from 'mobx-react';
+import { useRouter } from 'next/router';
 import isEqual from 'react-fast-compare';
 import {
   Block,
@@ -11,63 +11,44 @@ import {
   OverFlow,
 } from './styles/OrderbookBid.styles';
 
-import useExchange from '../../hooks/useExchange';
-import useTrades from '../../hooks/useTrades';
-// import useTicker from '../../hooks/useTicker';
-// import useCoinInfo from '../../hooks/useCoinInfo';
+import useTradesQuery from '../../hooks/query/useTradesQuery';
+import useTradeWebSocket from '../../hooks/websocket/useTradeWebSocket';
 
-import useWebsocketTrade from '../../hooks/useWebsocketTrade';
+import { setOrderbookBidData } from '../../utils/setOrderbookData';
+import {
+  setTradesData,
+  setTradesWebSocketData,
+} from '../../utils/setTradesData';
 
-const Inner = observer(() => {
+// OrderbookBid의 Inner를 담당
+const Inner = React.memo(() => {
   const [data, setData] = useState([]);
-  const [symbol, setSymbol] = useState('');
-  const exchangeStore = useExchange();
-  const { tradesData = [] } = useTrades(exchangeStore.symbolID);
-  const { wsInstance } = useWebsocketTrade(exchangeStore.symbolID);
+  const router = useRouter();
+  // RestAPI Trades 데이터 가져오기
+  const { tradesData: rawTradesData } = useTradesQuery(router.query.code);
+  // WebSocket Trade 데이터 가져오기
+  const { wsInstance } = useTradeWebSocket(router.query.code);
 
   useEffect(() => {
-    setSymbol(exchangeStore.symbolID);
-  }, [exchangeStore.symbolID]);
-
-  useEffect(() => {
-    if (data.length < 30 || symbol !== exchangeStore.symbolID) {
-      setData([...tradesData]);
+    if (rawTradesData) {
+      const { tradesData } = setTradesData(rawTradesData);
+      let temp = [...tradesData];
+      temp.shift();
+      setData(temp);
     }
-  }, [tradesData]);
+  }, [rawTradesData]);
 
   useEffect(() => {
     if (wsInstance) {
+      const { tradesWebSocketData } = setTradesWebSocketData(wsInstance);
       let temp = [...data];
-      temp.pop();
-      const { ask_bid, trade_price, trade_volume } = wsInstance;
-      setData([{ ask_bid, trade_price, trade_volume }, ...temp]);
+      if (data.length === 30) temp.pop();
+      setData([tradesWebSocketData, ...temp]);
     }
   }, [wsInstance]);
 
-  // ask_bid
-  // trade_price
-  // trade_volume
-  // tradePrice
-  // tradeVolume
-
-  // ------
-  // console.log(exchangeStore);
-
-  // console.log(tradesData);
-  // console.log(wsInstance);
-  // console.log('data', data);
-  // []
-  // null
-
-  // array(30)
-  // null
-
-  // array(30)
-  // wsInstance
-  // ------
-
   return (
-    <InnerBlock colSpan="2" rowSpan="15">
+    <InnerBlock colSpan='2' rowSpan='15'>
       <dl>
         <dt>체결강도</dt>
         <dd>+100.00%</dd>
@@ -75,8 +56,8 @@ const Inner = observer(() => {
       <OverFlow>
         <table>
           <colgroup>
-            <col width="50%" />
-            <col width="*" />
+            <col width='50%' />
+            <col width='*' />
           </colgroup>
           <thead>
             <tr>
@@ -88,13 +69,9 @@ const Inner = observer(() => {
             {data?.map((el, i) => {
               return (
                 <tr key={i}>
-                  {/* <td>{el.tradePrice}</td>
+                  <td>{el.tradePrice}</td>
                   <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
                     {el.tradeVolume}
-                  </td> */}
-                  <td>{el.trade_price}</td>
-                  <td className={el.ask_bid === 'ASK' ? 'down' : 'up'}>
-                    {el.trade_volume}
                   </td>
                 </tr>
               );
@@ -105,12 +82,15 @@ const Inner = observer(() => {
     </InnerBlock>
   );
 });
-const OrderbookBid = React.memo(({ idx, data, total }) => {
-  // const exchangeStore = useExchange();
-  // const { tickerData = [] } = useTicker(exchangeStore.symbolID);
-  // const { prevClosingPrice } = useCoinInfo(tickerData);
 
-  const prevClosingPrice = 56369000;
+// ArticleC에 Bid부분을 담당 (ArticleC/OrderbookContainer/OrderbookPrice/OrderbookBid)
+const OrderbookBid = React.memo(({ idx, data, total, prev_closing_price }) => {
+  // Orderbook Bid 데이터 가공하기
+  const { changePrice, changeRate, sizeRate } = setOrderbookBidData(
+    data,
+    prev_closing_price,
+    total
+  );
 
   const clickOrderbook = useCallback((e) => {
     e.preventDefault();
@@ -125,43 +105,21 @@ const OrderbookBid = React.memo(({ idx, data, total }) => {
       {idx === 0 && <Inner />}
       <Up>
         <a
-          className={
-            data.bid_price - prevClosingPrice > 0
-              ? 'up'
-              : data.bid_price - prevClosingPrice < 0
-              ? 'down'
-              : ''
-          }
-          href="#"
+          className={changePrice > 0 ? 'up' : changePrice < 0 ? 'down' : ''}
+          href='#'
           onClick={(e) => clickOrderbook(e)}
         >
           <TypeFormA>
             <strong>{data.bidPrice}</strong>
           </TypeFormA>
-          <TypeFormB>
-            {data.bid_price - prevClosingPrice > 0
-              ? '+' +
-                (
-                  ((data.bid_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) +
-                '%'
-              : (
-                  ((data.bid_price - prevClosingPrice) / prevClosingPrice) *
-                  100
-                ).toFixed(2) + '%'}
-          </TypeFormB>
+          <TypeFormB>{changeRate + '%'}</TypeFormB>
         </a>
       </Up>
       <Bar onClick={(e) => clickOrderbookBar(e)}>
-        <a href="#">
+        <a href='#'>
           <div
             style={{
-              width: `${
-                (data.bid_size / total) * 100 * 5 > 100
-                  ? 100 + '%'
-                  : (data.bid_size / total) * 100 * 5 + '%'
-              }`,
+              width: `${sizeRate > 100 ? 100 + '%' : sizeRate + '%'}`,
             }}
           >
             -

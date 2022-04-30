@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { observer } from 'mobx-react';
-import style from "styled-jsx";
 import {
   Block,
   Select,
@@ -13,19 +11,28 @@ import {
 } from './styles/CoinTitle.styles';
 
 import useExchange from '../../hooks/useExchange';
+import useMarketAll from '../../hooks/useMarketAll';
 
 const CoinTitle = observer(() => {
   const exchangeStore = useExchange();
-  const { data } = useQuery('data', () =>
-    fetch('https://api.upbit.com/v1/market/all').then((res) => res.json())
-  );
+  const { marketAllData = [] } = useMarketAll();
   const [tapOption, setTapOption] = useState('시세');
-  const [pairID, coinID] = exchangeStore.symbolID.split('-');
-  let market;
+  const [pairID, setPairID] = useState('');
+  const [coinID, setCoinID] = useState('');
+  const [korName, setKorName] = useState('');
 
-  if (data) {
-    market = data.filter((el) => el.market === exchangeStore.symbolID)[0];
-  }
+  useEffect(() => {
+    if (exchangeStore.symbolID && marketAllData.length !== 0) {
+      const [pair, coin] = exchangeStore.symbolID.split('-');
+      const marketData = marketAllData.filter(
+        (el) => el.market === exchangeStore.symbolID
+      )[0];
+      setPairID(pair);
+      setCoinID(coin);
+      setKorName(marketData.korean_name);
+    }
+    console.log('2', exchangeStore.symbolID, marketAllData);
+  }, [exchangeStore.symbolID, marketAllData]);
 
   // change: 'RISE', 'FALL', 'EVEN'
   // 심볼 market: "KRW-BTC"
@@ -40,7 +47,7 @@ const CoinTitle = observer(() => {
   return (
     <Block>
       <Select href="">
-        <em >
+        <em>
           <Image
             width="26px"
             height="26px"
@@ -48,7 +55,7 @@ const CoinTitle = observer(() => {
             alt={`https://static.upbit.com/logos/${coinID.toUpperCase()}.png`}
           />
         </em>
-        <strong>{market?.korean_name}</strong>
+        <strong>{korName}</strong>
         <p>
           {coinID}/{pairID}
         </p>
@@ -80,7 +87,7 @@ const CoinTitle = observer(() => {
           </Setting>
         </dl>
       </InfoTab>
-    </Block >
+    </Block>
   );
 });
 

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react';
 import useExchange from './../../hooks/useExchange';
-import { useChartInfoOfDaysWeeksMonths, useChartInfo } from '../../hooks/useChartInfo'
-import isEqual from 'react-fast-compare';
-
+import { useChartInfoOfDaysWeeksMonths } from '../../hooks/useChartInfo'
 
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -13,9 +11,7 @@ import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
 import PriceIndicator from "highcharts/modules/price-indicator.js";
 import FullScreen from "highcharts/modules/full-screen.js";
 import StockTools from "highcharts/modules/stock-tools.js";
-import useWebSocketTrade from '../../hooks/useWebSocketTrade';
-import useWebSocketChart from '../../hooks/useWebSocketChart';
-
+import useWebSocketTrade from '../../hooks/websocket/useTradeWebSocket';
 
 if (typeof Highcharts === 'object') {
     Indicators(Highcharts);
