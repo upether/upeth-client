@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import useInput from '../../hooks/useInput';
+import { useRouter } from 'next/router';
 import {
   Block,
   CheckOptionBlock,
@@ -10,6 +10,9 @@ import {
   MarginBlockC,
   FixedBottomBlock,
 } from './styles/OrderContainer.styles';
+
+import useInput from '../../hooks/useInput';
+import useTickerQuery from '../../hooks/query/useTickerQuery';
 
 const CheckOption = () => {
   const [option, setOption] = useState('지정가');
@@ -72,7 +75,11 @@ const Price = () => {
 };
 
 const MarginA = () => {
-  const { inputValue, inputRef, keyDownInput, changeInput } = useInput();
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData } = useTickerQuery(router.query.code);
+  const { inputValue, inputRef, keyDownInput, changeInput } =
+    useInput(tickerData);
 
   const clickPlus = useCallback((e) => {
     e.preventDefault();
