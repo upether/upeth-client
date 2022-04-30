@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Dropdown = styled.a`
+export const Dropdown = styled.div`
   border-bottom: 3px solid #fff;
   position: relative;
   margin-top: 2px;
@@ -33,24 +33,6 @@ export const Nav = styled.div`
   height: 38px;
   border-bottom: 1px solid #d4d6dc;
   background: #f8f8f8;
-`;
-
-export const StyledSpan = styled.span`
-  content: '';
-  position: absolute;
-  right: 1px;
-  top: 15px;
-  display: block;
-  width: 5px;
-  height: 5px;
-  border-right: thin solid #999;
-  border-bottom: thin solid #999;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  zoom: 1;
 `;
 
 export const Menu = styled.div`

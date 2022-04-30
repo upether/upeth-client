@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import ChartChange from './ChartChange';
 import Image from 'next/image';
@@ -7,7 +7,6 @@ import {
   Dropdown,
   DropdownItem,
   Nav,
-  StyledSpan,
   Menu,
   DropdownButton,
 } from './styles/chartNav.styles';
@@ -18,6 +17,7 @@ const periodicityTable = {
   weeks: '주',
   months: '달',
 };
+
 const dropdownItems = [
   {
     periodicity: 'minutes',
@@ -55,6 +55,7 @@ const ChartNav = observer(({ period, setPeriod }) => {
     setPeriod(period);
     setIsOpenDropdown((prev) => !prev);
   };
+
   return (
     <Nav>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
