@@ -1,6 +1,6 @@
 # upeth
 
-> upeth는 upbit 클론 코딩 프로젝트입니다
+> upeth는 upbit 클론 코딩 프로젝트입니다 (22.02.27 - 22.04.28)
 
 ## Project Stack
 
@@ -39,3 +39,11 @@ npm run dev
 GITHUB_CLIENT_ID<br>
 GITHUB_CLIENT_SECRET<br>
 NEXTAUTH_SECRET<br>
+
+## Documentation
+
+| Title        |                             Link                             |
+| ------------ | :----------------------------------------------------------: |
+| DB structure | https://github.com/royalbluee/upeth-client/wiki/DB-structure |
+| Feature      |   https://github.com/royalbluee/upeth-client/wiki/Feature    |
+| REST API     |   https://github.com/royalbluee/upeth-client/wiki/REST-API   |
