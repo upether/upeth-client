@@ -44,6 +44,4 @@ NEXTAUTH_SECRET<br>
 
 | Title        |                             Link                             |
 | ------------ | :----------------------------------------------------------: |
-| DB structure | https://github.com/royalbluee/upeth-client/wiki/DB-structure |
 | Feature      |   https://github.com/royalbluee/upeth-client/wiki/Feature    |
-| REST API     |   https://github.com/royalbluee/upeth-client/wiki/REST-API   |
