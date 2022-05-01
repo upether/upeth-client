@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import useInput from '../../hooks/useInput';
+import { useRouter } from 'next/router';
 import {
   Block,
   CheckOptionBlock,
@@ -11,6 +11,9 @@ import {
   FixedBottomBlock,
 } from './styles/OrderContainer.styles';
 
+import useInput from '../../hooks/useInput';
+import useTickerQuery from '../../hooks/query/useTickerQuery';
+
 const CheckOption = () => {
   const [option, setOption] = useState('지정가');
 
@@ -21,14 +24,14 @@ const CheckOption = () => {
 
   return (
     <>
-      <dt className="checkOption">
+      <dt className='checkOption'>
         <strong>주문구분</strong>
       </dt>
-      <CheckOptionBlock className="checkOption">
+      <CheckOptionBlock className='checkOption'>
         <span>
           <a
             className={option === '지정가' ? 'on' : 'disable'}
-            href="#"
+            href='#'
             onClick={(e) => clickCheckOption(e, '지정가')}
           >
             <em>-</em>
@@ -36,7 +39,7 @@ const CheckOption = () => {
           </a>
           <a
             className={option === '시장가' ? 'on' : 'disable'}
-            href="#"
+            href='#'
             onClick={(e) => clickCheckOption(e, '시장가')}
           >
             <em>-</em>
@@ -44,7 +47,7 @@ const CheckOption = () => {
           </a>
           <a
             className={option === '예약-지정가' ? 'on' : 'disable'}
-            href="#"
+            href='#'
             onClick={(e) => clickCheckOption(e, '예약-지정가')}
           >
             <em>-</em>
@@ -60,10 +63,10 @@ const Price = () => {
   // 보유 현금액 확인
   return (
     <>
-      <dt className="price">
+      <dt className='price'>
         <strong>주문가능</strong>
       </dt>
-      <PriceBlock className="price">
+      <PriceBlock className='price'>
         <strong>0</strong>
         <i>KRW</i>
       </PriceBlock>
@@ -72,7 +75,11 @@ const Price = () => {
 };
 
 const MarginA = () => {
-  const { inputValue, inputRef, keyDownInput, changeInput } = useInput();
+  const router = useRouter();
+  // RestAPI Ticker 데이터 가져오기
+  const { tickerData } = useTickerQuery(router.query.code);
+  const { inputValue, inputRef, keyDownInput, changeInput } =
+    useInput(tickerData);
 
   const clickPlus = useCallback((e) => {
     e.preventDefault();
@@ -84,23 +91,23 @@ const MarginA = () => {
 
   return (
     <>
-      <dt className="marginA">
+      <dt className='marginA'>
         <strong>매수가격</strong>
         <i>(KRW)</i>
       </dt>
-      <MarginBlockA className="marginA">
+      <MarginBlockA className='marginA'>
         <div>
           <input
-            type="text"
+            type='text'
             ref={inputRef}
             value={inputValue}
             onKeyDown={(e) => keyDownInput(e)}
             onChange={(e) => changeInput(e)}
           />
-          <a className="minus" href="#" onClick={clickPlus}>
+          <a className='minus' href='#' onClick={clickPlus}>
             -
           </a>
-          <a className="plus" href="#" onClick={clickMinus}>
+          <a className='plus' href='#' onClick={clickMinus}>
             +
           </a>
         </div>
@@ -112,12 +119,12 @@ const MarginA = () => {
 const MarginB = () => {
   return (
     <>
-      <dt className="marginB">
+      <dt className='marginB'>
         <strong>주문수량</strong>
         <i>(BTC)</i>
       </dt>
-      <MarginBlockB className="marginB">
-        <input type="text" placeholder="0" />
+      <MarginBlockB className='marginB'>
+        <input type='text' placeholder='0' />
       </MarginBlockB>
     </>
   );
@@ -130,20 +137,20 @@ const Quantity = () => {
   }, []);
 
   return (
-    <QuantityBlock className="quantity">
-      <a href="#" onClick={(e) => clickQuantity(e, 10)}>
+    <QuantityBlock className='quantity'>
+      <a href='#' onClick={(e) => clickQuantity(e, 10)}>
         10%
       </a>
-      <a href="#" onClick={(e) => clickQuantity(e, 25)}>
+      <a href='#' onClick={(e) => clickQuantity(e, 25)}>
         25%
       </a>
-      <a href="#" onClick={(e) => clickQuantity(e, 50)}>
+      <a href='#' onClick={(e) => clickQuantity(e, 50)}>
         50%
       </a>
-      <a href="#" onClick={(e) => clickQuantity(e, 100)}>
+      <a href='#' onClick={(e) => clickQuantity(e, 100)}>
         100%
       </a>
-      <a className="qtInput">직접입력</a>
+      <a className='qtInput'>직접입력</a>
     </QuantityBlock>
   );
 };
@@ -151,12 +158,12 @@ const Quantity = () => {
 const MarginC = () => {
   return (
     <>
-      <dt className="marginC">
+      <dt className='marginC'>
         <strong>주문총액</strong>
         <i>(KRW)</i>
       </dt>
-      <MarginBlockC className="marginC">
-        <input type="text" placeholder="0" />
+      <MarginBlockC className='marginC'>
+        <input type='text' placeholder='0' />
       </MarginBlockC>
     </>
   );
@@ -178,13 +185,13 @@ const FixedBottom = () => {
         <p>최소주문금액: 1,000 KRW</p>
       </span>
       <ul>
-        <li className="ty01">
-          <a href="#" onClick={(e) => clickSignup(e)}>
+        <li className='ty01'>
+          <a href='#' onClick={(e) => clickSignup(e)}>
             회원가입
           </a>
         </li>
-        <li className="ty02">
-          <a href="#" onClick={(e) => clickSignin(e)}>
+        <li className='ty02'>
+          <a href='#' onClick={(e) => clickSignin(e)}>
             로그인
           </a>
         </li>

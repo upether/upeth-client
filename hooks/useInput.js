@@ -1,9 +1,15 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
-const useInput = () => {
-  const [inputValue, setInputValue] = useState('53,045,000');
+const useInput = (tickerData) => {
+  const [inputValue, setInputValue] = useState('');
   const [inputKey, setInputKey] = useState();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (Object.keys(tickerData).length !== 0) {
+      setInputValue(tickerData.trade_price.toLocaleString('ko-KR'));
+    }
+  }, [tickerData]);
 
   const keyDownInput = useCallback((e) => {
     setInputKey(e.key);

@@ -78,7 +78,7 @@ function Header() {
               <SignInStatus>
                 <p>
                   <Image
-                    src='https://avatars.githubusercontent.com/u/96657494?v=4'
+                    src={session.user.image}
                     width='32px'
                     height='32px'
                     alt={session.user.image}
