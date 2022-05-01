@@ -17,7 +17,7 @@ Client는 Next.js를 이용해서 프로젝트를 진행했습니다.<br>
 - Next Auth
 - Highcharts
 
-https://upeth-client.vercel.app
+https://upeth-client.vercel.app<br>
 이 프로젝트는 Vercel에 의해 배포되었습니다
 
 ## Feature
